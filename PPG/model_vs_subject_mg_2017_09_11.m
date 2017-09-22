@@ -8,7 +8,7 @@ clc
 %-------------------------------------------------------------------------
 % EDIT - this part needs to be tweaked, depending on what I'm looking for
 %-------------------------------------------------------------------------
-nsub          = 25;   % number of plots to make, maximum is 166 (i.e. length(fl_dir) )
+nsub          = 15;   % number of plots to make, maximum is 166 (i.e. length(fl_dir) )
 plot_ind      = true;
 nsim          = 15;
 plot_all_data = false;
@@ -50,7 +50,7 @@ EV_sub              = NaN(nsub, 60);             % expected value of each decisi
 PA_sub              = NaN(nsub, length(offers)); % probaility that each investment will succeed given params of model
 V_sub               = NaN(nsub, 1);              % posterior intercept of subject decision function given params of model
 EV_sub_posterior    = NaN(nsub, length(offers)); % expected value of every possible offer with posterior intercept given recovered model params
-for k_sub    = 10:nsub
+for k_sub    = 1:nsub
     
     flnm     = fullfile(data_dir,fl_dir(k_sub).name);
     load(flnm)

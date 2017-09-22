@@ -45,14 +45,11 @@ for i = 1:ntrial
         EPc(i)      = logitp([V(i,:),beta2],o(i));
         CPE(i)      = r(i) - EPc(i);
         % DANGER - I changed the below from add to subtract
-        % for some reason, if I increase the threshold the subject appears
-        % to learn in predator, but if I decrease the threshold the subject
-        % appears to learn in prey
         switch predprey
             case 'predator'
                 V(i+1,:)    = V(i,:) + lr1.*CPE((i));     % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
             case 'prey'
-                V(i+1,:)    = V(i,:) - lr1.*CPE((i));     % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
+                        V(i+1,:)    = V(i,:) + lr1.*CPE((i));                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
         end
         negLL = negLL - log(lik);
     end
