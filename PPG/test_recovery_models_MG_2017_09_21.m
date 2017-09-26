@@ -29,7 +29,7 @@ lr_upper_bound  = 3;                            % this is the upper bound on the
 
 % set up conditions and mutliple sessions
 %------------------------------------------
-cond2learn  = -[12,9,6,3,0];                        % all the intercepts the player needs to learn
+cond2learn  = -[12, 0];%-[12,9,6,3,0];                        % all the intercepts the player needs to learn
 nc          = numel(cond2learn);
 Ra          = repmat(cond2learn,1,n_sess);          % predator true accepance thereshold (logit intercept)
 Rb          = repmat(3*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
@@ -71,13 +71,20 @@ ll          = NaN(n_sims,1);        LPP            = NaN(n_sims,1);
 % confusion_parameters and confusion_parameresLPP are each mXnXpXz matrices
 % have the following dimensions
 %
-% dim 1: simulated subject (so each entry is one simulated subject)
-% dim 2: paraemters - so each entry is a different parameter of the model
-% dim 3: the actual model we used to generate the simulated data 
-% dim 4: the parameters estimated from 
-confusion_parameters      = NaN(n_sims,3,4,4);        
-confusion_parametersLPP   = NaN(n_sims,3,4,4);
+% dim 1: predator and prey
+% dim 2: simulated subject (so each entry is one simulated subject)
+% dim 3: paraemters - so each entry is a different parameter of the model
+% dim 4: the actual model we used to generate the simulated data 
+% dim 5: the parameters estimated from 
+con_parameters      = NaN(length(predprey_array), n_sims,3,4,4);        
+con_parametersLPP   = NaN(length(predprey_array), n_sims,3,4,4);
+con_ll              = NaN(length(predprey_array), n_sims,4,4);        
+con_LPP             = NaN(length(predprey_array), n_sims,4,4);
 
+% % con_parameters(predprey_count, k_sim, :, nmodel, nestimate) =     
+% % con_parametersLPP   = NaN(length(predprey_array), n_sims,3,4,4);
+% % con_ll              = NaN(length(predprey_array), n_sims,4,4);        
+% % con_LPP             = NaN(length(predprey_array), n_sims,4,4);
 
 % Sim loop
 %----------
@@ -86,9 +93,14 @@ for predprey_count = 1:length(predprey_array)
    
     for model_iter = 1:length(nmodel_array)
         nmodel = nmodel_array(model_iter);
+        if nmodel == 1 || nmodel == 3
+            numfreeparams = 2;
+        else 
+            numfreeparams = 3;
+        end
         
         for k_sim = 1:n_sims
-            
+            fprintf('running %s sim %d of %d, model %d of %d\n', predprey, n_sims, k_sim, model_iter, length(nmodel_array)); 
             % pre-allocate
             O_mat = NaN(n_trial,n_cond);
             D_mat = NaN(n_trial,n_cond);
@@ -107,6 +119,8 @@ for predprey_count = 1:length(predprey_array)
             % PE is prediciton error
             % at is prediction of the intercept of the opponent's choice function
             %---------------------------------------------------------------------
+            % for models 1 and 3, only 1 learning rate is actually used to
+            % generate the data
             [O,D,PE,at] = learning_models_timeseries_MG_2017_09_21([bX,lr1,lr2],[Ra;Rb],n_trial,a0,b0,nmodel, predprey);
             
             for k_sess = 1:n_sess
@@ -119,27 +133,36 @@ for predprey_count = 1:length(predprey_array)
             PAsub_mat(k_sim,:) = logitp([a0,b0],suboffers);
             
             n_rep           = 5;
-            parameters_rep  = NaN(n_rep,3);     parametersLPP_rep  = NaN(n_rep,3);
+            
+            parameters_rep  = NaN(n_rep,numfreeparams);     parametersLPP_rep  = NaN(n_rep,numfreeparams);
             ll_rep          = NaN(n_rep,1);     LPP_rep          = NaN(n_rep,1);
             
-            lb = [0 0 0];          LB = [0 0 0];
-            ub = [5 lr_upper_bound 1];         UB = [Inf lr_upper_bound 1];
+            lb = zeros(1, numfreeparams);          LB = zeros(1, numfreeparams);    
+            
+            if nmodel == 1 || nmodel == 3
+                ub = [5 lr_upper_bound];         UB = [Inf lr_upper_bound];
+            else
+                ub = [5 lr_upper_bound 1];         UB = [Inf lr_upper_bound 1];
+            end
+            
             ddb = ub - lb;
             
             for k_rep = 1:n_rep
-                x0 = lb + rand(1,3).*ddb;
+                x0 = lb + rand(1,numfreeparams).*ddb;
                 %standard estimation
-                [parameters_rep(k_rep,1:3),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_MG_2017_09_21(x,O,D,a0,b0,nmodel, predprey),x0,[],[],[],[],LB,UB,[],options);
+                [parameters_rep(k_rep,1:numfreeparams),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_MG_2017_09_21(x,O,D,a0,b0,nmodel, predprey),x0,[],[],[],[],LB,UB,[],options);
+% %                 [parameters_rep(k_rep,1:numfreeparams),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_1lr_2017_09_26(x,O,D,a0,b0,nmodel, predprey),x0,[],[],[],[],LB,UB,[],options);
+
                 %lalace estimation
-                [parametersLPP_rep(k_rep,1:3),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG_2017_09_21(x,O,D,a0,b0,nmodel, lr_upper_bound, predprey),x0,[],[],[],[],LB,UB,[],options);
+                [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG_2017_09_21(x,O,D,a0,b0,nmodel, lr_upper_bound, predprey),x0,[],[],[],[],LB,UB,[],options);
             end
             
             [~,pos] = min(ll_rep);
-            parameters(k_sim,:)    =   parameters_rep(pos(1),:);
+            parameters(k_sim,1:numfreeparams)    =   parameters_rep(pos(1),:);
             ll(k_sim)              =   ll_rep(pos(1),:);
             
             [~,posLPP] = min(LPP_rep);
-            parametersLPP(k_sim,:)      =   parametersLPP_rep(posLPP(1),:);
+            parametersLPP(k_sim,1:numfreeparams)      =   parametersLPP_rep(posLPP(1),:);
             LPP(k_sim)                  =   LPP_rep(posLPP(1),:);
             
         end
@@ -200,15 +223,25 @@ for predprey_count = 1:length(predprey_array)
         set(gca,'XLim',[0 10])
         
         
+        % since the different models have different number of parameters we
+        % have to specify this here
+        if nmodel == 1 || nmodel == 3
+            PP = [Px_rnd,Plr1_rnd];         % true parameters
+            legB = {'rating temperature','learning rate 1'};
+        elseif nmodel == 2 || nmodel == 4
+            PP = [Px_rnd,Plr1_rnd,Plr2_rnd];         % true parameters
+            legB = {'rating temperature','learning rate 1','learning rate 2'};
+        end
         
-        PP = [Px_rnd,Plr1_rnd,Plr2_rnd];           %  Proposer  learning rate
-        legB = {'rating temperature','learning rate 1','learning rate 2'};
         
         figure;
         set(gcf,'Color',[1,1,1])
-        for k = 1:3
+        
+        
+        % Make the subplots
+        for k = 1:numfreeparams
             
-            subplot(2,3,k)
+            subplot(2,numfreeparams,k)
             plot(PP(:,k),parameters(:,k),'o',...
                 'MarkerEdgeColor',[0,0,0],...
                 'MarkerFaceColor',[1,1,1])
@@ -225,7 +258,7 @@ for predprey_count = 1:length(predprey_array)
             %     text(mean(PP(:,k)), mean(parametersLPP(:,k)), txt1);
             lsline;
             
-            subplot(2,3,3+k)
+            subplot(2,numfreeparams,numfreeparams+k)
             plot(PP(:,k) ,parametersLPP(:,k),'o',...
                 'MarkerEdgeColor',[0,0,0],...
                 'MarkerFaceColor',[1,1,1])
@@ -243,4 +276,46 @@ for predprey_count = 1:length(predprey_array)
     end
 end
 
+%% confusion matrix
+% parameters and parameresLPP are each mXnXpXz matrices have the following
+% dimensions 
+% dim 1: simulated subject (so each entry is one simulated subject)
+% dim 2: paraemters - so each entry is a different parameter of the model
+% dim 3: the actual model we used to generate the simulated data 
+% dim 4: the parameters estimated from 
+%----------------%----------------%----------------%----------------%----------------
+% thereofer, parameters(1, 1, 1, 1) will give me parameter 1 estimated from
+% the simulated data assuming the data were generated using model 1, when
+% the data were actually generated from model 1, for parameter 1 (beta), of
+% simulated subject 1. parameters(1, 1, 1, 2) will give me a parameter 1
+% assuming the data were generated using model 2 when data were really
+% generated using model 1 of simulated subject 1. 
+%
+% A similar story is true of the variable ll. ll(1, 1, 1) gives me the
+% log-liklihood of the data for simulated subject 1 when their data were
+% generated using model 1 and we are assuming their data were generated
+% using model 1. ll(1, 1, 2) gives us the log-liklihood of subject 1 for
+% data generated using model 1 but assuming it was generated using model 2.
+%----------------%----------------%----------------%----------------%----------------
+BIC = NaN(n_sims, 4, 4);
+for k_true = 1:4
+    nfpm=[2 3 2 3]; % number of free parameters
+    for k_est=1:4
+        [~, BIC(:,k_true, k_est)] = aicbic(-ll(:, k_true, k_est), nfpm(k_est), n_trial);
+        
+        BIC_mean(k_true, k_est)   = mean(BIC(:, k_true, k_est));
+        ll_mean(k_true, k_est)           = mean(-ll(:, k_true, k_est));
+    end
+end
 
+figure
+imagesc(BIC_mean)
+colormap default
+title('BIC')
+colorbar
+
+figure
+imagesc(ll_mean)
+colormap default
+title('log liklihood')
+colorbar

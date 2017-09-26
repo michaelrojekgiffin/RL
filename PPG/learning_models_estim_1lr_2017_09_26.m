@@ -1,31 +1,20 @@
-% This function generates the likelihood of each model/paramters
+% This function generates the likelihood of each model/paramters.
+% IMPORTANTLY, this is only meant to be run for models 1 and 3, since they
+% have 1 learning rate. ALSO, this script appears to now be obsolete
+% because it looks like I fixed the bug that prevented the other more
+% general script from failing. I tried to make a generalizeable function
+% that can have a variable number of free parameters but if the function
+% ever has the option of having more parameters, even if I only assign
+% those parameters values when certain criteria is met which isn't met in
+% case of exeuction (e.g. model ~= 1), the minimal -loglik is still
+% accomplished by estimating values for all free parameters and therefore
+% I'm having separate functions for the different number of free parameters
 
-function negLL = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey)
+function negLL = learning_models_estim_1lr_2017_09_26(params,o,r,a0,b0,nmodel, predprey)
 % comp params
 
-switch nmodel
-    case 1
-        beta1 = params(1); % choice temperature
-        lr1   = params(2); % supraliminal learning rate
-%         lr2   = params(3); % supraliminal learning rate
-        
-    case 2
-        beta1 = params(1); % choice temperature
-        lr1   = params(2); % supraliminal learning rate
-        lr2   = params(3); % supraliminal learning rate
-        
-    case 3
-        beta1 = params(1); % choice temperature
-        lr1   = params(2); % supraliminal learning rate
-%         lr2   = params(3); % supraliminal learning rate
-        
-    case 4
-        beta1 = params(1); % choice temperature
-        lr1   = params(2); % supraliminal learning rate
-        lr2   = params(3); % supraliminal learning rate
-end
-% beta1 = params(1); % choice temperature
-% lr1   = params(2); % supraliminal learning rate
+beta1 = params(1); % choice temperature
+lr1   = params(2); % supraliminal learning rate
 % lr2   = params(3); % supraliminal learning rate
 
 % task param
@@ -47,7 +36,7 @@ for kcond = 1:ncond
     EV      = NaN(ntrial,numel(offers)); % estimated expected value of all offers% V       = NaN(ntrial); % estimated expected value of all offers
     EPc     = NaN(ntrial,1);             % estimated probability of accepting the offer
     PE      = NaN(ntrial,1);             % Choice prediction error
-    a_t      = NaN(ntrial,1);            % logit intercept, updated at each trial
+    a_t     = NaN(ntrial,1);             % logit intercept, updated at each trial
     
     %initiate
     a_t(1)     = a0;                    % initial value of teh logit intercept
@@ -69,27 +58,27 @@ for kcond = 1:ncond
         switch nmodel
             
             case 1
-                PE(ktrial)       = r(ktrial) - EPc(ktrial);
+                PE(ktrial)      = r(ktrial) - EPc(ktrial);
                 a_t(ktrial+1)   = a_t(ktrial) + 10.*lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
-            case 2
-                PE(ktrial)       = r(ktrial) - EPc(ktrial);
-                if PE(ktrial)>0
-                    a_t(ktrial+1)  = a_t(ktrial) + 10.*lr1.*PE(ktrial);
-                else
-                    a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
-                end
+%             case 2
+%                 PE(ktrial)       = r(ktrial) - EPc(ktrial);
+%                 if PE(ktrial)>0
+%                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr1.*PE(ktrial);
+%                 else
+%                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
+%                 end
             case 3
                 PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
                 a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
-            case 4
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
-                if PE(ktrial)>0
-                    a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
-                else
-                    a_t(ktrial+1)  = a_t(ktrial) + lr2.*PE(ktrial) ;                % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
-                end
+%             case 4
+%                 PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
+%                 if PE(ktrial)>0
+%                     a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
+%                 else
+%                     a_t(ktrial+1)  = a_t(ktrial) + lr2.*PE(ktrial) ;                % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
+%                 end
         end
     end
 end

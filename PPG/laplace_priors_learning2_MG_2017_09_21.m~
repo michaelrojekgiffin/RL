@@ -46,6 +46,8 @@ end
 % plr1    = log(betapdf(lr1/lr_upper_bound,1.1,1.1));
 % plr2    = log(betapdf(lr2,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% THIS IS WHEERE I NEED TO CHANGE FOR THE DIFFERENT MODELS
 %%.5 .5 -.5
 if nmodel==1
     p = [pbeta1 plr1];
