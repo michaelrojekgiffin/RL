@@ -68,8 +68,8 @@ ll          = NaN(n_sims,1);        LPP            = NaN(n_sims,1);
 
 % pre-allocate for the confusion matrix
 %------------------------------------------
-% confusion_parameters and confusion_parameresLPP are each mXnXpXz matrices
-% have the following dimensions
+% confusion_parameters and confusion_parameresLPP are each mXnXpXz matrices have the following
+% dimensions 
 %
 % dim 1: simulated subject (so each entry is one simulated subject)
 % dim 2: paraemters - so each entry is a different parameter of the model

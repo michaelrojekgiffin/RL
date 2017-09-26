@@ -52,9 +52,7 @@ for kcond = 1:ncond
         o(ktrial,kcond)     = offers(kO);                                      % resample Offer in pdf (="soft-max")
         
         Pd                  = logitp([Ra(kcond),Rb(kcond)],o(ktrial,kcond));   % Reciever Estimated accepantce proba of accepting the offer
-        % for predator offer must be less than opponent's offer, for prey
-        % offer must be less than or equal to opponent's offer
-        switch predprey 
+        switch predprey % for predator offer must be
             case 'predator'
                 r(ktrial,kcond)     = double(rand(1)<Pd);                      % Sampling Reciever's decision given the proba.
             case 'prey'
@@ -93,7 +91,7 @@ for kcond = 1:ncond
     
     
     pe(:,kcond) = PE;
-    at(:,kcond) = a_t; % estimate of opponent's choice function slope on each trial
+    at(:,kcond) = a_t;
 end
 
 

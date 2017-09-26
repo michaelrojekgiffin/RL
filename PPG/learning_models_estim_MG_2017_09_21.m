@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function negLL = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel)
+function negLL = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey)
 % comp params
 
 beta1 = params(1); % choice temperature
@@ -22,7 +22,6 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
 
 
-
 for kcond = 1:ncond
     % pre-allocate
     PA      = NaN(ntrial,numel(offers)); % estimated probability of accepting all offers
@@ -36,7 +35,13 @@ for kcond = 1:ncond
     for ktrial = 1:ntrial
         
         PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
-        EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);               % compute EV of the offers given current model
+         % EV is different for predator and prey
+        switch predprey
+            case 'prey'
+                EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
+            case 'predator'
+                EV(ktrial,:)     = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
+        end
         
         pc                  = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
         lik(ktrial,kcond)   = pc(o(ktrial,kcond)+1);

@@ -1,5 +1,5 @@
 % This function provide the computational model with paramters priors
-function [post]=laplace_priors_learning2_MG_2017_09_21(params,o,r,a0,b0,nmodel)
+function [post]=laplace_priors_learning2_MG_2017_09_21(params,o,r,a0,b0,nmodel, lr_upper_bound, predprey)
 
 % log prior of parameters
 beta1  = params(1);
@@ -9,7 +9,7 @@ lr2    = params(3);
 % [1 .5 .5 .5 0]
 % pbeta1  = log(gampdf(beta1,1.2,5.0)); 
 pbeta1  = log(gampdf(beta1,1.2,8.0)); 
-plr1    = log(betapdf(lr1/3,1.1,1.1));
+plr1    = log(betapdf(lr1/lr_upper_bound,1.1,1.1));
 plr2    = log(betapdf(lr2,1.1,1.1));                                        % the parameters are distrubution with mean + variance (different shapes) (?)
 
 
@@ -26,7 +26,7 @@ end
 
 p = -sum(p);
 
-l = learning_models_estim(params,o,r,a0,b0,nmodel);
+l = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey);
 
 post = p + l;
 
