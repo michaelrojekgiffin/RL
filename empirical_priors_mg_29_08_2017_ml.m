@@ -1,11 +1,12 @@
 % clc
-clear
+clear 
 close all
 
 cur_dir     = pwd;
 data_dir    = fullfile(cur_dir,'data_matlab');
 fl_dir      = dir(strcat(data_dir,filesep,'DATA_sub*'));
 nsub        = length(fl_dir);
+sub_o       = [];
 % sub_o       = NaN(nsub, 1)./2; % preallocation needs to account for it
 % being just prey
 

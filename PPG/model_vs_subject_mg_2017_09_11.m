@@ -8,7 +8,7 @@ clc
 %-------------------------------------------------------------------------
 % EDIT - this part needs to be tweaked, depending on what I'm looking for
 %-------------------------------------------------------------------------
-nsub          = 15;   % number of plots to make, maximum is 166 (i.e. length(fl_dir) )
+nsub          = 1;   % number of plots to make, maximum is 166 (i.e. length(fl_dir) )
 plot_ind      = true;
 nsim          = 15;
 plot_all_data = false;

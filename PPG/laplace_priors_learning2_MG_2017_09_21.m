@@ -1,5 +1,5 @@
 % This function provide the computational model with paramters priors
-function [post]=laplace_priors_learning2_MG_2017_09_21(params,o,r,a0,b0,nmodel, lr_upper_bound, predprey)
+function [post]=laplace_priors_learning2_MG_2017_09_21(params,o,r,a0,b0,nmodel, lr_upper_bound, predprey, R_o)
 
 % log prior of parameters
 switch nmodel
@@ -59,7 +59,7 @@ end
 
 p = -sum(p);
 
-l = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey);
+l = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o);
 
 post = p + l;
 

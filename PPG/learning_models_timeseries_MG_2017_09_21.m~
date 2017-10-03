@@ -74,18 +74,7 @@ for kcond = 1:ncond
         switch predprey 
             case 'predator'
                 r(ktrial,kcond)     = double(rand(1)<Pd);                             % Sampling Reciever's decision given the proba.
-                reward           = 10 - R_o(ktrial, kcond);
-                % I think the following if statement  part should not be
-                % used because I think that since the predator's left over
-                % endowment is assured, it does not need to be included in
-                % the calculation of prediction since it's not possible for
-                % there to be any prediction error on this sum
-%                 if r(ktrial) > 0
-%                     reward          = (10-o(ktrial,kcond)) + (10 - R_o(ktrial, kcond));      % for use in models 3 and 4
-%                 else
-%                     reward          = (10-o(ktrial,kcond));
-%                 end
-%                 
+                reward              = (10-o(ktrial,kcond));      % for use in models 3 and 4
             case 'prey'
                 r(ktrial,kcond)     = double(rand(1)<=Pd);                            % Sampling Reciever's decision given the proba.
                 reward              = (10-o(ktrial,kcond));                           % for models 3 and 4
@@ -107,6 +96,8 @@ for kcond = 1:ncond
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                  
                 end
             case 3
+                if predprey == 'predator'
+                    PE(ktrial)      = (r(ktrial,kcond) - EPc(ktrial)).*reward + (10 - R_o(ktrial, kcond));
                 PE(ktrial)         = (r(ktrial,kcond) - EPc(ktrial)).*reward;
                 a_t(ktrial+1)      = a_t(ktrial) + lr1.*PE(ktrial);                   
                 

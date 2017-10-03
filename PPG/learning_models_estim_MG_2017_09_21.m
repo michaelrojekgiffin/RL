@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function negLL = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey)
+function negLL = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
 % comp params
 
 switch nmodel
@@ -58,8 +58,20 @@ for kcond = 1:ncond
         switch predprey
             case 'prey'
                 EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
+                reward              = (10-o(ktrial,kcond));                           % for models 3 and 4
             case 'predator'
                 EV(ktrial,:)     = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
+                reward           = 10 - R_o(ktrial, kcond);
+                % I think the following if statement  part should not be
+                % used because I think that since the predator's left over
+                % endowment is assured, it does not need to be included in
+                % the calculation of prediction since it's not possible for
+                % there to be any prediction error on this sum
+%                 if r(ktrial) > 0
+%                     reward          = (10-o(ktrial,kcond)) + (10 - R_o(ktrial, kcond));      % for use in models 3 and 4
+%                 else
+%                     reward          = (10-o(ktrial,kcond));
+%                 end
         end
         
         pc                  = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
@@ -80,11 +92,11 @@ for kcond = 1:ncond
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 end
             case 3
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
+                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).* reward;
                 a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 4
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
+                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*reward;
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
                 else
