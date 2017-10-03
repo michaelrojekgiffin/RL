@@ -1,13 +1,15 @@
 % This function generates the likelihood of each model/paramters
+% this model was adapted in order to use in the model_vs_subject script, so
+% that I can use the actual opponent distribution instead of simulating it.
 
-function [o,r,pe,at,pd, R_o] = learning_models_timeseries_MG_2017_09_21(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey)
+function [o,r,pe,at,pd, R_o, PA, EV] = learning_models_timeseries_MG_2017_10_03(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey, opponent_o)
 % comp params
 beta1 = paramsP(1); % choice temperature
 lr1   = paramsP(2); % supraliminal learning rate
 lr2   = paramsP(3); % supraliminal learning rate
 
-Ra = paramsR(1,:);
-Rb = paramsR(2,:);
+Ra = paramsR(1);
+Rb = paramsR(2);
 
 % task param
 offers  = 0:1:10;
@@ -74,7 +76,19 @@ for kcond = 1:ncond
         switch predprey 
             case 'predator'
                 r(ktrial,kcond)     = double(rand(1)<Pd);                             % Sampling Reciever's decision given the proba.
-                reward              = (10-o(ktrial,kcond));      % for use in models 3 and 4
+                reward           = 10 - opponent_o(ktrial, kcond);
+%                 reward           = 10 - R_o(ktrial, kcond);
+                % I think the following if statement  part should not be
+                % used because I think that since the predator's left over
+                % endowment is assured, it does not need to be included in
+                % the calculation of prediction since it's not possible for
+                % there to be any prediction error on this sum
+%                 if r(ktrial) > 0
+%                     reward          = (10-o(ktrial,kcond)) + (10 - R_o(ktrial, kcond));      % for use in models 3 and 4
+%                 else
+%                     reward          = (10-o(ktrial,kcond));
+%                 end
+%                 
             case 'prey'
                 r(ktrial,kcond)     = double(rand(1)<=Pd);                            % Sampling Reciever's decision given the proba.
                 reward              = (10-o(ktrial,kcond));                           % for models 3 and 4
@@ -96,8 +110,6 @@ for kcond = 1:ncond
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                  
                 end
             case 3
-                if predprey == 'predator'
-                    PE(ktrial)      = (r(ktrial,kcond) - EPc(ktrial)).*reward + (10 - R_o(ktrial, kcond));
                 PE(ktrial)         = (r(ktrial,kcond) - EPc(ktrial)).*reward;
                 a_t(ktrial+1)      = a_t(ktrial) + lr1.*PE(ktrial);                   
                 

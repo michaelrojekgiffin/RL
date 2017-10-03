@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function [negLL, EV, PA, a_t] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
+function [negLL, EV, PA, a_] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
 % comp params
 
 switch nmodel
