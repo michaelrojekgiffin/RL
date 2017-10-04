@@ -2,7 +2,7 @@
 % this model was adapted in order to use in the model_vs_subject script, so
 % that I can use the actual opponent distribution instead of simulating it.
 
-function [o,r,pe,at,pd, R_o, PA, EV] = learning_models_timeseries_MG_2017_10_03(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey, opponent_o)
+function [o,r,pe,at,pc, R_o, PA, EV] = learning_models_timeseries_MG_2017_10_03(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey, opponent_o)
 % comp params
 beta1 = paramsP(1); % choice temperature
 lr1   = paramsP(2); % supraliminal learning rate
@@ -14,7 +14,10 @@ Rb = paramsR(2);
 % task param
 offers  = 0:1:10;
 endow   = 10*ones(1,numel(offers));
-ncond  = size(paramsR,2);
+
+% this is a vestige from Mael's more generalizeable script, I'm only going
+% to use this for one condition, so here we are
+ncond  = 1; %size(paramsR,2);
 
 o  = NaN(ntrial,ncond);
 r  = NaN(ntrial,ncond);
@@ -33,11 +36,14 @@ for kcond = 1:ncond
     EPc     = NaN(ntrial,1);             % estimated probability of accepting the offer
     PE      = NaN(ntrial,1);             % Choice prediction error
     a_t     = NaN(ntrial+1,1);           % logit intercept, updated at each trial
+    EVo     = NaN(ntrial, 1);            % EV of the selected offer
     
     % pre-allocate for rival, this is to calculate reward prediction errors
     %in predators
     R_PA    = NaN(ntrial,numel(offers)); % estimated probability of accepting all offers
     R_EV    = NaN(ntrial,numel(offers)); % expected value
+    
+    pc      = NaN(ntrial, (numel(offers))); % expected offer, probability of offer being made
     
     %initiate
     a_t(1)     = a0;                    % initial value of teh logit intercept
@@ -56,8 +62,8 @@ for kcond = 1:ncond
                 R_EV(ktrial,:)   = (endow - offers).*R_PA(ktrial,:);                     % compute rivals EV
         end
         
-        pc                  = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
-        pd                  = makedist('multinomial','probabilities',pc);                  % estimate the pdf from the pC
+        pc(ktrial, :)        = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
+        pd                  = makedist('multinomial','probabilities',pc(ktrial, :));                  % estimate the pdf from the pC
         kO                  = random(pd);                                                  % selected offer, in the 1:numel(offer) spavce
         
         o(ktrial,kcond)     = offers(kO);                                                  % resample Offer in pdf (="soft-max")

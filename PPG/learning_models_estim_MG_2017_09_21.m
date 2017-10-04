@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function [negLL, EV, PA, a_t] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
+function [negLL, EV, PA, a_t, pc] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
 % comp params
 
 switch nmodel
@@ -48,6 +48,7 @@ for kcond = 1:ncond
     EPc     = NaN(ntrial,1);             % estimated probability of accepting the offer
     PE      = NaN(ntrial,1);             % Choice prediction error
     a_t      = NaN(ntrial,1);            % logit intercept, updated at each trial
+    pc      = NaN(ntrial, (numel(offers))); % expected offer, probability of offer being made
     
     %initiate
     a_t(1)     = a0;                    % initial value of teh logit intercept
@@ -74,8 +75,8 @@ for kcond = 1:ncond
 %                 end
         end
         
-        pc                  = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
-        lik(ktrial,kcond)   = pc(o(ktrial,kcond)+1);
+        pc(ktrial, :)       = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
+        lik(ktrial,kcond)   = pc(ktrial, o(ktrial,kcond)+1);
         EPc(ktrial)         = PA(ktrial,o(ktrial,kcond)+1);
         
         switch nmodel
