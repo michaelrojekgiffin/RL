@@ -8,8 +8,8 @@ rng('shuffle')
 
 % parameters of the task
 %--------------------------
-n_sims  = 40;                           % nsubs to simulates
-n_trial = 18;                           % ntrial per cond per session
+n_sims  = 20;                           % nsubs to simulates
+n_trial = 40;                           % ntrial per cond per session
 n_sess  = 2;                            % nsession
 offers  = 0:1:10;
 endow   = 10*ones(1,numel(offers));% parameters of the simulation
@@ -111,7 +111,7 @@ for k_true = modelspace
 end
 
 
-save('test3')
+% save('test3')
 
 
 
@@ -130,7 +130,16 @@ for k_true = modelspace
             'MarkerFaceColor',[1,1,1])
         xlabel(strcat(['true ' legB{k}]));
         ylabel(strcat(['estimated ' legB{k}]));
+        lsline;
         [corrR(k),corrP(k)] = corr(MP(:,k),squeeze(parameters(:,k,k_true,k_true)));
+        
+        txt1 = sprintf('r = %f\n p = %f', corrR(k),corrP(k));
+        if k == 1
+            title(sprintf('model %d\n %s', k_true, txt1));
+        else
+            title(txt1)
+        end
+        
         
         subplot(2,3,3+k)
         plot(MP(:,k) ,squeeze(parametersLPP(:,k,k_true,k_true)),'o',...
@@ -138,8 +147,12 @@ for k_true = modelspace
             'MarkerFaceColor',[1,1,1])
         xlabel(strcat(['true ' legB{k}]));
         ylabel(strcat(['estimated ' legB{k} ' LPP']));
+        lsline;
         
         [corrR_LPP(k),corrP_LPP(k)] = corr(MP(:,k),squeeze(parametersLPP(:,k,k_true,k_true)));
+        
+        txt1 = sprintf('r = %f\n p = %f', corrR_LPP(k),corrP_LPP(k));
+        title(txt1)
         
     end
     
@@ -147,7 +160,7 @@ end
 
 
 
-
+%%
 for k_true = 1
     
     figure;
@@ -159,6 +172,7 @@ for k_true = 1
             'MarkerFaceColor',[1,1,1])
         xlabel(strcat(['true ' legB{k}]));
         ylabel(strcat(['estimated ' legB{k}]));
+        lsline;
         [corrR(k),corrP(k)] = corr(MP(:,k),squeeze(parameters(:,k,k_true,k_true)));
         
         subplot(1,2,2)
@@ -167,6 +181,7 @@ for k_true = 1
             'MarkerFaceColor',[1,1,1])
         xlabel(strcat(['true ' legB{k}]));
         ylabel(strcat(['estimated ' legB{k} ' LPP']));
+        lsline;
         
         [corrR_LPP(k),corrP_LPP(k)] = corr(MP(:,k),squeeze(parametersLPP(:,k,k_true,k_true)));
         

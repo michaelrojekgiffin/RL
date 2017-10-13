@@ -56,11 +56,11 @@ for kcond = 1:ncond
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 end
             case 3
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
+                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*(10-o(ktrial,kcond));
                 a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 4
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*o(ktrial,kcond);
+                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*(10-o(ktrial,kcond));
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
                 else

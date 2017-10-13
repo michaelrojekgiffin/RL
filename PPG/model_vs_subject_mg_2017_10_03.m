@@ -4,6 +4,8 @@
 clear
 close all
 clc
+
+cd ~/Dropbox/RL/PPG/
 %=========================================================================
 %-------------------------------------------------------------------------
 % EDIT - this part needs to be tweaked, depending on what I'm looking for
@@ -11,13 +13,48 @@ clc
 
 % nsub          = 166;   % hor dataset - number of plots to make, maximum is 166 for hor dataset (from data_matlab) (i.e. length(fl_dir) )
 % nsub          = 48;   % old_hor dataset - number of plots to make, maximum is 48 (i.e. length(fl_dir) )
-nsub          = 50;   % ital dataset - number of plots to make, maximum is 50 (i.e. length(fl_dir) )
+% nsub          = 50;   % ital dataset - number of plots to make, maximum is 50 (i.e. length(fl_dir) )
+nsub          = 54;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
 plot_ind      = false;
 nsim          = 15;
 plot_all_data = false;
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 %=========================================================================
+
+%-------------------------------------------------------------------------
+%-------------------------------------------------------------------------
+% changes for each dataset
+% Importantly, at the end of the first cell there's code that saves all the
+% important variables to the specific data directories of each experiment,
+% that needs to be changed
+%-------------------------------------------------------------------------
+%-------------------------------------------------------------------------
+cur_dir      = pwd;
+% data_dir     = fullfile(cur_dir,'data_matlab');             % hor dataset
+% data_dir     = fullfile(cur_dir,'data_old_hor');             % old_hor dataset
+% data_dir     = fullfile(cur_dir,'data_ital');             % ital dataset
+data_dir     = fullfile(cur_dir,'data_OT');             % OT dataset
+fl_dir       = dir(strcat(data_dir,filesep,'DATA_sub*'));
+
+% hor and old_hor datasets have the same columns for these
+% sub_o_col       = 5;
+% sub_r_col       = 11;
+% opponent_o_col  = 6;
+
+% % for ital dataset, these are the columns
+% sub_o_col       = 6;
+% sub_r_col       = 12;
+% opponent_o_col  = 7;
+
+% for OT dataset, these are the columns
+sub_o_col       = 7;
+sub_r_col       = 96;
+% opponent_o_col  = 7; % changes depending on the role, is specified near
+% begininning of first loop for OT dataset
+
+%-------------------------------------------------------------------------
+%-------------------------------------------------------------------------
 
 % define function
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
@@ -35,24 +72,6 @@ options      = optimset('Algorithm', 'interior-point', 'Display', 'off', 'MaxIte
 
 parametersLPP  = NaN(nsim,3);
 LPP            = NaN(nsim,1);
-
-
-cur_dir      = pwd;
-% data_dir     = fullfile(cur_dir,'data_matlab');             % hor dataset
-% data_dir     = fullfile(cur_dir,'data_old_hor');             % old_hor dataset
-data_dir     = fullfile(cur_dir,'data_ital');             % old_hor dataset
-fl_dir       = dir(strcat(data_dir,filesep,'DATA_sub*'));
-
-% hor and old_hor datasets have the same columns for these
-% sub_o_col       = 5;
-% sub_r_col       = 11;
-% opponent_o_col  = 6;
-
-% for ital dataset, these are the columns
-sub_o_col       = 6;
-sub_r_col       = 12;
-opponent_o_col  = 7;
-
 
 k_prey       = 0;
 k_pred       = 0;
@@ -82,6 +101,12 @@ prey_LPP            = NaN(nsub, length(nmodel_array)); %
 pred_BIC            = NaN(nsub, length(nmodel_array)); %
 pred_LPP            = NaN(nsub, length(nmodel_array)); %
 
+PE_sub              = NaN(nsub, 60, length(nmodel_array));             % prediction error for each subject on each trial for each model
+pred_PE             = NaN(nsub, 60, length(nmodel_array));             % prediction error for each subject on each trial for each model
+prey_PE             = NaN(nsub, 60, length(nmodel_array));             % prediction error for each subject on each trial for each model
+
+pred_EV             = NaN(nsub, 60, length(nmodel_array));             % EV
+prey_EV             = NaN(nsub, 60, length(nmodel_array));             
 
 for k_sub    = 1:nsub
     
@@ -94,11 +119,13 @@ for k_sub    = 1:nsub
             predprey = 'predator';
             opponent = 'prey';
             priors   = load('data_matlab/predator_priors.mat');
+            opponent_o_col  = 9; % changes depending on the role
         case 'prey'
             k_prey   = k_prey+1;
             predprey = 'prey';
             opponent = 'predator';
             priors   = load('data_matlab/prey_priors.mat');
+            opponent_o_col  = 8; % changes depending on the role
     end
     %
     for k_model = 1:length(nmodel_array)
@@ -106,13 +133,17 @@ for k_sub    = 1:nsub
         
         nmodel = nmodel_array(k_model);
         
-        fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(6:11), nmodel, predprey, k_sub, nsub);
+        %         fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(6:11), nmodel, predprey, k_sub, nsub);
+        fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(10:15), nmodel, predprey, k_sub, nsub);
         
         sub_o            = data(:,sub_o_col);       % subject offer
         sub_r            = data(:,sub_r_col);       % subject win/lose (logical)
         opponent_o       = data(:,opponent_o_col);  %  choice of the opponent
         
-        ntrial           = length(data);
+        %%%%%%%% for some reason this freaked out when I did it with the OT
+        %%%%%%%% data
+%         ntrial           = length(data);
+        ntrial           = size(data, 1);
         
         n_rep            = 10;
         parameters_rep   = NaN(n_rep,2);
@@ -154,12 +185,12 @@ for k_sub    = 1:nsub
         % estimated above
         %     [~, all_EV, all_PA, all_V] = ModelEstimation_2params_2017_09_11(parameters(k_sub,:), priors.parameters(1:2),sub_o,sub_r,1,predprey);
         
-        [~, all_EV, all_PA, all_V, all_pc]  = laplace_priors_learning2_MG_2017_09_21(parametersLPP(k_sub,1:numfreeparams),sub_o,sub_r,priors.parameters(1),priors.parameters(2), nmodel, lr_upper_bound, predprey, opponent_o);
+        [~, all_EV, all_PA, all_V, all_pc, all_PE]  = laplace_priors_learning2_MG_2017_09_21(parametersLPP(k_sub,1:numfreeparams),sub_o,sub_r,priors.parameters(1),priors.parameters(2), nmodel, lr_upper_bound, predprey, opponent_o);
         V_sub(k_sub, k_model)               = all_V(end);     % posterior intercept
         PA_sub(k_sub, :, k_model)           = all_PA(end, :); % posterior prob of success
         EV_sub_posterior(k_sub, :, k_model) = all_EV(end, :); % posterior EV of all offers
         pc_sub(k_sub, :, :, k_model)        = all_pc;         % expected offer, i.e. probability of each offer being selected on each trial
-        
+        PE_sub(k_sub, :, k_model)           = all_PE;         % prediction error
         for ee = 1:length(all_EV)
             EV_sub(k_sub, ee, k_model) = all_EV(ee, sub_o(ee)+1); % EV of each offer selected by subject
         end
@@ -293,6 +324,9 @@ for k_sub    = 1:nsub
                 pred_sim_dist(k_pred, :)                = O_mean;
                 pred_opponent_probs(k_pred, :)          = succes_probs;
                 
+                pred_PE(k_pred, :, k_model)              = PE_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
+                pred_EV(k_pred, :, k_model)              = EV_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
+                
                 pred_LPP(k_pred, k_model)               = LPP(k_sub, k_model);
                 [~, pred_BIC(k_pred, k_model)]          = aicbic(-LPP(k_sub, k_model), numfreeparams, ntrial);
                 
@@ -301,6 +335,10 @@ for k_sub    = 1:nsub
                 prey_dist(k_prey, :, k_model)           = sub_o;
                 prey_sim_dist(k_prey, :)                = O_mean;
                 prey_opponent_probs(k_prey, :)          = succes_probs;
+                
+                prey_PE(k_prey, :, k_model)              = PE_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
+                prey_EV(k_prey, :, k_model)              = EV_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
+                
                 prey_LPP(k_prey, k_model)               = LPP(k_sub, k_model);
                 [~, prey_BIC(k_prey, k_model)]          = aicbic(-LPP(k_sub, k_model), numfreeparams, ntrial);
         end
@@ -456,13 +494,29 @@ prey_BIC(~any(~isnan(prey_BIC), 2), :) = [];
 % save([pwd '/data_old_hor/prey_LPP.mat'], 'prey_LPP');
 
 % for ital
-save([pwd '/data_ital/pred_ameters.mat'], 'pred_ameters');
-save([pwd '/data_ital/prey_ameters.mat'], 'prey_ameters');
-save([pwd '/data_ital/prey_ameters.mat'], 'prey_ameters');
-save([pwd '/data_ital/pred_BIC.mat'], 'pred_BIC');
-save([pwd '/data_ital/prey_BIC.mat'], 'prey_BIC');
-save([pwd '/data_ital/pred_LPP.mat'], 'pred_LPP');
-save([pwd '/data_ital/prey_LPP.mat'], 'prey_LPP');
+% save([pwd '/data_ital/pred_ameters.mat'], 'pred_ameters');
+% save([pwd '/data_ital/prey_ameters.mat'], 'prey_ameters');
+% save([pwd '/data_ital/prey_ameters.mat'], 'prey_ameters');
+% save([pwd '/data_ital/pred_BIC.mat'], 'pred_BIC');
+% save([pwd '/data_ital/prey_BIC.mat'], 'prey_BIC');
+% save([pwd '/data_ital/pred_LPP.mat'], 'pred_LPP');
+% save([pwd '/data_ital/prey_LPP.mat'], 'prey_LPP');
+
+% for OT
+save([pwd '/data_OT/pred_ameters.mat'], 'pred_ameters');
+save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
+save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
+save([pwd '/data_OT/pred_BIC.mat'], 'pred_BIC');
+save([pwd '/data_OT/prey_BIC.mat'], 'prey_BIC');
+save([pwd '/data_OT/pred_LPP.mat'], 'pred_LPP');
+save([pwd '/data_OT/prey_LPP.mat'], 'prey_LPP');
+
+save([pwd '/data_OT/PE_sub.mat'], 'PE_sub');
+save([pwd '/data_OT/EV_sub.mat'], 'EV_sub');
+save([pwd '/data_OT/prey_EV.mat'], 'prey_EV');
+save([pwd '/data_OT/prey_PE.mat'], 'prey_PE');
+save([pwd '/data_OT/pred_PE.mat'], 'pred_PE');
+save([pwd '/data_OT/pred_EV.mat'], 'pred_EV');
 
 for ii = 1:size(BIC, 2)
     fprintf('predator model %d has mean BIC of %f\n', ii, mean(pred_BIC(:, ii)));
@@ -518,11 +572,27 @@ for ii = 1:nsub
     %             end
     %     end
     
-    % getting subject's name for ital
-    if length(flnm) == 59
-        sub_name = flnm(end-4);
-    elseif length(flnm) == 60
-        sub_name = flnm(end-5:end-4);
+    %     % getting subject's name for ital
+    %     if length(flnm) == 59
+    %         sub_name = flnm(end-4);
+    %     elseif length(flnm) == 60
+    %         sub_name = flnm(end-5:end-4);
+    %     end
+    
+    % getting subject's name for OT
+    switch role
+        case 'predator'
+            if length(flnm) == 72
+                sub_name = flnm(end-18:end-13);
+%             elseif length(flnm) == 71
+%                 sub_name = flnm(end-13);
+            end
+        case 'prey'
+            if length(flnm) == 68
+                sub_name = flnm(end-14:end-9);
+%             elseif length(flnm) == 67
+%                 sub_name = flnm(end-9);
+            end
     end
     
     switch role
@@ -568,7 +638,7 @@ end
 %
 % %
 % %
-fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/ital_fitted.txt', 'w');
+fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_fitted.txt', 'w');
 for ii = 1:length(fitted_cell)+1 % +1 for header
     if ii == 1
         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
@@ -577,4 +647,109 @@ for ii = 1:length(fitted_cell)+1 % +1 for header
     end
 end
 
-% save all the variables I'm using !!!!!!
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/modeling_from_mael/data/OT_fitted.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
+
+%% Get all latent variables in table format
+fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE'};
+fitted_length = nsub*ntrial*nmodel*length(nmodel_array);
+fitted_cell = cell(fitted_length, length(fitted_header)); % each subject has one row for each model
+
+sub_counter = 1;
+sub_tc = 0; % subject trial counter
+k_pred = 0;
+k_prey = 0;
+for ii = 1:nsub
+    flnm     = fullfile(data_dir,fl_dir(ii).name);
+    load(flnm)
+    %     % getting subject's name for hor
+    %     if length(flnm) == 61
+    %         sub_name = flnm(end-4);
+    %     elseif length(flnm) == 62
+    %         sub_name = flnm(end-5:end-4);
+    %     elseif length(flnm) == 63
+    %         sub_name = flnm(end-6:end-4);
+    %     end
+    
+    % getting subject's name for old_hor
+    %     switch role
+    %         case 'predator'
+    %             if length(flnm) == 72
+    %                 sub_name = flnm(end-14:end-13);
+    %             elseif length(flnm) == 71
+    %                 sub_name = flnm(end-13);
+    %             end
+    %         case 'prey'
+    %             if length(flnm) == 68
+    %                 sub_name = flnm(end-10:end-9);
+    %             elseif length(flnm) == 67
+    %                 sub_name = flnm(end-9);
+    %             end
+    %     end
+    
+    %     % getting subject's name for ital
+    %     if length(flnm) == 59
+    %         sub_name = flnm(end-4);
+    %     elseif length(flnm) == 60
+    %         sub_name = flnm(end-5:end-4);
+    %     end
+    
+    % getting subject's name for OT
+    switch role
+        case 'predator'
+            k_pred   = k_pred+1;
+            if length(flnm) == 72
+                sub_name = flnm(end-18:end-13);
+            end
+            for k_model = 1:length(nmodel_array)
+                for kk = 1:length(pred_PE(ii, :, k_model))
+                    sub_tc                                  = sub_tc+1;
+                    fitted_cell{sub_tc, 1}                  = sub_name;
+                    fitted_cell{sub_tc, 2}                  = role;
+                    fitted_cell{sub_tc, 3}                  = k_model;
+                    fitted_cell{sub_tc, 4}                  = pred_EV(k_pred, kk, k_model);
+                    fitted_cell{sub_tc, 5}                  = pred_PE(k_pred, kk, k_model);
+                end
+            end
+        case 'prey'
+            k_prey   = k_prey+1;
+            if length(flnm) == 68
+                sub_name = flnm(end-14:end-9);
+            end
+            for k_model = 1:length(nmodel_array)
+                for kk = 1:length(prey_PE(ii, :, k_model))
+                    sub_tc                                  = sub_tc+1;
+                    fitted_cell{sub_tc, 1}                  = sub_name;
+                    fitted_cell{sub_tc, 2}                  = role;
+                    fitted_cell{sub_tc, 3}                  = k_model;
+                    fitted_cell{sub_tc, 4}                  = prey_EV(k_prey, kk, k_model);
+                    fitted_cell{sub_tc, 5}                  = prey_PE(k_prey, kk, k_model);
+                end
+            end
+    end
+end
+
+
+fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_latent_params.txt', 'w');
+for ii = 1:length(fitted_cell)+1 % +1 for header
+    if ii == 1
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+    else
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+    end
+end
+
+fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/modeling_from_mael/data/OT_latent_params.txt', 'w');
+for ii = 1:length(fitted_cell)+1 % +1 for header
+    if ii == 1
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+    else
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\n', fitted_cell{ii-1, :});
+    end
+end

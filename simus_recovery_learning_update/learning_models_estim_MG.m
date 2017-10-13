@@ -1,8 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function [negLL, EV, PA, a_] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
-% comp params
-
+function negLL = learning_models_estim_MG(params,o,r,a0,b0,nmodel)
 switch nmodel
     case 1
         beta1 = params(1); % choice temperature
@@ -24,9 +22,13 @@ switch nmodel
         lr1   = params(2); % supraliminal learning rate
         lr2   = params(3); % supraliminal learning rate
 end
+
+% comp params
+% 
 % beta1 = params(1); % choice temperature
 % lr1   = params(2); % supraliminal learning rate
 % lr2   = params(3); % supraliminal learning rate
+
 
 % task param
 offers  = 0:1:10;
@@ -38,6 +40,8 @@ lik = NaN(ntrial,ncond);
 
 %funct
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
+
+
 
 
 
@@ -54,25 +58,7 @@ for kcond = 1:ncond
     for ktrial = 1:ntrial
         
         PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
-         % EV is different for predator and prey
-        switch predprey
-            case 'prey'
-                EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
-                reward              = (10-o(ktrial,kcond));                           % for models 3 and 4
-            case 'predator'
-                EV(ktrial,:)     = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
-                reward           = 10 - R_o(ktrial, kcond);
-                % I think the following if statement  part should not be
-                % used because I think that since the predator's left over
-                % endowment is assured, it does not need to be included in
-                % the calculation of prediction since it's not possible for
-                % there to be any prediction error on this sum
-%                 if r(ktrial) > 0
-%                     reward          = (10-o(ktrial,kcond)) + (10 - R_o(ktrial, kcond));      % for use in models 3 and 4
-%                 else
-%                     reward          = (10-o(ktrial,kcond));
-%                 end
-        end
+        EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);               % compute EV of the offers given current model
         
         pc                  = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
         lik(ktrial,kcond)   = pc(o(ktrial,kcond)+1);
@@ -92,11 +78,11 @@ for kcond = 1:ncond
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 end
             case 3
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).* reward;
+                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*(10-o(ktrial,kcond));
                 a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 4
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*reward;
+                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*(10-o(ktrial,kcond));
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
                 else

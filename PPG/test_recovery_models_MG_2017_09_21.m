@@ -17,7 +17,7 @@ rng('shuffle')
 % parameters of the task
 %--------------------------
 predprey_array  =  {'predator', 'prey'};
-n_sims          = 83;                           % nsubs to simulates
+n_sims          = 3;                           % nsubs to simulates
 n_trial         = 60;                           % ntrial per cond per session
 n_sess          = 1;                            % nsession
 offers          = 0:1:10;
@@ -25,7 +25,7 @@ suboffers       = 0:1:10;
 endow           = 10*ones(1,numel(offers));     % parameters of the simulation
 subendow        = 10*ones(1,numel(suboffers));  % parameters of the simulation
 nmodel_array    = 1:4;                          % all the models to loop through
-lr_upper_bound  = 7;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr_upper_bound  = 3;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
 
 % set up conditions and mutliple sessions
 %------------------------------------------
@@ -47,7 +47,7 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 Pa_rnd          = -9 + 6*rand(n_sims,1);  %  Proposer initial prior on threshold (to be fitted or estimated from no-feedback games)
 Pb_rnd          = 2.5+1*rand(n_sims,1);       %  Proposer  estimated accpetance noise (to be fitted or estimated from no-feedback games)
 
-Px_rnd          = .5+2.5*rand(n_sims,1);         %  Proposer  rating temperature
+Px_rnd          = .5+1*rand(n_sims,1);% .5+2.5*rand(n_sims,1);         %  Proposer  rating temperature
 % Px_rnd          = 3+3*rand(n_sims,1);         %  Proposer  rating temperature
 
 Plr2_rnd        = rand(n_sims,1);           %  Proposer  learning rate
@@ -314,6 +314,8 @@ for ppg = 1:length(predprey_array)
         for k_est=1:4
             [~, BIC(:,k_true, k_est)] = aicbic(-con_LPP(ppg, :, k_true, k_est), nfpm(k_est), n_trial);
             
+% %             bic(:,k_est)=-2*-LL(:,k_est) + nfpm(k_est)*log(nc*n_trial*n_sess); % l2 is already positive
+            
             BIC_mean(k_true, k_est)          = mean(BIC(:, k_true, k_est));
             ll_mean(k_true, k_est)           = mean(-con_LPP(ppg, :, k_true, k_est));
         end
@@ -336,12 +338,12 @@ for ppg = 1:length(predprey_array)
     colorbar
 
 end
-
-filename = [pwd '/reports/confusion_matrix_' num2str(n_sims), 'sims_', date];
-
-save(filename, 'con_LPP')
-
-
-save([pwd '/reports/confusion_matrix_' num2str(n_sims), 'sims_', date], con_LPP)
-
-save(sprintf('%s/reports/confusion_matrix_%s_sims_%s', pwd, num2str(n_sims), date), con_LPP)
+% 
+% filename = [pwd '/reports/confusion_matrix_' num2str(n_sims), 'sims_', date];
+% 
+% save(filename, 'con_LPP')
+% 
+% 
+% save([pwd '/reports/confusion_matrix_' num2str(n_sims), 'sims_', date], con_LPP)
+% 
+% save(sprintf('%s/reports/confusion_matrix_%s_sims_%s', pwd, num2str(n_sims), date), con_LPP)
