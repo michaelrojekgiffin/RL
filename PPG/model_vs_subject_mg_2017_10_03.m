@@ -47,7 +47,9 @@ fl_dir       = dir(strcat(data_dir,filesep,'DATA_sub*'));
 % sub_r_col       = 12;
 % opponent_o_col  = 7;
 
-% for OT dataset, these are the columns
+% for OT dataset, these are the columns. Importantly, in this dataset
+% subjects have multiple "sessions", meaning they learn the same
+% distribution over multiple blocks that each must begin at 0
 sub_o_col       = 7;
 sub_r_col       = 96;
 % opponent_o_col  = 7; % changes depending on the role, is specified near
@@ -136,9 +138,23 @@ for k_sub    = 1:nsub
         %         fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(6:11), nmodel, predprey, k_sub, nsub);
         fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(10:15), nmodel, predprey, k_sub, nsub);
         
-        sub_o            = data(:,sub_o_col);       % subject offer
-        sub_r            = data(:,sub_r_col);       % subject win/lose (logical)
-        opponent_o       = data(:,opponent_o_col);  %  choice of the opponent
+        % this is true for each dataset in which subjects played either in
+        % only 1 role or in 1 role per session (so the 3 hormone datasets)
+%         sub_o            = data(:,sub_o_col);       % subject offer
+%         sub_r            = data(:,sub_r_col);       % subject win/lose (logical)
+%         opponent_o       = data(:,opponent_o_col);  %  choice of the opponent
+        
+        % this only applies for datasets with multiple sessions, in the
+        % case of OT, it has 3 for both predator and prey.
+        ses_counter = 1;
+        for SES = 1:3 % because OT has 3 sessions per role
+            
+            sub_o(1:20,SES)            = data(ses_counter:ses_counter+19,sub_o_col);       % subject offer
+            sub_r(1:20,SES)            = data(ses_counter:ses_counter+19,sub_r_col);       % subject win/lose (logical)  
+            opponent_o(1:20,SES)       = data(ses_counter:ses_counter+19,opponent_o_col);  %  choice of the opponent
+            ses_counter                = ses_counter+20;
+        end
+        
         
         %%%%%%%% for some reason this freaked out when I did it with the OT
         %%%%%%%% data
@@ -170,6 +186,11 @@ for k_sub    = 1:nsub
             %laplace estimation
             [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG_2017_09_21(x,sub_o,sub_r,priors.parameters(1),priors.parameters(2),nmodel, lr_upper_bound, predprey, opponent_o),x0,[],[],[],[],LB,UB,[],options);
         end
+% %         
+% %         params = [2 .3]
+% %         o = sub_o
+% %         r = sub_r
+% %         ,r,a0,b0,nmodel, predprey, R_o
         
         
         [~,posLPP]                           =   min(LPP_rep);
@@ -201,7 +222,7 @@ for k_sub    = 1:nsub
         opponent_o_freq = zeros(1, 11);
         succes_probs = zeros(length(opponent_o_freq), 1); % probability of success
         for k = 0:10
-            opponent_o_freq(k+1)       = (sum(opponent_o==k)) / length(opponent_o);
+            opponent_o_freq(k+1)       = (sum(opponent_o(:)==k)) / length(opponent_o);
             switch predprey
                 case 'prey'
                     succes_probs(k+1) = sum(opponent_o_freq(1:k+1));
@@ -222,11 +243,13 @@ for k_sub    = 1:nsub
         % here I'm fitting to the opponent data in order to get the logit
         % choice function that subjects were playing against in order to
         % use this in the simulation below.
-        n_rep           = 10;
-        parameters_rep  = NaN(n_rep,3);
-        ll_rep          = NaN(n_rep,1);
+        n_rep            = 10;
+        parameters_rep   = NaN(n_rep,3);
+        ll_rep           = NaN(n_rep,1);
+        opponent_o_array = reshape(opponent_o, [], 1);
+        
         for k_rep = 1:n_rep
-            [parameters_rep(k_rep,1:3),ll_rep(k_rep,1)]=fmincon(@(x) laplace_priors_priors_MG_2017_10_03(x,opponent_o, opponent_role),[10*randn() 10*rand()  10*rand()],[],[],[],[],[-Inf 0 0],[Inf Inf Inf],[],options);
+            [parameters_rep(k_rep,1:3),ll_rep(k_rep,1)]=fmincon(@(x) laplace_priors_priors_MG_2017_10_03(x,opponent_o_array, opponent_role),[10*randn() 10*rand()  10*rand()],[],[],[],[],[-Inf 0 0],[Inf Inf Inf],[],options);
         end
         [~,pos]             = min(ll_rep);
         opponent_parameters = parameters_rep(pos(1),:);
@@ -289,7 +312,7 @@ for k_sub    = 1:nsub
             lr1     =    parametersLPP(k_sub, 2);   % proposer learning rate 1, estimated from subject data (specific to each subject)
             lr2     =    parametersLPP(k_sub, 3);   % proposer learning rate 2, estimated from subject data (specific to each subject, will be NaN for models 1 and 3)
             
-            [O(:, i_sim),D(:, i_sim), CPE(:, i_sim),V(:, i_sim), pc_sim(:, :, i_sim), R_o, PA(:, :, i_sim), EV(:, :, i_sim)] = learning_models_timeseries_MG_2017_10_03([bX,lr1,lr2],opponent_parameters,ntrial,v0,B,nmodel, predprey, opponent_o);
+            [O(:, i_sim),D(:, i_sim), CPE(:, i_sim),V(:, i_sim), pc_sim(:, :, i_sim), R_o, PA(:, :, i_sim), EV(:, :, i_sim)] = learning_models_timeseries_MG_2017_10_03([bX,lr1,lr2],opponent_parameters,size(sub_o, 1),v0,B,nmodel, predprey, opponent_o);
             
         end
         % average across all simulations
@@ -316,11 +339,12 @@ for k_sub    = 1:nsub
                 pc_sim_mean(m_trial, m_offer) = mean(pc_sim(m_trial, m_offer, :));
             end
         end
+        sub_o_array = reshape(sub_o, [], 1);
         % record all parameters and all subject data for posterity
         switch predprey
             case 'predator'
                 pred_ameters(k_pred, :, k_model)        = parametersLPP(k_sub, :); % column 1 is temperature, column 2 and 3 learning rate
-                pred_dist(k_pred, :, k_model)           = sub_o;
+                pred_dist(k_pred, :, k_model)           = sub_o_array;
                 pred_sim_dist(k_pred, :)                = O_mean;
                 pred_opponent_probs(k_pred, :)          = succes_probs;
                 
@@ -332,7 +356,7 @@ for k_sub    = 1:nsub
                 
             case 'prey'
                 prey_ameters(k_prey, :, k_model)        = parametersLPP(k_sub, :); % column 1 is temperature, column 2 and 3 learning rate
-                prey_dist(k_prey, :, k_model)           = sub_o;
+                prey_dist(k_prey, :, k_model)           = sub_o_array;
                 prey_sim_dist(k_prey, :)                = O_mean;
                 prey_opponent_probs(k_prey, :)          = succes_probs;
                 
@@ -647,14 +671,14 @@ for ii = 1:length(fitted_cell)+1 % +1 for header
     end
 end
 
-% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/modeling_from_mael/data/OT_fitted.txt', 'w');
-% for ii = 1:length(fitted_cell)+1 % +1 for header
-%     if ii == 1
-%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-%     else
-%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-%     end
-% end
+fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
+for ii = 1:length(fitted_cell)+1 % +1 for header
+    if ii == 1
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+    else
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+    end
+end
 
 %% Get all latent variables in table format
 fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE'};
@@ -735,7 +759,7 @@ for ii = 1:nsub
     end
 end
 
-
+% 
 fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_latent_params.txt', 'w');
 for ii = 1:length(fitted_cell)+1 % +1 for header
     if ii == 1
@@ -744,8 +768,8 @@ for ii = 1:length(fitted_cell)+1 % +1 for header
         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
     end
 end
-
-fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/modeling_from_mael/data/OT_latent_params.txt', 'w');
+% 
+fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
 for ii = 1:length(fitted_cell)+1 % +1 for header
     if ii == 1
         fprintf(fid, '%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});

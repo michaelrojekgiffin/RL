@@ -17,7 +17,7 @@ ncond  = size(paramsR,2);
 o  = NaN(ntrial,ncond);
 r  = NaN(ntrial,ncond);
 pe  = NaN(ntrial,ncond);
-at  = NaN(ntrial+1,ncond);
+at  = NaN(ntrial+1,ncond); % intercept
 
 %funct
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));

@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function [negLL, EV, PA, a_t, pc, PE] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
+function [negLL, EV, PA, a_t, all_pc, all_PE] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
 % comp params
 
 switch nmodel
@@ -39,7 +39,10 @@ lik = NaN(ntrial,ncond);
 %funct
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
-
+% to keep everything in one array for the output
+all_pc      = NaN(ncond*ntrial, (numel(offers))); 
+all_PE      = NaN(ncond*ntrial, 1); 
+pc_counter  = 1;
 
 for kcond = 1:ncond
     % pre-allocate
@@ -82,22 +85,22 @@ for kcond = 1:ncond
         switch nmodel
             
             case 1
-                PE(ktrial)       = r(ktrial) - EPc(ktrial);
+                PE(ktrial)       = r(ktrial, kcond) - EPc(ktrial);
                 a_t(ktrial+1)   = a_t(ktrial) + 10.*lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 2
-                PE(ktrial)       = r(ktrial) - EPc(ktrial);
+                PE(ktrial)       = r(ktrial,kcond) - EPc(ktrial);
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr1.*PE(ktrial);
                 else
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 end
             case 3
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).* reward;
+                PE(ktrial)       = (r(ktrial, kcond) - EPc(ktrial)).* reward;
                 a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 4
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*reward;
+                PE(ktrial)       = (r(ktrial, kcond) - EPc(ktrial)).*reward;
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
                 else
@@ -105,6 +108,10 @@ for kcond = 1:ncond
                 end
         end
     end
+    all_pc(pc_counter:pc_counter+ntrial-1, :) = pc; % to store everything in a single array
+    all_PE(pc_counter:pc_counter+ntrial-1, :) = PE; % to store everything in a single array
+    
+    pc_counter = pc_counter + ntrial;
 end
 
 negLL = - sum(log(lik(:)));

@@ -21,8 +21,6 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
 
 
-
-
 for kcond = 1:ncond
     % pre-allocate
     PA      = NaN(ntrial,numel(offers)); % estimated probability of accepting all offers

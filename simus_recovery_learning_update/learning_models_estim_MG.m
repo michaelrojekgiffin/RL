@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function negLL = learning_models_estim_MG(params,o,r,a0,b0,nmodel)
+function [negLL, PE] = learning_models_estim_MG(params,o,r,a0,b0,nmodel)
 switch nmodel
     case 1
         beta1 = params(1); % choice temperature

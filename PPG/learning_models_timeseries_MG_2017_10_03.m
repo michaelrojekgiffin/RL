@@ -2,7 +2,7 @@
 % this model was adapted in order to use in the model_vs_subject script, so
 % that I can use the actual opponent distribution instead of simulating it.
 
-function [o,r,pe,at,pc, R_o, PA, EV] = learning_models_timeseries_MG_2017_10_03(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey, opponent_o)
+function [o_all,r_all,pe_all,at_all,pc_all, R_o_all, PA_all, EV_all] = learning_models_timeseries_MG_2017_10_03(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey, opponent_o)
 % comp params
 beta1 = paramsP(1); % choice temperature
 lr1   = paramsP(2); % supraliminal learning rate
@@ -17,7 +17,7 @@ endow   = 10*ones(1,numel(offers));
 
 % this is a vestige from Mael's more generalizeable script, I'm only going
 % to use this for one condition, so here we are
-ncond  = 1; %size(paramsR,2);
+ncond  = size(opponent_o, 2); %size(paramsR,2);
 
 o  = NaN(ntrial,ncond);
 r  = NaN(ntrial,ncond);
@@ -28,6 +28,16 @@ R_o = NaN(ntrial,ncond);               % the actual offers of the rival, given t
 %funct
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
+% to save everything in one array
+o_all       = NaN(ntrial*ncond,1);
+r_all       = NaN(ntrial*ncond,1);
+pe_all      = NaN(ntrial*ncond,1);
+at_all      = NaN((ntrial*ncond)+1,1);
+pc_all      = NaN(ntrial*ncond, (numel(offers))); % expected offer, probability of offer being made
+R_o_all     = NaN(ntrial*ncond,1);               % the actual offers of the rival, given the model
+PA_all      = NaN(ntrial*ncond,numel(offers)); % estimated probability of accepting all offers
+EV_all      = NaN(ntrial*ncond,numel(offers)); % estimated expected value of all offers% V       = NaN(ntrial); % estimated expected value of all offers
+pc_counter  = 1;
 
 for kcond = 1:ncond
     % pre-allocate
@@ -51,7 +61,10 @@ for kcond = 1:ncond
         
         PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
         
-        R_PA(ktrial,:)  = logitp([Ra(kcond),Rb(kcond)],offers);    % Do the same for the rival (opponent) 
+        %         R_PA(ktrial,:)  = logitp([Ra(kcond),Rb(kcond)],offers);    % Do the same for the rival (opponent)
+        % the above is commented out because in this case all the different
+        % conditions will be learning the same distribution
+        R_PA(ktrial,:)  = logitp([Ra,Rb],offers);    % Do the same for the rival (opponent)
         % EV is different for predator and prey
         switch predprey
             case 'prey'
@@ -68,10 +81,13 @@ for kcond = 1:ncond
         
         o(ktrial,kcond)     = offers(kO);                                                  % resample Offer in pdf (="soft-max")
         
-        Pd                  = logitp([Ra(kcond),Rb(kcond)],o(ktrial,kcond));               % Reciever Estimated accepantce proba of accepting the offer
+%         Pd                  = logitp([Ra(kcond),Rb(kcond)],o(ktrial,kcond));               % Reciever Estimated accepantce proba of accepting the offer
+        Pd                  = logitp([Ra,Rb],o(ktrial,kcond));               % Reciever Estimated accepantce proba of accepting the offer
+       
         
+%         R_pc                = exp(Rb(kcond).*R_EV(ktrial,:)) ./ sum(exp(Rb(kcond).*R_EV(ktrial,:)));   % multinomial choice function of rival
+        R_pc                = exp(Rb.*R_EV(ktrial,:)) ./ sum(exp(Rb.*R_EV(ktrial,:)));   % multinomial choice function of rival
         
-        R_pc                = exp(Rb(kcond).*R_EV(ktrial,:)) ./ sum(exp(Rb(kcond).*R_EV(ktrial,:)));   % multinomial choice function of rival
         R_pd                = makedist('multinomial','probabilities',R_pc);                            % estimate the pdf from the R_pC
         R_kO                = random(R_pd);                                                            % selected offer, in the 1:numel(offer) spavce
         R_o(ktrial,kcond)   = offers(R_kO);    
@@ -133,6 +149,24 @@ for kcond = 1:ncond
     
     pe(:,kcond) = PE;
     at(:,kcond) = a_t; % estimate of opponent's choice function slope on each trial
+    
+    % storing everything in a single array
+    o_all(pc_counter:pc_counter+ntrial-1, :)    = o(:, kcond);
+    r_all(pc_counter:pc_counter+ntrial-1, :)    = r(:, kcond);
+    pe_all(pc_counter:pc_counter+ntrial-1, :)   = pe(:, kcond);
+    
+    pc_all(pc_counter:pc_counter+ntrial-1, :)   = pc; 
+    R_o_all(pc_counter:pc_counter+ntrial-1, :)  = R_o(:, kcond);
+    PA_all(pc_counter:pc_counter+ntrial-1, :)   = PA;
+    EV_all(pc_counter:pc_counter+ntrial-1, :)   = EV;
+    
+    if pc_counter == 1
+        at_all(pc_counter:pc_counter+ntrial, :)         = at(:, kcond); % has an extra row due to the prior
+    else
+        at_all(pc_counter+1:pc_counter+ntrial, :)     = at(2:end, kcond); % has an extra row due to the prior
+    end
+    
+    pc_counter = pc_counter + ntrial;
 end
 
 

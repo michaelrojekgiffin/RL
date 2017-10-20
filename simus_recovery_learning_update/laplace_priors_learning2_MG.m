@@ -1,5 +1,5 @@
 % This function provide the computational model with paramters priors
-function [post]=laplace_priors_learning2_MG(params,o,r,a0,b0,nmodel, lr_upper_bound)
+function [post, PE]=laplace_priors_learning2_MG(params,o,r,a0,b0,nmodel, lr_upper_bound)
 switch nmodel
     case 1
         beta1 = params(1); % choice temperature
@@ -61,7 +61,7 @@ end
 
 p = -sum(p);
 
-l = learning_models_estim_MG(params,o,r,a0,b0,nmodel);
+[l PE]= learning_models_estim_MG(params,o,r,a0,b0,nmodel);
 
 post = p + l;
 

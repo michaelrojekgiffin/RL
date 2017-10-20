@@ -17,7 +17,7 @@ rng('shuffle')
 % parameters of the task
 %--------------------------
 predprey_array  =  {'predator', 'prey'};
-n_sims          = 3;                           % nsubs to simulates
+n_sims          = 20;                           % nsubs to simulates
 n_trial         = 60;                           % ntrial per cond per session
 n_sess          = 1;                            % nsession
 offers          = 0:1:10;
