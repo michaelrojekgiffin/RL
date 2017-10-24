@@ -110,6 +110,14 @@ prey_PE             = NaN(nsub, 60, length(nmodel_array));             % predict
 pred_EV             = NaN(nsub, 60, length(nmodel_array));             % EV
 prey_EV             = NaN(nsub, 60, length(nmodel_array));             
 
+risk_sub              = NaN(nsub, 60, length(nmodel_array));             % risk prediction for each subject and each model
+risk_sub_pe           = NaN(nsub, 60, length(nmodel_array));             % risk prediction error for each subject on each trial for each model
+
+pred_risk             = NaN(nsub, 60, length(nmodel_array));            
+pred_risk_pe          = NaN(nsub, 60, length(nmodel_array)); 
+
+prey_risk             = NaN(nsub, 60, length(nmodel_array));            
+prey_risk_pe          = NaN(nsub, 60, length(nmodel_array)); 
 for k_sub    = 1:nsub
     
     flnm     = fullfile(data_dir,fl_dir(k_sub).name);
@@ -206,12 +214,15 @@ for k_sub    = 1:nsub
         % estimated above
         %     [~, all_EV, all_PA, all_V] = ModelEstimation_2params_2017_09_11(parameters(k_sub,:), priors.parameters(1:2),sub_o,sub_r,1,predprey);
         
-        [~, all_EV, all_PA, all_V, all_pc, all_PE]  = laplace_priors_learning2_MG_2017_09_21(parametersLPP(k_sub,1:numfreeparams),sub_o,sub_r,priors.parameters(1),priors.parameters(2), nmodel, lr_upper_bound, predprey, opponent_o);
+        [~, all_EV, all_PA, all_V, all_pc, all_PE, all_risk, all_risk_pe]  = laplace_priors_learning2_MG_2017_09_21(parametersLPP(k_sub,1:numfreeparams),sub_o,sub_r,priors.parameters(1),priors.parameters(2), nmodel, lr_upper_bound, predprey, opponent_o);
         V_sub(k_sub, k_model)               = all_V(end);     % posterior intercept
         PA_sub(k_sub, :, k_model)           = all_PA(end, :); % posterior prob of success
         EV_sub_posterior(k_sub, :, k_model) = all_EV(end, :); % posterior EV of all offers
         pc_sub(k_sub, :, :, k_model)        = all_pc;         % expected offer, i.e. probability of each offer being selected on each trial
         PE_sub(k_sub, :, k_model)           = all_PE;         % prediction error
+        
+        risk_sub(k_sub, :, k_model)         = all_risk;       % expected risk
+        risk_sub_pe(k_sub, :, k_model)      = all_risk_pe;    % risk prediction error
         for ee = 1:length(all_EV)
             EV_sub(k_sub, ee, k_model) = all_EV(ee, sub_o(ee)+1); % EV of each offer selected by subject
         end
@@ -351,6 +362,9 @@ for k_sub    = 1:nsub
                 pred_PE(k_pred, :, k_model)              = PE_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
                 pred_EV(k_pred, :, k_model)              = EV_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
                 
+                pred_risk(k_pred, :, k_model)           = risk_sub(k_sub, :, k_model);   % risk prediction 
+                pred_risk_pe(k_pred, :, k_model)        = risk_sub_pe(k_sub, :, k_model);   % risk prediction 
+                
                 pred_LPP(k_pred, k_model)               = LPP(k_sub, k_model);
                 [~, pred_BIC(k_pred, k_model)]          = aicbic(-LPP(k_sub, k_model), numfreeparams, ntrial);
                 
@@ -362,6 +376,11 @@ for k_sub    = 1:nsub
                 
                 prey_PE(k_prey, :, k_model)              = PE_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
                 prey_EV(k_prey, :, k_model)              = EV_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
+                
+                
+                pred_risk(k_prey, :, k_model)           = risk_sub(k_sub, :, k_model);   % risk prediction 
+                pred_risk_pe(k_prey, :, k_model)        = risk_sub_pe(k_sub, :, k_model);   % risk prediction error
+                
                 
                 prey_LPP(k_prey, k_model)               = LPP(k_sub, k_model);
                 [~, prey_BIC(k_prey, k_model)]          = aicbic(-LPP(k_sub, k_model), numfreeparams, ntrial);
@@ -681,7 +700,7 @@ for ii = 1:length(fitted_cell)+1 % +1 for header
 end
 
 %% Get all latent variables in table format
-fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE'};
+fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE', 'risk', 'risk_pe'};
 fitted_length = nsub*ntrial*nmodel*length(nmodel_array);
 fitted_cell = cell(fitted_length, length(fitted_header)); % each subject has one row for each model
 
@@ -739,6 +758,8 @@ for ii = 1:nsub
                     fitted_cell{sub_tc, 3}                  = k_model;
                     fitted_cell{sub_tc, 4}                  = pred_EV(k_pred, kk, k_model);
                     fitted_cell{sub_tc, 5}                  = pred_PE(k_pred, kk, k_model);
+                    fitted_cell{sub_tc, 6}                  = pred_risk(k_pred, kk, k_model);
+                    fitted_cell{sub_tc, 7}                  = pred_risk_pe(k_pred, kk, k_model);
                 end
             end
         case 'prey'
@@ -754,26 +775,19 @@ for ii = 1:nsub
                     fitted_cell{sub_tc, 3}                  = k_model;
                     fitted_cell{sub_tc, 4}                  = prey_EV(k_prey, kk, k_model);
                     fitted_cell{sub_tc, 5}                  = prey_PE(k_prey, kk, k_model);
+                    fitted_cell{sub_tc, 6}                  = prey_risk(k_prey, kk, k_model);
+                    fitted_cell{sub_tc, 7}                  = prey_risk_pe(k_prey, kk, k_model);
                 end
             end
     end
 end
 
 % 
-fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_latent_params.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
-% 
 fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
 for ii = 1:length(fitted_cell)+1 % +1 for header
     if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
     else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\n', fitted_cell{ii-1, :});
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
     end
 end

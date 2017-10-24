@@ -1,0 +1,4 @@
+cd ~/Dropbox/RL/
+git add .
+git commit -m "message here"
+git push origin

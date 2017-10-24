@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function [negLL, EV, PA, a_t, pc, PE] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
+function [negLL, EV, PA, a_t, all_pc, all_PE, risk, risk_pe] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
 % comp params
 
 switch nmodel
@@ -39,9 +39,14 @@ lik = NaN(ntrial,ncond);
 %funct
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
+% to keep everything in one array for the output
+all_pc      = NaN(ncond*ntrial, (numel(offers))); 
+all_PE      = NaN(ncond*ntrial, 1); 
+pc_counter  = 1;
 
-all_pc = NaN(ncond*ntrial, (numel(offers))); 
-pc_counter = 1;
+risk        = NaN(ncond*ntrial, 1); 
+risk_pe     = NaN(ncond*ntrial, 1); 
+risk_count  = 0;
 
 for kcond = 1:ncond
     % pre-allocate
@@ -55,27 +60,61 @@ for kcond = 1:ncond
     %initiate
     a_t(1)     = a0;                    % initial value of teh logit intercept
     for ktrial = 1:ntrial
-        
+        risk_count = risk_count + 1;
         PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
-         % EV is different for predator and prey
+        % importantly, PA represents the probability that the opponent
+        % chooses a lower investment than the subject. In order to
+        % calculate risk, I need a probability value for each investment.
+        rPA     = PA(ktrial, :);
+        for rrr = 1:length(rPA)
+            rPA(rrr)     = rPA(rrr) - sum(rPA(1:rrr-1));
+        end
+        
+        
+        % EV is different for predator and prey
         switch predprey
             case 'prey'
-                EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
-                reward              = (10-o(ktrial,kcond));                           % for models 3 and 4
+                EV(ktrial,:)        = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
+                reward              = (10-o(ktrial,kcond));                                  % for models 3 and 4
+                % this is based on the formula Frans gave me, it sums over
+                % the squares of all the possible prediction errors for the
+                % subject's decision
+                risk(risk_count)    = sum (rPA .* (((10 - offers) - EV(ktrial,:)).^2));
+                risk_pe(risk_count) = ((10 - o(ktrial,kcond) - EV(ktrial, o(ktrial, kcond)+1)) ^2) - risk(risk_count) ;
             case 'predator'
-                EV(ktrial,:)     = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
-                reward           = 10 - R_o(ktrial, kcond);
-                % I think the following if statement  part should not be
-                % used because I think that since the predator's left over
-                % endowment is assured, it does not need to be included in
-                % the calculation of prediction since it's not possible for
-                % there to be any prediction error on this sum
-%                 if r(ktrial) > 0
-%                     reward          = (10-o(ktrial,kcond)) + (10 - R_o(ktrial, kcond));      % for use in models 3 and 4
-%                 else
-%                     reward          = (10-o(ktrial,kcond));
-%                 end
+               
+                % for predators, this is a bit tricky, because we haven't
+                % actually modeled predators gaining  the opponents
+                % investment subtracts from the opponents endowment
+                % multiplied by the probability that the opponent will
+                % choose that option, plus the predator's own investment
+                % subtracted from their endowment.
+                % What I can do here, is with PA, if PA(1, 2) = 0.1, this
+                % means that an offer of 1 will be accepted with a
+                % probability of .1, which for predators means that prey
+                % will invest 0 will a probability of .1. I can use this
+                % principle to calculate the probability that prey will
+                % select these options.
+                tempEV = EV(ktrial,:);
+                for tc = 1:length(tempEV)
+                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + sum((endow(tc) - offers(1:tc)) .* PA(ktrial1:tc));
+                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + ((endow(tc) - offers(tc)) .* rPA(tc));
+                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + (endow(tc) - offers(tc));
+                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+                    tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+                    
+                end
+                
+                EV(ktrial,:)        = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
+                
+                
+                reward              = 10 - R_o(ktrial, kcond);
+                
+                risk(risk_count)    = sum (rPA .* ((  ((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, :)).^2));
+                
+                risk_pe(risk_count) = (((10 - R_o(ktrial, kcond) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)) ^2) - risk(risk_count) ;
         end
+        
         
         pc(ktrial, :)       = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
         lik(ktrial,kcond)   = pc(ktrial, o(ktrial,kcond)+1);
@@ -84,22 +123,22 @@ for kcond = 1:ncond
         switch nmodel
             
             case 1
-                PE(ktrial)       = r(ktrial) - EPc(ktrial);
+                PE(ktrial)       = r(ktrial, kcond) - EPc(ktrial);
                 a_t(ktrial+1)   = a_t(ktrial) + 10.*lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 2
-                PE(ktrial)       = r(ktrial) - EPc(ktrial);
+                PE(ktrial)       = r(ktrial,kcond) - EPc(ktrial);
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr1.*PE(ktrial);
                 else
                     a_t(ktrial+1)  = a_t(ktrial) + 10.*lr2.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 end
             case 3
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).* reward;
+                PE(ktrial)       = (r(ktrial, kcond) - EPc(ktrial)).* reward;
                 a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);                   % WARNING (if gain, you decrease the thereshold, if loss you increase it... hence the negative sign)
                 
             case 4
-                PE(ktrial)       = (r(ktrial) - EPc(ktrial)).*reward;
+                PE(ktrial)       = (r(ktrial, kcond) - EPc(ktrial)).*reward;
                 if PE(ktrial)>0
                     a_t(ktrial+1)  = a_t(ktrial) + lr1.*PE(ktrial);
                 else
@@ -107,7 +146,9 @@ for kcond = 1:ncond
                 end
         end
     end
-    all_pc(pc_counter:pc_counter+ntrial, :) = pc;
+    all_pc(pc_counter:pc_counter+ntrial-1, :) = pc; % to store everything in a single array
+    all_PE(pc_counter:pc_counter+ntrial-1, :) = PE; % to store everything in a single array
+    
     pc_counter = pc_counter + ntrial;
 end
 

@@ -9,7 +9,7 @@ rng('shuffle')
 % parameters of the task
 %--------------------------
 n_sims      = 40;                           % nsubs to simulates
-n_trial     = 12;                           % ntrial per cond per session
+n_trial     = 24;                           % ntrial per cond per session
 n_sess      = 2;                            % nsession
 offers      = 0:1:10;
 suboffers   = 0:.1:10;
