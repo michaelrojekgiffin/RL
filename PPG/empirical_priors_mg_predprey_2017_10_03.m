@@ -8,7 +8,9 @@ clear
 close all
 
 cur_dir     = pwd;
-data_dir    = fullfile(cur_dir,'data_matlab');
+% data_dir    = fullfile(cur_dir,'data_matlab');
+data_dir    = fullfile(cur_dir,'data_priors');
+
 fl_dir      = dir(strcat(data_dir,filesep,'DATA_sub*'));
 nsub        = length(fl_dir);
 % sub_o       = NaN(nsub, 1)./2; % preallocation needs to account for it
@@ -132,7 +134,17 @@ endow   = 10*ones(1,numel(offers));
 logitp  = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
 PA      = logitp([parameters(1),parameters(2)],offers);            % compute proba of accepting the offers given current model
-EV      = (endow - offers) + ((endow - offers).* PA);              % compute EV of the offers given current model
+rPA     = PA;
+for rrr = 1:length(rPA)
+    rPA(rrr)     = rPA(rrr) - sum(rPA(1:rrr-1));
+end
+% EV      = (endow - offers) + ((endow - offers).* PA);              % compute EV of the offers given current model
+EV = NaN(1, length(offers)); % the propper EV for predators
+for tc = 1:length(offers)
+    EV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+end
+EV(1) = 10; % predator always earns exactly 10 on an investment of 0
+
 pc = exp(parameters(3).*EV) ./ sum(exp(parameters(3).*EV));
 
 

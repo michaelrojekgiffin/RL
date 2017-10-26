@@ -1,9 +1,9 @@
 % this script fits the model to subject data, and then runs a simulation
 % for each subject using the parameters estimated from their data in order
 % to compare
-clear
-close all
-clc
+% clear
+% close all
+% clc
 
 cd ~/Dropbox/RL/PPG/
 %=========================================================================
@@ -14,8 +14,8 @@ cd ~/Dropbox/RL/PPG/
 % nsub          = 166;   % hor dataset - number of plots to make, maximum is 166 for hor dataset (from data_matlab) (i.e. length(fl_dir) )
 % nsub          = 48;   % old_hor dataset - number of plots to make, maximum is 48 (i.e. length(fl_dir) )
 % nsub          = 50;   % ital dataset - number of plots to make, maximum is 50 (i.e. length(fl_dir) )
-nsub          = 54;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
-plot_ind      = false;
+nsub          = 5;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
+plot_ind      = true;
 nsim          = 15;
 plot_all_data = false;
 %-------------------------------------------------------------------------
@@ -128,13 +128,13 @@ for k_sub    = 1:nsub
             k_pred   = k_pred+1;
             predprey = 'predator';
             opponent = 'prey';
-            priors   = load('data_matlab/predator_priors.mat');
+            priors   = load('data_priors/predator_priors.mat');
             opponent_o_col  = 9; % changes depending on the role
         case 'prey'
             k_prey   = k_prey+1;
             predprey = 'prey';
             opponent = 'predator';
-            priors   = load('data_matlab/prey_priors.mat');
+            priors   = load('data_priors/prey_priors.mat');
             opponent_o_col  = 8; % changes depending on the role
     end
     %
@@ -201,12 +201,12 @@ for k_sub    = 1:nsub
 % %         ,r,a0,b0,nmodel, predprey, R_o
         
         
-        [~,posLPP]                           =   min(LPP_rep);
-        parametersLPP(k_sub,1:numfreeparams) =   parametersLPP_rep(posLPP(1),:);
+        [~,posLPP]                            =   min(LPP_rep);
+        parametersLPP(k_sub,1:numfreeparams)  =   parametersLPP_rep(posLPP(1),:);
         
         LPP(k_sub, k_model)                   =   LPP_rep(posLPP(1),:);
         
-        [~, BIC(k_sub, k_model)]              = aicbic(-LPP(k_sub, k_model), numfreeparams, ntrial);
+        [~, BIC(k_sub, k_model)]              =   aicbic(-LPP(k_sub, k_model), numfreeparams, ntrial);
         
         
         % record subject's expected values (sub_EV), estimates of probability
@@ -546,20 +546,20 @@ prey_BIC(~any(~isnan(prey_BIC), 2), :) = [];
 % save([pwd '/data_ital/prey_LPP.mat'], 'prey_LPP');
 
 % for OT
-save([pwd '/data_OT/pred_ameters.mat'], 'pred_ameters');
-save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
-save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
-save([pwd '/data_OT/pred_BIC.mat'], 'pred_BIC');
-save([pwd '/data_OT/prey_BIC.mat'], 'prey_BIC');
-save([pwd '/data_OT/pred_LPP.mat'], 'pred_LPP');
-save([pwd '/data_OT/prey_LPP.mat'], 'prey_LPP');
-
-save([pwd '/data_OT/PE_sub.mat'], 'PE_sub');
-save([pwd '/data_OT/EV_sub.mat'], 'EV_sub');
-save([pwd '/data_OT/prey_EV.mat'], 'prey_EV');
-save([pwd '/data_OT/prey_PE.mat'], 'prey_PE');
-save([pwd '/data_OT/pred_PE.mat'], 'pred_PE');
-save([pwd '/data_OT/pred_EV.mat'], 'pred_EV');
+% save([pwd '/data_OT/pred_ameters.mat'], 'pred_ameters');
+% save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
+% save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
+% save([pwd '/data_OT/pred_BIC.mat'], 'pred_BIC');
+% save([pwd '/data_OT/prey_BIC.mat'], 'prey_BIC');
+% save([pwd '/data_OT/pred_LPP.mat'], 'pred_LPP');
+% save([pwd '/data_OT/prey_LPP.mat'], 'prey_LPP');
+% 
+% save([pwd '/data_OT/PE_sub.mat'], 'PE_sub');
+% save([pwd '/data_OT/EV_sub.mat'], 'EV_sub');
+% save([pwd '/data_OT/prey_EV.mat'], 'prey_EV');
+% save([pwd '/data_OT/prey_PE.mat'], 'prey_PE');
+% save([pwd '/data_OT/pred_PE.mat'], 'pred_PE');
+% save([pwd '/data_OT/pred_EV.mat'], 'pred_EV');
 
 for ii = 1:size(BIC, 2)
     fprintf('predator model %d has mean BIC of %f\n', ii, mean(pred_BIC(:, ii)));
@@ -681,23 +681,23 @@ end
 %
 % %
 % %
-fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_fitted.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
-
-fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_fitted.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
+% 
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
 
 %% Get all latent variables in table format
 fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE', 'risk', 'risk_pe'};
@@ -782,12 +782,12 @@ for ii = 1:nsub
     end
 end
 
-% 
-fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
+% % 
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end

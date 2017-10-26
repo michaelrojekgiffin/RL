@@ -1,6 +1,6 @@
 % This function generates the likelihood of each model/paramters
 
-function [negLL, EV, PA, a_t, all_pc, all_PE, risk, risk_pe] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
+function [negLL, all_EV, all_PA, a_t, all_pc, all_PE, risk, risk_pe] = learning_models_estim_MG_2017_09_21(params,o,r,a0,b0,nmodel, predprey, R_o)
 % comp params
 
 switch nmodel
@@ -41,7 +41,9 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
 % to keep everything in one array for the output
 all_pc      = NaN(ncond*ntrial, (numel(offers))); 
-all_PE      = NaN(ncond*ntrial, 1); 
+all_PE      = NaN(ncond*ntrial, 1);
+all_EV      = NaN(ncond*ntrial, (numel(offers)));
+all_PA      = NaN(ncond*ntrial, (numel(offers)));
 pc_counter  = 1;
 
 risk        = NaN(ncond*ntrial, 1); 
@@ -82,28 +84,11 @@ for kcond = 1:ncond
                 risk(risk_count)    = sum (rPA .* (((10 - offers) - EV(ktrial,:)).^2));
                 risk_pe(risk_count) = ((10 - o(ktrial,kcond) - EV(ktrial, o(ktrial, kcond)+1)) ^2) - risk(risk_count) ;
             case 'predator'
-               
-                % for predators, this is a bit tricky, because we haven't
-                % actually modeled predators gaining  the opponents
-                % investment subtracts from the opponents endowment
-                % multiplied by the probability that the opponent will
-                % choose that option, plus the predator's own investment
-                % subtracted from their endowment.
-                % What I can do here, is with PA, if PA(1, 2) = 0.1, this
-                % means that an offer of 1 will be accepted with a
-                % probability of .1, which for predators means that prey
-                % will invest 0 will a probability of .1. I can use this
-                % principle to calculate the probability that prey will
-                % select these options.
                 tempEV = EV(ktrial,:);
                 for tc = 1:length(tempEV)
-                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + sum((endow(tc) - offers(1:tc)) .* PA(ktrial1:tc));
-                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + ((endow(tc) - offers(tc)) .* rPA(tc));
-                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + (endow(tc) - offers(tc));
-                    %                     tempEV(tc) = ((endow(tc) - offers(tc)).* PA(ktrial, tc)) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
                     tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
-                    
                 end
+                tempEV(1) = 10; % EV for an investment of 0 should always be 10
                 
 %                 EV(ktrial,:)        = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
                 EV(ktrial, :)       = tempEV;
@@ -148,6 +133,8 @@ for kcond = 1:ncond
     end
     all_pc(pc_counter:pc_counter+ntrial-1, :) = pc; % to store everything in a single array
     all_PE(pc_counter:pc_counter+ntrial-1, :) = PE; % to store everything in a single array
+    all_EV(pc_counter:pc_counter+ntrial-1, :) = EV; % to store everything in a single array
+    all_PA(pc_counter:pc_counter+ntrial-1, :) = PA; % to store everything in a single array
     
     pc_counter = pc_counter + ntrial;
 end

@@ -1,23 +1,18 @@
 % This function generates the likelihood of each model/paramters
-% this model was adapted in order to use in the model_vs_subject script, so
-% that I can use the actual opponent distribution instead of simulating it.
 
-function [o_all,r_all,pe_all,at_all,pc_all, R_o_all, PA_all, EV_all] = learning_models_timeseries_MG_2017_10_03(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey, opponent_o)
+function [o,r,pe,at,pd, R_o] = learning_models_timeseries_MG(paramsP,paramsR,ntrial,a0,b0,nmodel, predprey)
 % comp params
 beta1 = paramsP(1); % choice temperature
 lr1   = paramsP(2); % supraliminal learning rate
 lr2   = paramsP(3); % supraliminal learning rate
 
-Ra = paramsR(1);
-Rb = paramsR(2);
+Ra = paramsR(1,:);
+Rb = paramsR(2,:);
 
 % task param
 offers  = 0:1:10;
 endow   = 10*ones(1,numel(offers));
-
-% this is a vestige from Mael's more generalizeable script, I'm only going
-% to use this for one condition, so here we are
-ncond  = size; %size(paramsR,2);
+ncond  = size(paramsR,2);
 
 o  = NaN(ntrial,ncond);
 r  = NaN(ntrial,ncond);
@@ -28,16 +23,6 @@ R_o = NaN(ntrial,ncond);               % the actual offers of the rival, given t
 %funct
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
-% to save everything in one array
-o_all       = NaN(ntrial*ncond,ncond);
-r_all       = NaN(ntrial*ncond,ncond);
-pe_all      = NaN(ntrial*ncond,ncond);
-at_all      = NaN((ntrial+1)*ncond,ncond);
-pc_all      = NaN(ntrial*ncond, (numel(offers))); % expected offer, probability of offer being made
-R_o_all     = NaN(ntrial*ncond,ncond);               % the actual offers of the rival, given the model
-PA_all      = NaN(ntrial*ncond,numel(offers)); % estimated probability of accepting all offers
-EV_all      = NaN(ntrial*ncond,numel(offers)); % estimated expected value of all offers% V       = NaN(ntrial); % estimated expected value of all offers
-pc_counter  = 1;
 
 for kcond = 1:ncond
     % pre-allocate
@@ -46,34 +31,59 @@ for kcond = 1:ncond
     EPc     = NaN(ntrial,1);             % estimated probability of accepting the offer
     PE      = NaN(ntrial,1);             % Choice prediction error
     a_t     = NaN(ntrial+1,1);           % logit intercept, updated at each trial
-    EVo     = NaN(ntrial, 1);            % EV of the selected offer
     
     % pre-allocate for rival, this is to calculate reward prediction errors
     %in predators
     R_PA    = NaN(ntrial,numel(offers)); % estimated probability of accepting all offers
     R_EV    = NaN(ntrial,numel(offers)); % expected value
     
-    pc      = NaN(ntrial, (numel(offers))); % expected offer, probability of offer being made
-    
     %initiate
     a_t(1)     = a0;                    % initial value of teh logit intercept
     for ktrial = 1:ntrial
         
-        PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
+         PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
         
-        R_PA(ktrial,:)  = logitp([Ra(kcond),Rb(kcond)],offers);    % Do the same for the rival (opponent) 
+        %         R_PA(ktrial,:)  = logitp([Ra(kcond),Rb(kcond)],offers);    % Do the same for the rival (opponent)
+        % the above is commented out because in this case all the different
+        % conditions will be learning the same distribution
+        R_PA(ktrial,:)  = logitp([Ra,Rb],offers);    % Do the same for the rival (opponent)
+        
+        % importantly, PA represents the probability that the opponent
+        % chooses a lower investment than the subject. In order to
+        % calculate EV for predator, I need a probability value for each investment.
+        rPA     = PA(ktrial, :);
+        for rrr = 1:length(rPA)
+            rPA(rrr)     = rPA(rrr) - sum(rPA(1:rrr-1));
+        end
         % EV is different for predator and prey
         switch predprey
             case 'prey'
                 EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
-                R_EV(ktrial,:)   = (endow - offers) +((endow - offers).*R_PA(ktrial,:));  % compute rivals EV
+                %                 R_EV(ktrial,:)   = (endow - offers) +((endow - offers).*R_PA(ktrial,:));  % compute rivals EV
+                
+                tempEV = R_EV(ktrial,:); % predator EV is calculated a bit different
+                for tc = 1:length(tempEV)
+                    tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
+                end
+                R_EV(ktrial,:)   = tempEV;
+                
             case 'predator'
-                EV(ktrial,:)     = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
+%                 EV(ktrial,:)     = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
                 R_EV(ktrial,:)   = (endow - offers).*R_PA(ktrial,:);                     % compute rivals EV
+                
+                tempEV = EV(ktrial,:);
+                for tc = 1:length(tempEV)
+                    tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
+                end
+                tempEV(1) = 10;
+                
+%                 EV(ktrial,:)        = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
+                EV(ktrial, :)       = tempEV;
+               
         end
         
-        pc(ktrial, :)        = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
-        pd                  = makedist('multinomial','probabilities',pc(ktrial, :));                  % estimate the pdf from the pC
+        pc                  = exp(beta1.*EV(ktrial,:)) ./ sum(exp(beta1.*EV(ktrial,:)));   % multinomial choice function
+        pd                  = makedist('multinomial','probabilities',pc);                  % estimate the pdf from the pC
         kO                  = random(pd);                                                  % selected offer, in the 1:numel(offer) spavce
         
         o(ktrial,kcond)     = offers(kO);                                                  % resample Offer in pdf (="soft-max")
@@ -92,8 +102,7 @@ for kcond = 1:ncond
         switch predprey 
             case 'predator'
                 r(ktrial,kcond)     = double(rand(1)<Pd);                             % Sampling Reciever's decision given the proba.
-                reward           = 10 - opponent_o(ktrial, kcond);
-%                 reward           = 10 - R_o(ktrial, kcond);
+                reward           = 10 - R_o(ktrial, kcond);
                 % I think the following if statement  part should not be
                 % used because I think that since the predator's left over
                 % endowment is assured, it does not need to be included in
@@ -143,20 +152,6 @@ for kcond = 1:ncond
     
     pe(:,kcond) = PE;
     at(:,kcond) = a_t; % estimate of opponent's choice function slope on each trial
-    
-    % storing everything in a single array
-    o_all(pc_counter:pc_counter+ntrial-1, :)    = o;
-    r_all(pc_counter:pc_counter+ntrial-1, :)    = r;
-    pe_all(pc_counter:pc_counter+ntrial-1, :)   = pe;
-    
-    at_all(pc_counter:pc_counter+ntrial, :)     = at; % has an extra row due to the prior
-    
-    pc_all(pc_counter:pc_counter+ntrial-1, :)   = pc; 
-    R_o_all(pc_counter:pc_counter+ntrial-1, :)  = R_o;
-    PA_all(pc_counter:pc_counter+ntrial-1, :)   = PA;
-    EV_all(pc_counter:pc_counter+ntrial-1, :)   = EV;
-
-    pc_counter = pc_counter + ntrial;
 end
 
 

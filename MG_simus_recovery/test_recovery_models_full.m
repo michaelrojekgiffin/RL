@@ -8,8 +8,8 @@ rng('shuffle')
 
 % parameters of the task
 %--------------------------
-n_sims  = 5;                           % nsubs to simulates
-n_trial = 10;                           % ntrial per cond per session
+n_sims  = 40;                           % nsubs to simulates
+n_trial = 12;                           % ntrial per cond per session
 n_sess  = 2;                            % nsession
 offers  = 0:1:10;
 endow   = 10*ones(1,numel(offers));% parameters of the simulation
@@ -95,94 +95,6 @@ for ktm = modelspace  % ktm = k true model
 end
 
 
-for k_true = modelspace
-    
-    MP = [Px_rnd,Plr1_rnd,Plr2_rnd];
-    LL = squeeze(ll(:,k_true,:));
-    
-    for k_est= modelspace
-        bic(:,k_est)=-2*-LL(:,k_est) + nfpm(k_est)*log(nc*n_trial*n_sess); % l2 is already positive
-    end
-    [postBMC,outBMC]=VBA_groupBMC(-bic'./2);
-    % [postBMC,outBMC]=VBA_groupBMC(-LL');
-    BMC_output(k_true).post = postBMC;
-    BMC_output(k_true).out = outBMC;
-    
-end
 
+save('ML_recovery_2017_10_19_2')
 
-% save('test3')
-
-
-
-for k_true = modelspace
-    
-    
-    legB = {'rating temperature','learning rate 1','learning rate 2'};
-    
-    figure;
-    set(gcf,'Color',[1,1,1])
-    for k = 1:3
-        
-        subplot(2,3,k)
-        plot(MP(:,k),squeeze(parameters(:,k,k_true,k_true)),'o',...
-            'MarkerEdgeColor',[0,0,0],...
-            'MarkerFaceColor',[1,1,1])
-        xlabel(strcat(['true ' legB{k}]));
-        ylabel(strcat(['estimated ' legB{k}]));
-        lsline;
-        [corrR(k),corrP(k)] = corr(MP(:,k),squeeze(parameters(:,k,k_true,k_true)));
-        
-        txt1 = sprintf('r = %f\n p = %f', corrR(k),corrP(k));
-        if k == 1
-            title(sprintf('model %d\n %s', k_true, txt1));
-        else
-            title(txt1)
-        end
-        
-        
-        subplot(2,3,3+k)
-        plot(MP(:,k) ,squeeze(parametersLPP(:,k,k_true,k_true)),'o',...
-            'MarkerEdgeColor',[0,0,0],...
-            'MarkerFaceColor',[1,1,1])
-        xlabel(strcat(['true ' legB{k}]));
-        ylabel(strcat(['estimated ' legB{k} ' LPP']));
-        lsline;
-        
-        [corrR_LPP(k),corrP_LPP(k)] = corr(MP(:,k),squeeze(parametersLPP(:,k,k_true,k_true)));
-        
-        txt1 = sprintf('r = %f\n p = %f', corrR_LPP(k),corrP_LPP(k));
-        title(txt1)
-        
-    end
-    
-end
-
-
-
-%%
-for k_true = 1
-    
-    figure;
-    set(gcf,'Color',[1,1,1])
-        
-        subplot(1,2,1)
-        plot(MP(:,2),squeeze(parameters(:,2,k_true,1)),'o',...
-            'MarkerEdgeColor',[0,0,0],...
-            'MarkerFaceColor',[1,1,1])
-        xlabel(strcat(['true ' legB{k}]));
-        ylabel(strcat(['estimated ' legB{k}]));
-        lsline;
-        [corrR(k),corrP(k)] = corr(MP(:,k),squeeze(parameters(:,k,k_true,k_true)));
-        
-        subplot(1,2,2)
-        plot(MP(:,2) ,squeeze(parameters(:,3,k_true,2)),'o',...
-            'MarkerEdgeColor',[0,0,0],...
-            'MarkerFaceColor',[1,1,1])
-        xlabel(strcat(['true ' legB{k}]));
-        ylabel(strcat(['estimated ' legB{k} ' LPP']));
-        lsline;
-        
-        [corrR_LPP(k),corrP_LPP(k)] = corr(MP(:,k),squeeze(parametersLPP(:,k,k_true,k_true)));
-        
-end
