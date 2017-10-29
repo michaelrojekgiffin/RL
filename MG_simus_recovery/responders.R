@@ -1,6 +1,6 @@
 ###### Looks at the responders data #####
 ug <- read.table('~/Dropbox/RL/ultimatum_responders.csv', header=TRUE, sep='')
-write.xlsx(ug, '~/Dropbox/RL/MG_simus_recovery/ultimatum_responders.txt', sep='\t')
+write.table(ug, '~/Dropbox/RL/MG_simus_recovery/ultimatum_responders.txt', sep='\t', row.names=FALSE)
 
 length(unique(ug$subject))
 length(unique(ug$group))

@@ -12,7 +12,7 @@ endow   = 10*ones(1,numel(offers));
 
 %funct
 logitp  = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
-onlog   = @(PA, x) log
+% onlog   = @(PA, x) log
 
 % Compute the p(offers)
 PA      = logitp([beta0,beta1],offers);        % compute proba of accepting the offers given current model
