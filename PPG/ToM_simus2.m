@@ -30,7 +30,13 @@ X = pdf(opp, offers);
 Y = cumsum(X)-X(1);
 
 EVprey     = (endow - offers).* (Y);                       % compute EV of the offers given current model
-EVpred     = (endow - offers) + (endow - offers).* (Y);   % compute EV of the offers given current model
+% EVpred     = (endow - offers) + (endow - offers).* (Y);   % compute EV of the offers given current model
+EVpred = NaN(1, length(offers));
+for tc = 1:length(EVpred)
+    EVpred(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (X(1:tc)));
+end
+EVpred(1) = 10; % EV for an investment of 0 should always be 10
+
 
 PCprey     = EVprey./sum(EVprey);                       % compute EV of the offers given current model
 PCpred     = EVpred./sum(EVpred);   
@@ -82,7 +88,12 @@ YPrey = cumsum(XPrey);
 YPred = cumsum(XPred);
 
 EVprey     = (endow - offers).* (YPred);                       % compute EV of the offers given current model
-EVpred     = (endow - offers) + (endow - offers).* (YPrey);   % compute EV of the offers given current model
+% EVpred     = (endow - offers) + (endow - offers).* (Y);   % compute EV of the offers given current model
+EVpred = NaN(1, length(offers));
+for tc = 1:length(EVpred)
+    EVpred(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (X(1:tc)));
+end
+EVpred(1) = 10; % EV for an investment of 0 should always be 10
 
 PCprey     = EVprey./sum(EVprey);                       % compute EV of the offers given current model
 PCpred     = EVpred./sum(EVpred);     

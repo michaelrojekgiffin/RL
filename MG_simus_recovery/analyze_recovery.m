@@ -79,7 +79,7 @@ for aa = 1:3
             
             txt1 = sprintf('r = %f\n p = %f', corrR(k),corrP(k));
             if k == 1
-                title(sprintf('model %d\n%d conds\n %s', k_true, aa+2, txt1));
+                title(sprintf('model %d\n%d environments\n %s', k_true, aa+2, txt1));
             else
                 title(txt1)
             end
