@@ -20,7 +20,7 @@ PA      = logitp([beta0,beta1],offers);        % compute proba of accepting the 
 EV      = (endow - offers).* PA;               % compute EV of the offers given current model
 
 for k = 1:length(o)
-    pc(k)     = exp(betaX.*EV(tr(k,1)+1) ) ./ sum(exp(betaX.*EV(tr(k,:)+1)));                                % resample Offer in pdf (="soft-max")   
+    pc(k)     = exp(betaX.*EV(tr(k,1)+1) ) ./ sum(exp(betaX.*EV(tr(k,:)+1)));           % resample Offer in pdf (="soft-max")   
 end
 
 ll = o'.*pc + (1-o').*(1-pc);
