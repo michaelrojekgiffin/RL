@@ -9,9 +9,9 @@ nsub   = 40;
 % PARAMS = [10*rand(nsub,1)-10,2*rand(nsub,1),1+3*rand(nsub,1)];
 PARAMS = [10*rand(nsub,1)-10,2*rand(nsub,1),1+3*rand(nsub,1)];
 
-% tr_choice = repmat(nchoosek(0:1:20,2),1,1);
-tr_choice      = [0:1:20; 20:-1:0]';
-tr_choice      = repmat(tr_choice, 12, 1);
+tr_choice = repmat(nchoosek(0:1:20,2),1,1);
+% tr_choice      = [0:1:20; 20:-1:0]';
+% tr_choice      = repmat(tr_choice, 10, 1);
 
 
 % model specs
