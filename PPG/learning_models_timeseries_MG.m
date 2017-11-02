@@ -43,10 +43,10 @@ for kcond = 1:ncond
         
          PA(ktrial,:)     = logitp([a_t(ktrial),b0],offers);            % compute proba of accepting the offers given current model
         
-        %         R_PA(ktrial,:)  = logitp([Ra(kcond),Rb(kcond)],offers);    % Do the same for the rival (opponent)
+         R_PA(ktrial,:)  = logitp([Ra(kcond),Rb(kcond)],offers);    % Do the same for the rival (opponent)
         % the above is commented out because in this case all the different
         % conditions will be learning the same distribution
-        R_PA(ktrial,:)  = logitp([Ra,Rb],offers);    % Do the same for the rival (opponent)
+%         R_PA(ktrial,:)  = logitp([Ra,Rb],offers);    % Do the same for the rival (opponent)
         
         % importantly, PA represents the probability that the opponent
         % chooses a lower investment than the subject. In order to

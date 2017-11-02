@@ -6,9 +6,9 @@
 % that is), and with a risk parameter. This is going to produce lots of
 % models (4 if I exclude models that only have 1 learning rate, which Mael
 % recommends, choice, choice + risk, reward, reward + risk).
-% clear
-% close all
-% clc
+clear
+close all
+clc
 
 % randomize generator seed
 %--------------------------
@@ -17,15 +17,15 @@ rng('shuffle')
 % parameters of the task
 %--------------------------
 predprey_array  =  {'predator', 'prey'};
-n_sims          = 20;                           % nsubs to simulates
-n_trial         = 40;                           % ntrial per cond per session
-n_sess          = 1;                            % nsession
+n_sims          = 27;                           % nsubs to simulates
+n_trial         = 20;                           % ntrial per cond per session
+n_sess          = 3;                            % nsession
 offers          = 0:1:10;
 suboffers       = 0:1:10;
 endow           = 10*ones(1,numel(offers));     % parameters of the simulation
 subendow        = 10*ones(1,numel(suboffers));  % parameters of the simulation
 nmodel_array    = 1:4;                          % all the models to loop through
-lr_upper_bound  = 3;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
 
 % set up conditions and mutliple sessions
 %------------------------------------------
@@ -150,11 +150,11 @@ for predprey_count = 1:length(predprey_array)
                 for k_rep = 1:n_rep
                     x0 = lb + rand(1,numfreeparams).*ddb;
                     %standard estimation
-                    [parameters_rep(k_rep,1:numfreeparams),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_MG_2017_09_21(x,O,D,a0,b0,con_nmodel, predprey, R_o),x0,[],[],[],[],LB,UB,[],options);
+                    [parameters_rep(k_rep,1:numfreeparams),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_MG(x,O,D,a0,b0,con_nmodel, predprey, R_o),x0,[],[],[],[],LB,UB,[],options);
                     % %                 [parameters_rep(k_rep,1:numfreeparams),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_1lr_2017_09_26(x,O,D,a0,b0,nmodel, predprey),x0,[],[],[],[],LB,UB,[],options);
                     
-                    %lalace estimation
-                    [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG_2017_09_21(x,O,D,a0,b0,con_nmodel, lr_upper_bound, predprey, R_o),x0,[],[],[],[],LB,UB,[],options);
+                    %laplace estimation
+                    [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG(x,O,D,a0,b0,con_nmodel, lr_upper_bound, predprey, R_o),x0,[],[],[],[],LB,UB,[],options);
                 end
                 
                 [~,pos]                              =   min(ll_rep);
@@ -188,7 +188,7 @@ for predprey_count = 1:length(predprey_array)
         end
         
         
-        figure;
+        rec_plot = figure;
         set(gcf,'Color',[1,1,1])
 
          % Make the subplots
@@ -225,6 +225,8 @@ for predprey_count = 1:length(predprey_array)
             lsline;
             
         end
+        
+        print(rec_plot, ['reports' filesep 'figures' filesep predprey, '_recovery_model', num2str(nmodel), '_',  num2str(n_cond), 'conds'], '-dpng');
             
     end
 end
@@ -278,51 +280,48 @@ for ppg = 1:length(predprey_array)
             rowcounter = rowcounter + 1;
         end
     end
-    colormap default
+    colormap(flipud(gray))
     title(sprintf('BIC %s', predprey))
     colorbar
     
+    nfpm=[2 3 2 3]; % number of free parameters
     bic = NaN(n_sims, length(nmodel_array));
     for k_true = 1:length(nmodel_array)
         
         %     MP = [Px_rnd,Plr1_rnd,Plr2_rnd];
         LL = squeeze(con_LPP(ppg, :,k_true,:));
+%         LL = squeeze(con_ll(ppg, :,k_true,:));
         
         for k_est= 1:length(nmodel_array)
-            bic(:,k_est)=-2*-LL(:,k_est) + nmodel_array(k_est)*log(nc*n_trial*n_sess); % l2 is already positive
+            bic(:,k_est)=-2*-LL(:,k_est) + nfpm(k_est)*log(nc*n_trial*n_sess); % l2 is already positive
         end
         [postBMC,outBMC]=VBA_groupBMC(-bic'./2);
         % [postBMC,outBMC]=VBA_groupBMC(-LL');
         BMC_output(k_true).post = postBMC;
         BMC_output(k_true).out = outBMC;
         
+        Ep(k_true,:) = 100*BMC_output(k_true).out.ep;
     end
     
+    figure
+    set(gcf,'Color',[1,1,1])
+    
+    
+    colormap(flipud(gray))
+    imagesc(flipud(Ep))
+    title(sprintf('confusion matrix %s', predprey))
+    ylabel('simulated model #')
+    xlabel('estimated model #')
+    set(gca,'XTick',1:4,...
+        'YTick',1:4,...
+        'XTickLabel',(1:4),...
+        'YTickLabel',fliplr(1:4))
+    
+    c = colorbar;
+    c.Label.String = 'Exceedance probability (%)';
+    
+
 end
 
 
-%%
-% bic = NaN(n_sims, length(nmodel_array));
-% for k_true = 1:length(nmodel_array)
-%     
-% %     MP = [Px_rnd,Plr1_rnd,Plr2_rnd];
-%     LL = squeeze(con_LPP(ppg, :,k_true,:));
-%     
-%     for k_est= 1:length(nmodel_array)
-%         bic(:,k_est)=-2*-LL(:,k_est) + nmodel_array(k_est)*log(nc*n_trial*n_sess); % l2 is already positive
-%     end
-%     [postBMC,outBMC]=VBA_groupBMC(-bic'./2);
-%     % [postBMC,outBMC]=VBA_groupBMC(-LL');
-%     BMC_output(k_true).post = postBMC;
-%     BMC_output(k_true).out = outBMC;
-%     
-% end
-% 
-% filename = [pwd '/reports/confusion_matrix_' num2str(n_sims), 'sims_', date];
-% 
-% save(filename, 'con_LPP')
-% 
-% 
-% save([pwd '/reports/confusion_matrix_' num2str(n_sims), 'sims_', date], con_LPP)
-% 
-% save(sprintf('%s/reports/confusion_matrix_%s_sims_%s', pwd, num2str(n_sims), date), con_LPP)
+
