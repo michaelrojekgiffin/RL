@@ -14,10 +14,8 @@ cd ~/Dropbox/RL/PPG/
 % nsub          = 166;   % hor dataset - number of plots to make, maximum is 166 for hor dataset (from data_matlab) (i.e. length(fl_dir) )
 % nsub          = 48;   % old_hor dataset - number of plots to make, maximum is 48 (i.e. length(fl_dir) )
 % nsub          = 50;   % ital dataset - number of plots to make, maximum is 50 (i.e. length(fl_dir) )
-nsub          = 10;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
+nsub          = 54;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
 plot_ind      = false;
-nsim          = 15;
-plot_all_data = false;
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 %=========================================================================
@@ -75,8 +73,8 @@ lr_upper_bound  = 11;                            % this is the upper bound on th
 
 options      = optimset('Algorithm', 'interior-point', 'Display', 'off', 'MaxIter', 10000);
 
-parametersLPP  = NaN(nsim,3);
-LPP            = NaN(nsim,1);
+parametersLPP  = NaN(nsub,3);
+LPP            = NaN(nsub,1);
 
 k_prey       = 0;
 k_pred       = 0;
@@ -179,10 +177,14 @@ for k_sub    = 1:nsub
         
         if nmodel == 1 || nmodel == 3
             numfreeparams = 2;
-            ub = [5 lr_upper_bound];         UB = [Inf lr_upper_bound];
+            ub = [5 lr_upper_bound];         
+            UB = [Inf Inf];
+%             UB = [Inf lr_upper_bound];
         else
             numfreeparams = 3;
-            ub = [5 lr_upper_bound 1];         UB = [Inf lr_upper_bound 1];
+            ub = [5 lr_upper_bound 1];         
+            UB = [Inf Inf Inf];
+%             UB = [Inf lr_upper_bound 1];
         end
         
         parametersLPP_rep  = NaN(n_rep,numfreeparams);
@@ -229,8 +231,7 @@ for k_sub    = 1:nsub
         for ee = 1:length(all_EV)
             EV_sub(k_sub, ee, k_model) = all_EV(ee, sub_o(ee)+1); % EV of each offer selected by subject
         end
-        
-        
+               
         % Get slope and intercept of distribution against which the subject is
         % playind (i.e. estimate their true "acceptance function")
         opponent_o_freq = zeros(1, 11);
@@ -254,112 +255,13 @@ for k_sub    = 1:nsub
                 empirical_EV = (endow - offers) + ((endow - offers).* succes_probs');
         end
         
-        % here I'm fitting to the opponent data in order to get the logit
-        % choice function that subjects were playing against in order to
-        % use this in the simulation below.
-        n_rep            = 10;
-        parameters_rep   = NaN(n_rep,3);
-        ll_rep           = NaN(n_rep,1);
-        opponent_o_array = reshape(opponent_o, [], 1);
-        
-        for k_rep = 1:n_rep
-            [parameters_rep(k_rep,1:3),ll_rep(k_rep,1)]=fmincon(@(x) laplace_priors_priors_MG_2017_10_03(x,opponent_o_array, opponent_role),[10*randn() 10*rand()  10*rand()],[],[],[],[],[-Inf 0 0],[Inf Inf Inf],[],options);
-        end
-        [~,pos]             = min(ll_rep);
-        opponent_parameters = parameters_rep(pos(1),:);
-        ll                  = ll_rep(pos(1),:);
-        
-        
-        
-        % initialize for simulation
-        B0      = parametersLPP(k_sub, 1);   % proposer temperature, estimated from subject data (specific to each subject)
-        a0      = parametersLPP(k_sub, 2);   % proposer learning rate, estimated from subject data (specific to each subject)
-        v0      = priors.parameters(1);      % proposer initial prior on threshold (estimated from concatenated first trial investments)
-        B       = priors.parameters(2);      % proposer noise (proposer's estimate of slope of opponent, (estimated from concatenated first trial investments))
-        
-        % pre-allocat,
-        %--------------------------
-        PA      = NaN(ntrial,numel(offers), nsim); % estimated probability of accepting all offers
-        EV      = NaN(ntrial,numel(offers), nsim); % estimated expected value of all offers
-        V       = NaN(ntrial+1, nsim);             % estimated opponent intercept
-        kO      = NaN(ntrial, nsim);               % selected offer, in the 1:numel(offer) space
-        O       = NaN(ntrial, nsim);               % selected offer, in the euro offer spavce
-        Pd      = NaN(ntrial, nsim);               % trial  probability of accepting the selected offer
-        D       = NaN(ntrial, nsim);               % final decision of accepting the selected offer
-        CPE     = NaN(ntrial, nsim);               % Choice Prediction error
-        pc_sim  = NaN(ntrial, numel(offers), nsim);% expected offer
-        % initialize simulation
-        %--------------------------
-        for i_sim = 1:nsim
-            V(1, i_sim) = v0;
-            
-            % simulation
-            %---------------------------------------------------------------------
-            % input
-            % bX is the temperature
-            % lr1 is learning rate 1
-            % lr2 is learing rate 2 (only actually used for models 2 and 4)
-            % opponent_parameters were fitted from the distribution against
-            % which subjects were playing, in the actual function they're
-            % written as Ra and Rb, the intercept and slope of the
-            % opponent's logic function, respectively
-            % Ra is the true intercept of the opponent's logit function
-            % Rb is the true slope of the opponent's logic functiuon
-            % ntrial is the number of trials to simulate
-            % v0 is the prior estimate of the intercept
-            % B is the prior estimate of the slope
-            % opponent_o is the distribution of the opponent's decisions
-            %
-            % output
-            % O is offer
-            % D is the reward, or decision outcome, 0 for loss, and 1 for win
-            % PE is prediciton error
-            % V is prediction of the intercept of the opponent's choice function
-            % pd is posterior density distribution
-            % R_o is the simlation of the opponent's behavior, given the
-            % model and the known logit function used as input
-            %
-            %---------------------------------------------------------------------
-            % for models 1 and 3, only 1 learning rate is actually used to
-            % generate the data
-            bX      =    parametersLPP(k_sub, 1);   % proposer temperature, estimated from subject data (specific to each subject)
-            lr1     =    parametersLPP(k_sub, 2);   % proposer learning rate 1, estimated from subject data (specific to each subject)
-            lr2     =    parametersLPP(k_sub, 3);   % proposer learning rate 2, estimated from subject data (specific to each subject, will be NaN for models 1 and 3)
-            
-            [O(:, i_sim),D(:, i_sim), CPE(:, i_sim),V(:, i_sim), pc_sim(:, :, i_sim), R_o, PA(:, :, i_sim), EV(:, :, i_sim)] = learning_models_timeseries_MG_2017_10_03([bX,lr1,lr2],opponent_parameters,size(sub_o, 1),v0,B,nmodel, predprey, opponent_o);
-            
-        end
-        % average across all simulations
-        V_sim              = mean(V(end, :)); % average of V (opponent's intercept) estimate across simulations
-        % pre-allocate
-        EV_sim_prior       = NaN(1,length(offers));
-        EV_sim_posterior   = NaN(1,length(offers));
-        PA_sim_prior       = NaN(1,length(offers));
-        PA_sim_posterior   = NaN(1,length(offers));
-        pc_sim_mean        = NaN(ntrial, length(offers));
-        O_mean             = NaN(ntrial, 1);
-        
-        for m_sim = 1:length(offers)
-            EV_sim_prior(m_sim)     = mean(EV(1, m_sim, :));      % row 1 is prior
-            EV_sim_posterior(m_sim) = mean(EV(ntrial, m_sim, :)); % last row is posterior
-            PA_sim_prior(m_sim)     = mean(PA(1, m_sim, :));
-            PA_sim_posterior(m_sim) = mean(PA(ntrial, m_sim, :));
-        end
-        % take average of offers made by simulation, averages within trial,
-        % across simulations
-        for m_trial = 1:ntrial
-            O_mean(m_trial)      = mean(O(m_trial, :));
-            for m_offer = 1:numel(offers)
-                pc_sim_mean(m_trial, m_offer) = mean(pc_sim(m_trial, m_offer, :));
-            end
-        end
+    
         sub_o_array = reshape(sub_o, [], 1);
         % record all parameters and all subject data for posterity
         switch predprey
             case 'predator'
                 pred_ameters(k_pred, :, k_model)        = parametersLPP(k_sub, :); % column 1 is temperature, column 2 and 3 learning rate
                 pred_dist(k_pred, :, k_model)           = sub_o_array;
-                pred_sim_dist(k_pred, :)                = O_mean;
                 pred_opponent_probs(k_pred, :)          = succes_probs;
                 
                 pred_PE(k_pred, :, k_model)              = PE_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
@@ -374,7 +276,6 @@ for k_sub    = 1:nsub
             case 'prey'
                 prey_ameters(k_prey, :, k_model)        = parametersLPP(k_sub, :); % column 1 is temperature, column 2 and 3 learning rate
                 prey_dist(k_prey, :, k_model)           = sub_o_array;
-                prey_sim_dist(k_prey, :)                = O_mean;
                 prey_opponent_probs(k_prey, :)          = succes_probs;
                 
                 prey_PE(k_prey, :, k_model)              = PE_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
@@ -390,180 +291,36 @@ for k_sub    = 1:nsub
         end
  
         % plot everything, per individual if plot_ind = true
-        if plot_ind
-            if ~plot_all_data
-                figure
-                subplot(6, 3, [2:3, 5:6, 8:9])
-                hold on
-                plot(offers,succes_probs,'-r')
-                plot(offers,logitp(priors.parameters(1:2), offers),'-.k', 'Linewidth', 1.5)
-                plot(offers,logitp([V_sub(k_sub, k_model), B(end)],offers),'--b')
-                plot(offers,logitp([V_sim, B],offers),'--g')
-                legend('true \phi','prior \phi','posterior \phi', 'simulated posterior \phi')
-                xlabel('Offer (euro)')
-                ylabel('p(Accept)')
-                title(['Subject ' num2str(k_sub) ' (' predprey ')' ' model ', num2str(k_model)]);
-                
-                % this plot is wrong, it is depicting simulation, should be
-                % depciting subject - need to simply add a line for the subject
-                subplot(6, 3, [11:12, 14:15, 17:18])
-                hold on
-                plot(offers, empirical_EV, '-r')
-                plot(offers, EV_sim_prior, '-.k', 'Linewidth', 1.5)
-                plot(offers, EV_sub_posterior(k_sub, :, k_model), '--b')
-                plot(offers, EV_sim_posterior, '--g')
-                legend('true', 'prior', 'posterior', 'simulated posterior')
-                xlabel('Offer (euro)')
-                ylabel('Expected Value')
-                
-                inv_counter = 1;
-                fibb = 0;
-                for ii = 1:ntrial/10
-                    subplot(6, 3, ii + fibb)
-                    fibb = fibb+2;
-                    inv_row = str2double(sprintf('%d0', ii));
-                    
-                    tmp_pc_sub = squeeze(pc_sub(k_sub, inv_counter:inv_row,:, k_model));
-                    
-                    bar(0:10, tmp_pc_sub(end,:), 'b')
-                    hold on
-                    bar(-.5:1:9.5, pc_sim_mean(end,:), 'g')
-                    plot(sub_o(inv_row), .1, 'Xr', 'MarkerSize', 10)
-                    
-                    if ii == 1
-                        title('Real vs. simulated subject expected offer, every 10 trials')
-                        legend('Subject', 'Simulation', 'subject selects')
-                    end
-                    hold off
-                    inv_counter = inv_counter+10;
-                end
-                
-            else
-                figure
-                subplot(6, 3, 1:3:7)
-                plot(1:length(data), sub_o, 'b-o', ...
-                    1:length(data), opponent_o, 'r--*',...
-                    1:length(data), O_mean, '-.ks')
-                legend(['Subject/' predprey], ['Opponent/' opponent], 'Simulated')
-                title(['Subject (' predprey ') opponent (' opponent, ') and simiulation']);
-                
-                subplot(6, 3, 10:3:18)
-                histogram(sub_o, 11)
-                hold on
-                histogram(O_mean, 11)
-                title('Real vs. simulated subject historgram, all trials')
-                legend('Subject', 'Simulation')
-                
-                inv_counter = 1;
-                fibb = 0;
-                for ii = 1:ntrial/10
-                    subplot(6, 3, ii+ii + fibb)
-                    fibb = fibb+1;
-                    inv_row = str2double(sprintf('%d0', ii));
-                    histogram(sub_o(inv_counter:inv_row,:), 11)
-                    hold on
-                    histogram(O_mean(inv_counter:inv_row,:), 11)
-                    if ii == 1
-                        title('Real vs. simulated subject historgram, every 10 trials')
-                        legend('Subject', 'Simulation')
-                    end
-                    hold off
-                    inv_counter = inv_counter+10;
-                end
-                
-                subplot(6, 3, 3:3:9)
-                hold on
-                plot(offers,succes_probs','-r')
-                plot(offers,logitp(priors.parameters(1:2), offers),'-.k', 'Linewidth', 1.5)
-                plot(offers,logitp([V_sub(k_sub, k_model), B(end)],offers),'--b')
-                plot(offers,logitp([V_sim, B],offers),'--g')
-                legend('true \phi','prior \phi','posterior \phi', 'simulated posterior \phi')
-                xlabel('Offer (euro)')
-                ylabel('p(Accept)')
-                title(['Subject (' predprey ')']);
-                
-                subplot(6, 3, 12:3:18)
-                hold on
-                plot(offers, empirical_EV, '-r')
-                plot(offers, EV_sim_prior, '-.k', 'Linewidth', 1.5)
-                % Here i have to divise a way to keep track of the model
-                % that I'm on
-                plot(offers, EV_sub_posterior(k_sub, :, k_model), '--b')
-                plot(offers, EV_sim_posterior, '--g')
-                legend('true', 'prior', 'posterior', 'simulated posterior')
-                xlabel('Offer (euro)')
-                ylabel('Expected Value')
-                
-            end
-        end
+%         if plot_ind
+%             figure
+%             subplot(1, 2, 1)
+%             hold on
+%             plot(offers,succes_probs,'-r')
+%             plot(offers,logitp(priors.parameters(1:2), offers),'-.k', 'Linewidth', 1.5)
+%             plot(offers,logitp([V_sub(k_sub, k_model), B(end)],offers),'--b')
+%             legend('true \phi','prior \phi','posterior \phi')
+%             xlabel('Offer (euro)')
+%             ylabel('p(Accept)')
+%             title(['Subject ' num2str(k_sub) ' (' predprey ')' ' model ', num2str(k_model)]);
+%             
+%             subplot(1, 2, 2)
+%             hold on
+%             plot(offers, empirical_EV, '-r')
+%             plot(offers, EV_sim_prior, '-.k', 'Linewidth', 1.5)
+%             plot(offers, EV_sub_posterior(k_sub, :, k_model), '--b')
+%             legend('true', 'prior', 'posterior')
+%             xlabel('Offer (euro)')
+%             ylabel('Expected Value')
+%             
+%         end
     end
     
 end
 
 
-% figure
-% imagesc(BIC)
-% colsize = size(BIC, 2);
-% colcounter = 0;
-% rowcounter = 1;
-% for ii = 1:numel(BIC)
-%     colcounter = colcounter+1;
-%     text(colcounter, rowcounter, num2str(BIC(rowcounter, colcounter)), 'Color', 'r')
-%     if colcounter == colsize
-%         colcounter = 0;
-%         rowcounter = rowcounter + 1;
-%     end
-% end
-% colormap default
-% title(sprintf('BIC'))
-% colorbar
-
-% getting rid of NaN values in the role specifc BIC variables
 pred_BIC(~any(~isnan(pred_BIC), 2), :) = [];
 prey_BIC(~any(~isnan(prey_BIC), 2), :) = [];
 
-% these are for hor
-% save([pwd '/data_matlab/pred_ameters.mat'], 'pred_ameters');
-% save([pwd '/data_matlab/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_matlab/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_matlab/pred_BIC.mat'], 'pred_BIC');
-% save([pwd '/data_matlab/prey_BIC.mat'], 'prey_BIC');
-% save([pwd '/data_matlab/pred_LPP.mat'], 'pred_LPP');
-% save([pwd '/data_matlab/prey_LPP.mat'], 'prey_LPP');
-
-% for old_hor
-% save([pwd '/data_old_hor/pred_ameters.mat'], 'pred_ameters');
-% save([pwd '/data_old_hor/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_old_hor/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_old_hor/pred_BIC.mat'], 'pred_BIC');
-% save([pwd '/data_old_hor/prey_BIC.mat'], 'prey_BIC');
-% save([pwd '/data_old_hor/pred_LPP.mat'], 'pred_LPP');
-% save([pwd '/data_old_hor/prey_LPP.mat'], 'prey_LPP');
-
-% for ital
-% save([pwd '/data_ital/pred_ameters.mat'], 'pred_ameters');
-% save([pwd '/data_ital/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_ital/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_ital/pred_BIC.mat'], 'pred_BIC');
-% save([pwd '/data_ital/prey_BIC.mat'], 'prey_BIC');
-% save([pwd '/data_ital/pred_LPP.mat'], 'pred_LPP');
-% save([pwd '/data_ital/prey_LPP.mat'], 'prey_LPP');
-
-% for OT
-% save([pwd '/data_OT/pred_ameters.mat'], 'pred_ameters');
-% save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_OT/prey_ameters.mat'], 'prey_ameters');
-% save([pwd '/data_OT/pred_BIC.mat'], 'pred_BIC');
-% save([pwd '/data_OT/prey_BIC.mat'], 'prey_BIC');
-% save([pwd '/data_OT/pred_LPP.mat'], 'pred_LPP');
-% save([pwd '/data_OT/prey_LPP.mat'], 'prey_LPP');
-% 
-% save([pwd '/data_OT/PE_sub.mat'], 'PE_sub');
-% save([pwd '/data_OT/EV_sub.mat'], 'EV_sub');
-% save([pwd '/data_OT/prey_EV.mat'], 'prey_EV');
-% save([pwd '/data_OT/prey_PE.mat'], 'prey_PE');
-% save([pwd '/data_OT/pred_PE.mat'], 'pred_PE');
-% save([pwd '/data_OT/pred_EV.mat'], 'pred_EV');
 pred_LPP(~any(~isnan(pred_LPP), 2), :) = [];
 prey_LPP(~any(~isnan(prey_LPP), 2), :) = [];
 
@@ -571,20 +328,10 @@ prey_LPP(~any(~isnan(prey_LPP), 2), :) = [];
 nfpm=[2 3 2 3]; % number of free parameters
 bic = NaN(k_pred, length(nmodel_array));
 for k_true = 1:length(nmodel_array)
-    
-    %     MP = [Px_rnd,Plr1_rnd,Plr2_rnd];
+  
     LL = pred_LPP(:,k_true);
     bic(:,k_true)=-2*-LL + nfpm(k_true)*log(nc*n_trial_per_cond*n_sess); % l2 is already positive
-   
-%     for k_est= 1:length(nmodel_array)
-%         bic(:,k_est)=-2*-LL(:,k_est) + nfpm(k_est)*log(nc*n_trial_per_cond*n_sess); % l2 is already positive
-%     end
-%     [postBMC,outBMC]=VBA_groupBMC(-bic'./2);
-%     % [postBMC,outBMC]=VBA_groupBMC(-LL');
-%     BMC_output(k_true).post = postBMC;
-%     BMC_output(k_true).out = outBMC;
-%     
-%     Ep(k_true,:) = 100*BMC_output(k_true).out.ep;
+    
 end
 [pred_postBMC,pred_outBMC]=VBA_groupBMC(-bic'./2);
 
@@ -593,19 +340,9 @@ nfpm=[2 3 2 3]; % number of free parameters
 bic = NaN(k_prey, length(nmodel_array));
 for k_true = 1:length(nmodel_array)
     
-    %     MP = [Px_rnd,Plr1_rnd,Plr2_rnd];
     LL = prey_LPP(:,k_true);
     bic(:,k_true)=-2*-LL + nfpm(k_true)*log(nc*n_trial_per_cond*n_sess); % l2 is already positive
    
-%     for k_est= 1:length(nmodel_array)
-%         bic(:,k_est)=-2*-LL(:,k_est) + nfpm(k_est)*log(nc*n_trial_per_cond*n_sess); % l2 is already positive
-%     end
-%     [postBMC,outBMC]=VBA_groupBMC(-bic'./2);
-%     % [postBMC,outBMC]=VBA_groupBMC(-LL');
-%     BMC_output(k_true).post = postBMC;
-%     BMC_output(k_true).out = outBMC;
-%     
-%     Ep(k_true,:) = 100*BMC_output(k_true).out.ep;
 end
 [prey_postBMC,prey_outBMC]=VBA_groupBMC(-bic'./2);
 
@@ -832,3 +569,9 @@ end
 %         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
 %     end
 % end
+
+
+
+% this command save all the variables that can then be loaded in at a later
+% time. 
+% save('OT');

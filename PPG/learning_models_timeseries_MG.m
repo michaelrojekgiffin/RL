@@ -65,6 +65,7 @@ for kcond = 1:ncond
                 for tc = 1:length(tempEV)
                     tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
                 end
+%                 tempEV(1) = 10;
                 R_EV(ktrial,:)   = tempEV;
                 
             case 'predator'
@@ -75,7 +76,7 @@ for kcond = 1:ncond
                 for tc = 1:length(tempEV)
                     tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
                 end
-                tempEV(1) = 10;
+%                 tempEV(1) = 10;
                 
 %                 EV(ktrial,:)        = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
                 EV(ktrial, :)       = tempEV;
@@ -101,21 +102,13 @@ for kcond = 1:ncond
         % offer must be less than or equal to opponent's offer
         switch predprey 
             case 'predator'
-                r(ktrial,kcond)     = double(rand(1)<Pd);                             % Sampling Reciever's decision given the proba.
+%                 r(ktrial,kcond)     = double(rand(1)<Pd);                             % Sampling Reciever's decision given the proba.
+                r(ktrial,kcond)     = double(o(ktrial,kcond)>R_o(ktrial,kcond));                             % Sampling Reciever's decision given the proba.
                 reward           = 10 - R_o(ktrial, kcond);
-                % I think the following if statement  part should not be
-                % used because I think that since the predator's left over
-                % endowment is assured, it does not need to be included in
-                % the calculation of prediction since it's not possible for
-                % there to be any prediction error on this sum
-%                 if r(ktrial) > 0
-%                     reward          = (10-o(ktrial,kcond)) + (10 - R_o(ktrial, kcond));      % for use in models 3 and 4
-%                 else
-%                     reward          = (10-o(ktrial,kcond));
-%                 end
-%                 
+ 
             case 'prey'
-                r(ktrial,kcond)     = double(rand(1)<=Pd);                            % Sampling Reciever's decision given the proba.
+                %                 r(ktrial,kcond)     = double(rand(1)<=Pd);                            % Sampling Reciever's decision given the proba.
+                r(ktrial,kcond)     = double(o(ktrial,kcond)>=R_o(ktrial,kcond));                             % Sampling Reciever's decision given the proba.
                 reward              = (10-o(ktrial,kcond));                           % for models 3 and 4
         end
 %         r(ktrial,kcond)     = double(rand(1)<Pd);                                   % Sampling Reciever's decision given the proba.

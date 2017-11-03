@@ -16,8 +16,9 @@ rng('shuffle')
 
 % parameters of the task
 %--------------------------
-predprey_array  =  {'predator', 'prey'};
-n_sims          = 27;                           % nsubs to simulates
+% predprey_array  =  {'predator', 'prey'};
+predprey_array  =  {'prey'};
+n_sims          = 15;                           % nsubs to simulates
 n_trial         = 20;                           % ntrial per cond per session
 n_sess          = 3;                            % nsession
 offers          = 0:1:10;
@@ -45,17 +46,14 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
 % Generate params
 %-------------------
-% priors I'm using the empirical ones estimated from subject data
-% Pa_rnd          = -9 + 6*rand(n_sims,1);  %  Proposer initial prior on threshold (to be fitted or estimated from no-feedback games)
-% Pb_rnd          = 1.5+1*rand(n_sims,1);       %  Proposer  estimated accpetance noise (to be fitted or estimated from no-feedback games)
-% Pb_rnd          = 2.5+1*rand(n_sims,1);       %  Proposer  estimated accpetance noise (to be fitted or estimated from no-feedback games)
+Pa_rnd          = -9 + 6*rand(n_sims,1);  %  Proposer initial prior on threshold (to be fitted or estimated from no-feedback games)
+Pb_rnd          = 2.5+1*rand(n_sims,1);       %  Proposer  estimated accpetance noise (to be fitted or estimated from no-feedback games)
 
 Px_rnd          = .5+1*rand(n_sims,1);% .5+2.5*rand(n_sims,1);         %  Proposer  rating temperature
 % Px_rnd          = 3+3*rand(n_sims,1);         %  Proposer  rating temperature
 
-Plr1_rnd        = lr_upper_bound*rand(n_sims,1);      %  Proposer  learning rate
-% Plr2_rnd        = rand(n_sims,1);                   %  Proposer  learning rate
-Plr2_rnd        = 1-Plr1_rnd;                         %  Proposer  learning rate - seeing if I force the two learning rates apart if I get better recovery
+Plr1_rnd        = lr_upper_bound*rand(n_sims,1);           %  Proposer  learning rate
+Plr2_rnd        = rand(n_sims,1);           %  Proposer  learning rate
 
 % PreAllocate
 %---------------
@@ -90,13 +88,7 @@ con_LPP             = NaN(length(predprey_array), n_sims,4,4);
 %----------
 for predprey_count = 1:length(predprey_array)
     predprey = predprey_array{predprey_count};
-    switch predprey
-        case 'predator'
-            priors   = load('data_priors/predator_priors.mat');
-        case 'prey'
-            priors   = load('data_priors/prey_priors.mat');
-    end
-    
+   
     for model_iter = 1:length(nmodel_array)
         nmodel = nmodel_array(model_iter);
         
@@ -107,11 +99,8 @@ for predprey_count = 1:length(predprey_array)
             D_mat = NaN(n_trial,n_cond);
             
             % get params
-%             a0  = Pa_rnd(k_sim);
-%             b0  = Pb_rnd(k_sim);
-            a0  = priors.parameters(1);
-            b0  = priors.parameters(2);
-            
+            a0  = Pa_rnd(k_sim);
+            b0  = Pb_rnd(k_sim);
             bX  = Px_rnd(k_sim);
             lr1 = Plr1_rnd(k_sim);
             lr2 = Plr2_rnd(k_sim);

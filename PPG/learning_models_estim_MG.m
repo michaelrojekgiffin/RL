@@ -67,6 +67,7 @@ for kcond = 1:ncond
         % importantly, PA represents the probability that the opponent
         % chooses a lower investment than the subject. In order to
         % calculate EV for predator, I need a probability value for each investment.
+        
         rPA     = PA(ktrial, :);
         for rrr = 1:length(rPA)
             rPA(rrr)     = rPA(rrr) - sum(rPA(1:rrr-1));
@@ -88,7 +89,7 @@ for kcond = 1:ncond
                 for tc = 1:length(tempEV)
                     tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
                 end
-                tempEV(1) = 10; % EV for an investment of 0 should always be 10
+%                 tempEV(1) = 10; % EV for an investment of 0 should always be 10
                 
 %                 EV(ktrial,:)        = (endow - offers) +((endow - offers).* PA(ktrial,:));   % compute EV of the offers given current model
                 EV(ktrial, :)       = tempEV;

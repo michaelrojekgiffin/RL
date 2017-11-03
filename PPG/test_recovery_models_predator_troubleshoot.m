@@ -7,6 +7,7 @@
 % models (4 if I exclude models that only have 1 learning rate, which Mael
 % recommends, choice, choice + risk, reward, reward + risk).
 clear
+load OT
 close all
 clc
 
@@ -16,8 +17,9 @@ rng('shuffle')
 
 % parameters of the task
 %--------------------------
-predprey_array  =  {'predator', 'prey'};
-n_sims          = 27;                           % nsubs to simulates
+
+predprey_array  =  {'predator'};
+n_sims          = 10;                           % nsubs to simulates
 n_trial         = 20;                           % ntrial per cond per session
 n_sess          = 3;                            % nsession
 offers          = 0:1:10;
@@ -25,15 +27,16 @@ suboffers       = 0:1:10;
 endow           = 10*ones(1,numel(offers));     % parameters of the simulation
 subendow        = 10*ones(1,numel(suboffers));  % parameters of the simulation
 nmodel_array    = 1:4;                          % all the models to loop through
-lr_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr1_upper_bound  = 5;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr2_upper_bound  = 5;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
 
 % set up conditions and mutliple sessions
 %------------------------------------------
-cond2learn  = -[8];%-[12,9,6,3,0];                        % all the intercepts the player needs to learn
+cond2learn  = -[5.3];%-[12,9,6,3,0];                        % all the intercepts the player needs to learn
 nc          = numel(cond2learn);
 Ra          = repmat(cond2learn,1,n_sess);          % predator true accepance thereshold (logit intercept)
 % Rb          = repmat(3*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
-Rb          = repmat(1.5*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
+Rb          = repmat(5*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
 n_cond      = size(Ra,2);
 
 % logistic choice function
@@ -53,9 +56,13 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 Px_rnd          = .5+1*rand(n_sims,1);% .5+2.5*rand(n_sims,1);         %  Proposer  rating temperature
 % Px_rnd          = 3+3*rand(n_sims,1);         %  Proposer  rating temperature
 
-Plr1_rnd        = lr_upper_bound*rand(n_sims,1);      %  Proposer  learning rate
-% Plr2_rnd        = rand(n_sims,1);                   %  Proposer  learning rate
-Plr2_rnd        = 1-Plr1_rnd;                         %  Proposer  learning rate - seeing if I force the two learning rates apart if I get better recovery
+Plr1_rnd        = lr1_upper_bound*rand(n_sims,1);      %  Proposer  learning rate
+Plr2_rnd        = lr2_upper_bound*rand(n_sims,1);                   %  Proposer  learning rate
+% Plr2_rnd        = 1-Plr1_rnd;                         %  Proposer  learning rate - seeing if I force the two learning rates apart if I get better recovery
+
+% Px_rnd      = squeeze(pred_ameters(1:n_sims,1,:));
+% Plr1_rnd    = squeeze(pred_ameters(1:n_sims,2,:));
+% Plr2_rnd    = squeeze(pred_ameters(1:n_sims,3,:));
 
 % PreAllocate
 %---------------
@@ -239,7 +246,7 @@ for predprey_count = 1:length(predprey_array)
             
         end
         
-        print(rec_plot, ['reports' filesep 'figures' filesep predprey, '_recovery_model', num2str(nmodel), '_',  num2str(n_cond), 'conds'], '-dpng');
+%         print(rec_plot, ['reports' filesep 'figures' filesep predprey, '_recovery_model', num2str(nmodel), '_',  num2str(n_cond), 'conds'], '-dpng');
             
     end
 end
