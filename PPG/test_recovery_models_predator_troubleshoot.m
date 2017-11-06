@@ -36,7 +36,7 @@ cond2learn  = -[5.3];%-[12,9,6,3,0];                        % all the intercepts
 nc          = numel(cond2learn);
 Ra          = repmat(cond2learn,1,n_sess);          % predator true accepance thereshold (logit intercept)
 % Rb          = repmat(3*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
-Rb          = repmat(5*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
+Rb          = repmat(.5*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
 n_cond      = size(Ra,2);
 
 % logistic choice function

@@ -69,7 +69,8 @@ rng('shuffle')
 offers  = 0:1:10;
 endow   = 10*ones(1,numel(offers));
 nmodel_array    = 1:4;                          % all the models to loop through
-lr_upper_bound  = 11;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr1_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr2_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
 
 options      = optimset('Algorithm', 'interior-point', 'Display', 'off', 'MaxIter', 10000);
 
@@ -177,13 +178,13 @@ for k_sub    = 1:nsub
         
         if nmodel == 1 || nmodel == 3
             numfreeparams = 2;
-            ub = [5 lr_upper_bound];
-            UB = [Inf 1];
+            ub = [5 lr1_upper_bound];
+            UB = [Inf Inf];
 %             UB = [Inf lr_upper_bound];
         else
             numfreeparams = 3;
-            ub = [5 lr_upper_bound 1];
-            UB = [Inf 1, 1];
+            ub = [5 lr1_upper_bound 1];
+            UB = [Inf Inf, Inf];
 %             UB = [Inf lr_upper_bound 1];
         end
         
@@ -197,7 +198,7 @@ for k_sub    = 1:nsub
         for k_rep = 1:n_rep
             x0 = lb + rand(1,numfreeparams).*ddb;
             %laplace estimation
-            [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG(x,sub_o,sub_r,priors.parameters(1),priors.parameters(2),nmodel, lr_upper_bound, predprey, opponent_o),x0,[],[],[],[],LB,UB,[],options);
+            [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG(x,sub_o,sub_r,priors.parameters(1),priors.parameters(2),nmodel, lr1_upper_bound, lr2_upper_bound, predprey, opponent_o),x0,[],[],[],[],LB,UB,[],options);
         end
 % %         
 % %         params = [2 .3]
@@ -219,7 +220,7 @@ for k_sub    = 1:nsub
         % estimated above
         %     [~, all_EV, all_PA, all_V] = ModelEstimation_2params_2017_09_11(parameters(k_sub,:), priors.parameters(1:2),sub_o,sub_r,1,predprey);
         
-        [~, all_EV, all_PA, all_V, all_pc, all_PE, all_risk, all_risk_pe]  = laplace_priors_learning2_MG(parametersLPP(k_sub,1:numfreeparams),sub_o,sub_r,priors.parameters(1),priors.parameters(2), nmodel, lr_upper_bound, predprey, opponent_o);
+        [~, all_EV, all_PA, all_V, all_pc, all_PE, all_risk, all_risk_pe]  = laplace_priors_learning2_MG(parametersLPP(k_sub,1:numfreeparams),sub_o,sub_r,priors.parameters(1),priors.parameters(2), nmodel, lr1_upper_bound, lr2_upper_bound, predprey, opponent_o);
         V_sub(k_sub, k_model)               = all_V(end);     % posterior intercept
         PA_sub(k_sub, :, k_model)           = all_PA(end, :); % posterior prob of success
         EV_sub_posterior(k_sub, :, k_model) = all_EV(end, :); % posterior EV of all offers
@@ -326,25 +327,37 @@ prey_LPP(~any(~isnan(prey_LPP), 2), :) = [];
 
 options.families = {[1,2], [3,4]} ;
 
-nfpm=[2 3 2 3]; % number of free parameters
-bic = NaN(k_pred, length(nmodel_array));
+nfpm             = [2 3 2 3]; % number of free parameters
+bic              = NaN(k_pred, length(nmodel_array));
+pred_BIC_sum     = NaN(1, numel(nfpm));
+
 for k_true = 1:length(nmodel_array)
-  
+    
+    pred_BIC_sum(k_true)          = sum(pred_BIC(:, k_true));
+    
     LL = pred_LPP(:,k_true);
     bic(:,k_true)=-2*-LL + nfpm(k_true)*log(nc*n_trial_per_cond*n_sess); % l2 is already positive
     
+%     pred_BIC_sum(k_true)          = sum(bic(:, k_true));
 end
+bar(pred_BIC_sum)
+
 [pred_postBMC,pred_outBMC]=VBA_groupBMC(-bic'./2);
 
 
 nfpm=[2 3 2 3]; % number of free parameters
 bic = NaN(k_prey, length(nmodel_array));
+
+prey_BIC_sum     = NaN(1, numel(nfpm));
 for k_true = 1:length(nmodel_array)
+    prey_BIC_sum(k_true)          = sum(prey_BIC(:, k_true));
     
     LL = prey_LPP(:,k_true);
     bic(:,k_true)=-2*-LL + nfpm(k_true)*log(nc*n_trial_per_cond*n_sess); % l2 is already positive
    
 end
+bar(prey_BIC_sum)
+
 [prey_postBMC,prey_outBMC]=VBA_groupBMC(-bic'./2);
 
 
@@ -570,9 +583,9 @@ end
 %         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
 %     end
 % end
-
+% 
 
 
 % this command save all the variables that can then be loaded in at a later
 % time. 
-save('OT');
+% save('OT_subject_fit_workspace');

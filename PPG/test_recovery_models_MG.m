@@ -25,17 +25,17 @@ suboffers       = 0:1:10;
 endow           = 10*ones(1,numel(offers));     % parameters of the simulation
 subendow        = 10*ones(1,numel(suboffers));  % parameters of the simulation
 nmodel_array    = 1:4;                          % all the models to loop through
-lr_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr1_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
+lr2_upper_bound  = 1;                            % this is the upper bound on the first learning rate, can be anywere between 0 and 11
 
 % set up conditions and mutliple sessions
 %------------------------------------------
-cond2learn  = -[8];%-[12,9,6,3,0];                        % all the intercepts the player needs to learn
+cond2learn  = -[5.3];%-[12,9,6,3,0];                        % all the intercepts the player needs to learn
 nc          = numel(cond2learn);
 Ra          = repmat(cond2learn,1,n_sess);          % predator true accepance thereshold (logit intercept)
 % Rb          = repmat(3*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
-Rb          = repmat(1.5*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
+Rb          = repmat(.5*ones(1,nc),1,n_sess);        % predator true accpetance noise (logit slope)
 n_cond      = size(Ra,2);
-
 % logistic choice function
 %--------------------------
 logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
@@ -53,9 +53,9 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 Px_rnd          = .5+1*rand(n_sims,1);% .5+2.5*rand(n_sims,1);         %  Proposer  rating temperature
 % Px_rnd          = 3+3*rand(n_sims,1);         %  Proposer  rating temperature
 
-Plr1_rnd        = lr_upper_bound*rand(n_sims,1);      %  Proposer  learning rate
-% Plr2_rnd        = rand(n_sims,1);                   %  Proposer  learning rate
-Plr2_rnd        = 1-Plr1_rnd;                         %  Proposer  learning rate - seeing if I force the two learning rates apart if I get better recovery
+Plr1_rnd        = lr1_upper_bound*rand(n_sims,1);      %  Proposer  learning rate
+Plr2_rnd        = lr2_upper_bound*rand(n_sims,1);      %  Proposer  learning rate
+% Plr2_rnd        = 1-Plr1_rnd;                         %  Proposer  learning rate - seeing if I force the two learning rates apart if I get better recovery
 
 % PreAllocate
 %---------------
@@ -147,10 +147,10 @@ for predprey_count = 1:length(predprey_array)
 
                 if con_nmodel == 1 || con_nmodel == 3
                     numfreeparams = 2;
-                    ub = [5 lr_upper_bound];         UB = [Inf lr_upper_bound];
+                    ub = [5 lr1_upper_bound];         UB = [Inf lr1_upper_bound];
                 else
                     numfreeparams = 3;
-                    ub = [5 lr_upper_bound 1];         UB = [Inf lr_upper_bound 1];
+                    ub = [5 lr1_upper_bound lr2_upper_bound];         UB = [Inf lr1_upper_bound lr2_upper_bound];
                 end
                 
                 parameters_rep  = NaN(n_rep,numfreeparams);     parametersLPP_rep  = NaN(n_rep,numfreeparams);
@@ -167,7 +167,7 @@ for predprey_count = 1:length(predprey_array)
                     % %                 [parameters_rep(k_rep,1:numfreeparams),ll_rep(k_rep,1)]=fmincon(@(x) learning_models_estim_1lr_2017_09_26(x,O,D,a0,b0,nmodel, predprey),x0,[],[],[],[],LB,UB,[],options);
                     
                     %laplace estimation
-                    [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG(x,O,D,a0,b0,con_nmodel, lr_upper_bound, predprey, R_o),x0,[],[],[],[],LB,UB,[],options);
+                    [parametersLPP_rep(k_rep,1:numfreeparams),LPP_rep(k_rep,1)]=fmincon(@(x) laplace_priors_learning2_MG(x,O,D,a0,b0,con_nmodel, lr1_upper_bound, lr2_upper_bound, predprey, R_o),x0,[],[],[],[],LB,UB,[],options);
                 end
                 
                 [~,pos]                              =   min(ll_rep);
@@ -278,16 +278,19 @@ for ppg = 1:length(predprey_array)
             
             BIC_mean(k_true, k_est)          = mean(BIC(:, k_true, k_est));
             ll_mean(k_true, k_est)           = mean(-con_LPP(ppg, :, k_true, k_est));
+            
+            BIC_sum(k_true, k_est)          = sum(BIC(:, k_true, k_est));
+
         end
     end
     figure
-    imagesc(BIC_mean)
-    colsize = size(BIC_mean, 2);
+    imagesc(BIC_sum)
+    colsize = size(BIC_sum, 2);
     colcounter = 0;
     rowcounter = 1;
-    for ii = 1:numel(BIC_mean)
+    for ii = 1:numel(BIC_sum)
         colcounter = colcounter+1;
-        text(colcounter, rowcounter, num2str(BIC_mean(rowcounter, colcounter)), 'Color', 'r')
+        text(colcounter, rowcounter, num2str(BIC_sum(rowcounter, colcounter)), 'Color', 'r')
         if colcounter == colsize
             colcounter = 0;
             rowcounter = rowcounter + 1;
@@ -336,5 +339,6 @@ for ppg = 1:length(predprey_array)
 
 end
 
+% save test_recovery_workspace
 
 

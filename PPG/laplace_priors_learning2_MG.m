@@ -1,5 +1,5 @@
 % This function provide the computational model with paramters priors
-function [post, EV, PA, V, pc, PE, risk, risk_pe]=laplace_priors_learning2_MG(params,o,r,a0,b0,nmodel, lr_upper_bound, predprey, R_o)
+function [post, EV, PA, V, pc, PE, risk, risk_pe]=laplace_priors_learning2_MG(params,o,r,a0,b0,nmodel, lr1_upper_bound, lr2_upper_bound, predprey, R_o)
 
 % log prior of parameters
 switch nmodel
@@ -8,7 +8,7 @@ switch nmodel
         lr1   = params(2); % supraliminal learning rate
         %         lr2   = params(3); % supraliminal learning rate
         pbeta1  = log(gampdf(beta1,1.2,8.0));
-        plr1    = log(betapdf(lr1/lr_upper_bound,1.1,1.1));
+        plr1    = log(betapdf(lr1/lr1_upper_bound,1.1,1.1));
 %         plr2    = log(betapdf(lr2,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
         
         
@@ -17,8 +17,8 @@ switch nmodel
         lr1   = params(2); % supraliminal learning rate
         lr2   = params(3); % supraliminal learning rate
         pbeta1  = log(gampdf(beta1,1.2,8.0));
-        plr1    = log(betapdf(lr1/lr_upper_bound,1.1,1.1));
-        plr2    = log(betapdf(lr2,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
+        plr1    = log(betapdf(lr1/lr1_upper_bound,1.1,1.1));
+        plr2    = log(betapdf(lr2/lr2_upper_bound,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
         
         
     case 3
@@ -26,7 +26,7 @@ switch nmodel
         lr1   = params(2); % supraliminal learning rate
         %         lr2   = params(3); % supraliminal learning rate
         pbeta1  = log(gampdf(beta1,1.2,8.0));
-        plr1    = log(betapdf(lr1/lr_upper_bound,1.1,1.1));
+        plr1    = log(betapdf(lr1/lr1_upper_bound,1.1,1.1));
 %         plr2    = log(betapdf(lr2,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
         
         
@@ -35,8 +35,8 @@ switch nmodel
         lr1   = params(2); % supraliminal learning rate
         lr2   = params(3); % supraliminal learning rate
         pbeta1  = log(gampdf(beta1,1.2,8.0));
-        plr1    = log(betapdf(lr1/lr_upper_bound,1.1,1.1));
-        plr2    = log(betapdf(lr2,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
+        plr1    = log(betapdf(lr1/lr1_upper_bound,1.1,1.1));
+        plr2    = log(betapdf(lr2/lr2_upper_bound,1.1,1.1));                % the parameters are distrubution with mean + variance (different shapes) (?)
         
 end
 
