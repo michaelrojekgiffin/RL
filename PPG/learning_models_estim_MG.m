@@ -90,7 +90,12 @@ for kcond = 1:ncond
             case 'predator'
                 tempEV = EV(ktrial,:);
                 for tc = 1:length(tempEV)
-                    tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+                    if tc == 1
+                        tempEV(tc) = ((endow(tc) - offers(tc)));
+                    else
+                        tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+                    end
+                    
                 end
 %                 tempEV(1) = 10; % EV for an investment of 0 should always be 10
                 
@@ -99,8 +104,12 @@ for kcond = 1:ncond
                 
                 reward              = 10 - R_o(ktrial, kcond);
                 
-                sspe                = (((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2;
-                risk(risk_count)    = sum(rPA .* sspe);
+                if o(ktrial, kcond) == 0
+                    risk(risk_count)    = 0;
+                else
+                    sspe                = (((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2;
+                    risk(risk_count)    = sum(rPA .* sspe);
+                end
                 
 %                 risk(risk_count)    = sum (rPA .* ((  ((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2));
                 

@@ -61,9 +61,18 @@ for kcond = 1:ncond
                 EV(ktrial,:)     = (endow - offers).* PA(ktrial,:);                       % compute EV of the offers given current model
                 %                 R_EV(ktrial,:)   = (endow - offers) +((endow - offers).*R_PA(ktrial,:));  % compute rivals EV
                 
-                tempEV = R_EV(ktrial,:); % predator EV is calculated a bit different
+%                 tempEV = R_EV(ktrial,:); % predator EV is calculated a bit different
+%                 for tc = 1:length(tempEV)
+%                     tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
+%                 end
+                tempEV = R_EV(ktrial,:);
                 for tc = 1:length(tempEV)
-                    tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
+                    if tc == 1
+                        tempEV(tc) = ((endow(tc) - offers(tc)));
+                    else
+                        tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+                    end
+                    
                 end
 %                 tempEV(1) = 10;
                 R_EV(ktrial,:)   = tempEV;
@@ -74,7 +83,12 @@ for kcond = 1:ncond
                 
                 tempEV = EV(ktrial,:);
                 for tc = 1:length(tempEV)
-                    tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc))); 
+                    if tc == 1
+                        tempEV(tc) = ((endow(tc) - offers(tc)));
+                    else
+                        tempEV(tc) = ((endow(tc) - offers(tc))) + sum((endow(1:tc) - offers(1:tc)) .* (rPA(1:tc)));
+                    end
+                    
                 end
 %                 tempEV(1) = 10;
                 

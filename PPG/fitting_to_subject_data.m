@@ -283,8 +283,8 @@ for k_sub    = 1:nsub
                 prey_EV(k_prey, :, k_model)              = EV_sub(k_sub, :, k_model);   % prediction error for each subject on each trial for each model
                 
                 
-                pred_risk(k_prey, :, k_model)           = risk_sub(k_sub, :, k_model);   % risk prediction 
-                pred_risk_pe(k_prey, :, k_model)        = risk_sub_pe(k_sub, :, k_model);   % risk prediction error
+                prey_risk(k_prey, :, k_model)           = risk_sub(k_sub, :, k_model);   % risk prediction 
+                prey_risk_pe(k_prey, :, k_model)        = risk_sub_pe(k_sub, :, k_model);   % risk prediction error
                 
                 
                 prey_LPP(k_prey, k_model)               = LPP(k_sub, k_model);
@@ -318,7 +318,7 @@ for k_sub    = 1:nsub
     
 end
 
-
+%%
 pred_BIC(~any(~isnan(pred_BIC), 2), :) = [];
 prey_BIC(~any(~isnan(prey_BIC), 2), :) = [];
 
@@ -340,6 +340,7 @@ for k_true = 1:length(nmodel_array)
     
 %     pred_BIC_sum(k_true)          = sum(bic(:, k_true));
 end
+figure
 bar(pred_BIC_sum)
 
 [pred_postBMC,pred_outBMC]=VBA_groupBMC(-bic'./2);
@@ -473,25 +474,25 @@ end
 %
 % %
 % %
-% fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_fitted.txt', 'w');
-% for ii = 1:length(fitted_cell)+1 % +1 for header
-%     if ii == 1
-%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-%     else
-%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-%     end
-% end
-% 
-% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
-% for ii = 1:length(fitted_cell)+1 % +1 for header
-%     if ii == 1
-%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-%     else
-%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-%     end
-% end
+fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_fitted.txt', 'w');
+for ii = 1:length(fitted_cell)+1 % +1 for header
+    if ii == 1
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+    else
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+    end
+end
 
-%% Get all latent variables in table format
+fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
+for ii = 1:length(fitted_cell)+1 % +1 for header
+    if ii == 1
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+    else
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+    end
+end
+
+%% Get all latent parameters in table format
 fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE', 'risk', 'risk_pe'};
 fitted_length = nsub*ntrial*nmodel*length(nmodel_array);
 fitted_cell = cell(fitted_length, length(fitted_header)); % each subject has one row for each model
@@ -574,18 +575,18 @@ for ii = 1:nsub
     end
 end
 
-% % 
-% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
-% for ii = 1:length(fitted_cell)+1 % +1 for header
-%     if ii == 1
-%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-%     else
-%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-%     end
-% end
+% 
+fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
+for ii = 1:length(fitted_cell)+1 % +1 for header
+    if ii == 1
+        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+    else
+        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+    end
+end
 % 
 
 
 % this command save all the variables that can then be loaded in at a later
 % time. 
-% save('OT_subject_fit_workspace');
+save('OT_subject_fit_workspace');
