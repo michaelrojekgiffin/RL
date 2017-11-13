@@ -104,14 +104,16 @@ for kcond = 1:ncond
                 
                 reward              = 10 - R_o(ktrial, kcond);
                 
-                if o(ktrial, kcond) == 0
-                    risk(risk_count)    = 0;
-                else
-                    sspe                = (((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2;
-                    risk(risk_count)    = sum(rPA .* sspe);
-                end
-                
-%                 risk(risk_count)    = sum (rPA .* ((  ((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2));
+                %                 if o(ktrial, kcond) == 0
+                %                     risk(risk_count)    = 0;
+                %                     risk_pe(risk_count) = 0;
+                %                 else
+                %                     sspe                = (((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2;
+                %                     risk(risk_count)    = sum(rPA .* sspe);
+                %                     risk_pe(risk_count) = (((10 - R_o(ktrial, kcond) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)) ^2) - risk(risk_count) ;
+                %                 end
+                sspe                = (((10 - offers) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)).^2;
+                risk(risk_count)    = sum(rPA .* sspe);
                 
                 risk_pe(risk_count) = (((10 - R_o(ktrial, kcond) + 10 - o(ktrial,kcond)) - EV(ktrial, o(ktrial, kcond)+1)) ^2) - risk(risk_count) ;
         end

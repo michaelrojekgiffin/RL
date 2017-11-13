@@ -13,8 +13,8 @@ cd ~/Dropbox/RL/PPG/
 
 % nsub          = 166;   % hor dataset - number of plots to make, maximum is 166 for hor dataset (from data_matlab) (i.e. length(fl_dir) )
 % nsub          = 48;   % old_hor dataset - number of plots to make, maximum is 48 (i.e. length(fl_dir) )
-% nsub          = 50;   % ital dataset - number of plots to make, maximum is 50 (i.e. length(fl_dir) )
-nsub          = 54;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
+nsub          = 50;   % ital dataset - number of plots to make, maximum is 50 (i.e. length(fl_dir) )
+% nsub          = 54;   % OT data - number of subjects is 27, and each playes in both roles for a total of 54
 plot_ind      = false;
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
@@ -31,8 +31,8 @@ plot_ind      = false;
 cur_dir      = pwd;
 % data_dir     = fullfile(cur_dir,'data_matlab');             % hor dataset
 % data_dir     = fullfile(cur_dir,'data_old_hor');             % old_hor dataset
-% data_dir     = fullfile(cur_dir,'data_ital');             % ital dataset
-data_dir     = fullfile(cur_dir,'data_OT');             % OT dataset
+data_dir     = fullfile(cur_dir,'data_ital');             % ital dataset
+% data_dir     = fullfile(cur_dir,'data_OT');             % OT dataset
 fl_dir       = dir(strcat(data_dir,filesep,'DATA_sub*'));
 
 % hor and old_hor datasets have the same columns for these
@@ -41,18 +41,18 @@ fl_dir       = dir(strcat(data_dir,filesep,'DATA_sub*'));
 % opponent_o_col  = 6;
 
 % % for ital dataset, these are the columns
-% sub_o_col       = 6;
-% sub_r_col       = 12;
-% opponent_o_col  = 7;
+sub_o_col       = 6;
+sub_r_col       = 12;
+opponent_o_col  = 7;
 
 % for OT dataset, these are the columns. Importantly, in this dataset
 % subjects have multiple "sessions", meaning they learn the same
 % distribution over multiple blocks that each must begin at 0
-sub_o_col       = 7;
-sub_r_col       = 96;
-nc              = 1;  % number of different "conditions", i.e. separate distributions subjects played against (just 1)
-n_trial_per_cond= 20; % NOT TO BE CONFUSED WITH ntrial, WHICH IS TOTAL NUMBER OF TRIALS, THIS IS NUMBER OF TRIALS PER CONDITION
-n_sess           = 3; % number of different blocks subjects played within each role
+% sub_o_col       = 7;
+% sub_r_col       = 96;
+nc               = 2;  % number of different "conditions", i.e. separate distributions subjects played against (just 1)
+n_trial_per_cond = 30; % NOT TO BE CONFUSED WITH ntrial, WHICH IS TOTAL NUMBER OF TRIALS, THIS IS NUMBER OF TRIALS PER CONDITION
+n_sess           = 2; % number of different blocks subjects played within each role
 % opponent_o_col  = 7; % changes depending on the role, is specified near
 % begininning of first loop for OT dataset
 
@@ -131,13 +131,13 @@ for k_sub    = 1:nsub
             predprey = 'predator';
             opponent = 'prey';
             priors   = load('data_priors/predator_priors.mat');
-            opponent_o_col  = 9; % changes depending on the role
+%             opponent_o_col  = 9; % changes depending on the role
         case 'prey'
             k_prey   = k_prey+1;
             predprey = 'prey';
             opponent = 'predator';
             priors   = load('data_priors/prey_priors.mat');
-            opponent_o_col  = 8; % changes depending on the role
+%             opponent_o_col  = 8; % changes depending on the role
     end
     %
     for k_model = 1:length(nmodel_array)
@@ -145,24 +145,27 @@ for k_sub    = 1:nsub
         
         nmodel = nmodel_array(k_model);
         
-        %         fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(6:11), nmodel, predprey, k_sub, nsub);
-        fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(10:15), nmodel, predprey, k_sub, nsub);
+                fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(6:11), nmodel, predprey, k_sub, nsub);
+%         fprintf('estimating for subject %s, model %d, %s, %d out of %d\n', fl_dir(k_sub).name(10:15), nmodel, predprey, k_sub, nsub);
         
-        % this is true for each dataset in which subjects played either in
-        % only 1 role or in 1 role per session (so the 3 hormone datasets)
+%         % this is true for each dataset in which subjects played either in
+%         % only 1 role or in 1 role per session (so the 3 hormone datasets)
 %         sub_o            = data(:,sub_o_col);       % subject offer
 %         sub_r            = data(:,sub_r_col);       % subject win/lose (logical)
 %         opponent_o       = data(:,opponent_o_col);  %  choice of the opponent
-        
+%         
         % this only applies for datasets with multiple sessions, in the
-        % case of OT, it has 3 for both predator and prey.
+        % case of OT, it has 3 for both predator and prey. For ital, we
+        % have 2 sessions, 30 trials in each (since subjects are actually
+        % learning 2 different distributions separated by a block, even if
+        % they don't realize it.
         ses_counter = 1;
-        for SES = 1:3 % because OT has 3 sessions per role
+        for SES = 1:2 % because OT has 3 sessions per role
             
-            sub_o(1:20,SES)            = data(ses_counter:ses_counter+19,sub_o_col);       % subject offer
-            sub_r(1:20,SES)            = data(ses_counter:ses_counter+19,sub_r_col);       % subject win/lose (logical)  
-            opponent_o(1:20,SES)       = data(ses_counter:ses_counter+19,opponent_o_col);  %  choice of the opponent
-            ses_counter                = ses_counter+20;
+            sub_o(1:30,SES)            = data(ses_counter:ses_counter+29,sub_o_col);       % subject offer
+            sub_r(1:30,SES)            = data(ses_counter:ses_counter+29,sub_r_col);       % subject win/lose (logical)  
+            opponent_o(1:30,SES)       = data(ses_counter:ses_counter+29,opponent_o_col);  %  choice of the opponent
+            ses_counter                = ses_counter+30;
         end
         
         
@@ -383,14 +386,14 @@ for ii = 1:nsub
     %     sub_tc   = sub_tc+1;
     flnm     = fullfile(data_dir,fl_dir(ii).name);
     load(flnm)
-    %     % getting subject's name for hor
-    %     if length(flnm) == 61
-    %         sub_name = flnm(end-4);
-    %     elseif length(flnm) == 62
-    %         sub_name = flnm(end-5:end-4);
-    %     elseif length(flnm) == 63
-    %         sub_name = flnm(end-6:end-4);
-    %     end
+        % getting subject's name for hor
+        if length(flnm) == 61
+            sub_name = flnm(end-4);
+        elseif length(flnm) == 62
+            sub_name = flnm(end-5:end-4);
+        elseif length(flnm) == 63
+            sub_name = flnm(end-6:end-4);
+        end
     
     % getting subject's name for old_hor
     %     switch role
@@ -416,20 +419,20 @@ for ii = 1:nsub
     %     end
     
     % getting subject's name for OT
-    switch role
-        case 'predator'
-            if length(flnm) == 72
-                sub_name = flnm(end-18:end-13);
-%             elseif length(flnm) == 71
-%                 sub_name = flnm(end-13);
-            end
-        case 'prey'
-            if length(flnm) == 68
-                sub_name = flnm(end-14:end-9);
-%             elseif length(flnm) == 67
-%                 sub_name = flnm(end-9);
-            end
-    end
+%     switch role
+%         case 'predator'
+%             if length(flnm) == 72
+%                 sub_name = flnm(end-18:end-13);
+% %             elseif length(flnm) == 71
+% %                 sub_name = flnm(end-13);
+%             end
+%         case 'prey'
+%             if length(flnm) == 68
+%                 sub_name = flnm(end-14:end-9);
+% %             elseif length(flnm) == 67
+% %                 sub_name = flnm(end-9);
+%             end
+%     end
     
     switch role
         case 'predator'
@@ -474,23 +477,23 @@ end
 %
 % %
 % %
-fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/OT_fitted.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
-
-fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/hor_fitted.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
+% % 
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_fitted.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
 
 %% Get all latent parameters in table format
 fitted_header = {'sub_name', 'role', 'model', 'EV', 'PE', 'risk', 'risk_pe'};
@@ -504,14 +507,14 @@ k_prey = 0;
 for ii = 1:nsub
     flnm     = fullfile(data_dir,fl_dir(ii).name);
     load(flnm)
-    %     % getting subject's name for hor
-    %     if length(flnm) == 61
-    %         sub_name = flnm(end-4);
-    %     elseif length(flnm) == 62
-    %         sub_name = flnm(end-5:end-4);
-    %     elseif length(flnm) == 63
-    %         sub_name = flnm(end-6:end-4);
-    %     end
+        % getting subject's name for hor
+        if length(flnm) == 61
+            sub_name = flnm(end-4);
+        elseif length(flnm) == 62
+            sub_name = flnm(end-5:end-4);
+        elseif length(flnm) == 63
+            sub_name = flnm(end-6:end-4);
+        end
     
     % getting subject's name for old_hor
     %     switch role
@@ -574,19 +577,28 @@ for ii = 1:nsub
             end
     end
 end
-
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/hormones/data/modeling/hor_latent_params.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
 % 
-fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
-for ii = 1:length(fitted_cell)+1 % +1 for header
-    if ii == 1
-        fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
-    else
-        fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
-    end
-end
+% fid = fopen('/Users/michaelgiffin/Carsten PhD/OT_data/RL/data/OT_latent_params.txt', 'w');
+% for ii = 1:length(fitted_cell)+1 % +1 for header
+%     if ii == 1
+%         fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\t%s\n', fitted_header{1,:});
+%     else
+%         fprintf(fid, '%s\t%s\t%d\t%f\t%f\t%f\t%f\n', fitted_cell{ii-1, :});
+%     end
+% end
+% % 
 % 
-
-
-% this command save all the variables that can then be loaded in at a later
-% time. 
-save('OT_subject_fit_workspace');
+% 
+% % this command save all the variables that can then be loaded in at a later
+% % time. 
+% save('OT_subject_fit_workspace');
+% save('reports/hor/hor_subject_fit_workspace');
+% save('reports/ital/ital_subject_fit_workspace');
