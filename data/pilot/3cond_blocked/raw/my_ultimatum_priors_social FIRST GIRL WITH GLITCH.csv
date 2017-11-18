@@ -1,0 +1,595 @@
+participant.id_in_session,participant.code,participant.label,participant._is_bot,participant._index_in_pages,participant._max_page_index,participant._current_app_name,participant._round_number,participant._current_page_name,participant.ip_address,participant.time_started,participant.visited,participant.mturk_worker_id,participant.mturk_assignment_id,participant.payoff,player.id_in_group,player.test_question_1,player.test_question_2,player.test_question_3,player.test_question_4,player.payoff,group.id_in_subsession,group.payout_chosen_trial,group.option1,group.option2,group.amount_offered,group.option_chosen,group.current_opponent,group.payout,group.soc_or_no,group.offer_accepted,subsession.round_number,session.code,session.label,session.experimenter_name,session.mturk_HITId,session.mturk_HITGroupId,session.comment,session.is_demo
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,FALSE,TRUE,FALSE,TRUE,0,1,,0,12,12,Option 2,triangle,8,Social,1,1,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,3,11,11,Option 2,square,9,Social,1,2,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,3,15,3,Option 1,square,17,Social,1,3,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,7,9,7,Option 1,triangle,13,Social,1,4,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,15,19,15,Option 1,triangle,5,Social,1,5,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,14,10,Option 1,circle,10,Social,1,6,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,9,15,9,Option 1,circle,11,Social,1,7,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,7,19,7,Option 1,square,13,Social,1,8,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,12,12,Option 2,triangle,8,Social,1,9,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,0,16,16,Option 2,triangle,4,Social,1,10,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,9,9,Option 2,square,11,Social,1,11,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,10,Social,1,12,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,4,4,Option 2,triangle,16,Social,1,13,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,20,2,Option 1,square,18,Social,1,14,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,6,8,8,Option 2,square,12,Social,1,15,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,16,20,16,Option 1,triangle,4,Social,1,16,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,11,15,11,Option 1,circle,9,Social,1,17,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,15,19,15,Option 1,circle,5,Social,1,18,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,15,5,Option 1,circle,15,Social,1,19,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,18,8,Option 1,triangle,12,Social,1,20,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,12,16,12,Option 1,circle,8,Social,1,21,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,16,2,Option 1,circle,18,Social,1,22,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,4,20,4,Option 1,triangle,0,Social,0,23,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,13,5,Option 1,triangle,0,Social,0,24,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,17,5,Option 1,square,15,Social,1,25,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,18,20,18,Option 1,square,2,Social,1,26,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,6,12,6,Option 1,circle,14,Social,1,27,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,3,7,7,Option 2,circle,13,Social,1,28,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,14,8,Option 1,circle,12,Social,1,29,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,4,8,8,Option 2,square,12,Social,1,30,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,6,10,10,Option 2,triangle,0,Social,0,31,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,11,17,11,Option 1,triangle,9,Social,1,32,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,6,14,6,Option 1,square,14,Social,1,33,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,20,8,Option 1,circle,12,Social,1,34,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,6,6,Option 2,triangle,0,Social,0,35,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,0,Social,0,36,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,16,10,Option 1,circle,10,Social,1,37,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,13,17,13,Option 1,square,7,Social,1,38,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,20,8,Option 1,square,12,Social,1,39,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,16,18,16,Option 1,circle,4,Social,1,40,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,4,16,4,Option 1,circle,16,Social,1,41,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,18,8,Option 1,square,12,Social,1,42,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,4,6,6,Option 2,square,14,Social,1,43,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,4,4,Option 2,square,16,Social,1,44,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,0,20,20,Option 2,circle,0,Social,1,45,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,14,10,Option 1,circle,10,Social,1,46,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,6,16,6,Option 1,circle,14,Social,1,47,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,9,19,9,Option 1,square,11,Social,1,48,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,13,19,13,Option 1,triangle,7,Social,1,49,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,7,17,7,Option 1,circle,13,Social,1,50,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,14,8,Option 1,circle,12,Social,1,51,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,11,11,Option 2,square,9,Social,1,52,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,12,18,12,Option 1,square,8,Social,1,53,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,15,19,15,Option 1,square,5,Social,1,54,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,13,15,13,Option 1,circle,7,Social,1,55,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,11,11,Option 2,square,9,Social,1,56,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,14,20,14,Option 1,circle,6,Social,1,57,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,8,8,Option 2,triangle,12,Social,1,58,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,7,13,13,Option 2,circle,7,Social,1,59,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,18,20,18,Option 1,square,2,Social,1,60,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,3,17,17,Option 2,square,3,Social,1,61,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,10,10,Option 2,circle,10,Social,1,62,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,7,9,7,Option 1,circle,13,Social,1,63,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,5,5,Option 2,triangle,0,Social,0,64,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,2,14,14,Option 2,triangle,6,Social,1,65,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,16,20,16,Option 1,circle,4,Social,1,66,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,12,16,12,Option 1,square,8,Social,1,67,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,9,11,9,Option 1,triangle,11,Social,1,68,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,9,17,9,Option 1,circle,11,Social,1,69,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,13,19,13,Option 1,circle,7,Social,1,70,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,12,8,Option 1,square,12,Social,1,71,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,0,14,0,Option 1,triangle,0,Social,0,72,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,0,8,8,Option 2,triangle,0,Social,0,73,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,10,Social,1,74,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,19,1,Option 1,triangle,0,Social,0,75,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,14,16,14,Option 1,square,6,Social,1,76,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,17,5,Option 1,triangle,0,Social,0,77,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,17,19,17,Option 1,square,3,Social,1,78,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,3,3,Option 2,square,17,Social,1,79,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,14,18,14,Option 1,triangle,6,Social,1,80,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,11,13,11,Option 1,triangle,9,Social,1,81,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,14,8,Option 1,circle,12,Social,1,82,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,12,14,12,Option 1,triangle,0,Social,0,83,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,9,9,Option 2,triangle,0,Social,0,84,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,10,12,10,Option 1,square,10,Social,1,85,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,14,20,14,Option 1,square,6,Social,1,86,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,9,17,9,Option 1,circle,11,Social,1,87,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,15,15,Option 2,triangle,5,Social,1,88,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,18,8,Option 1,circle,12,Social,1,89,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,0,18,18,Option 2,circle,2,Social,1,90,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,11,15,11,Option 1,square,9,Social,1,91,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,1,11,11,Option 2,square,9,Social,1,92,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,5,7,7,Option 2,square,13,Social,1,93,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,9,13,9,Option 1,circle,11,Social,1,94,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,3,19,19,Option 2,circle,1,Social,1,95,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,8,20,8,Option 1,square,12,Social,1,96,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,97,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,98,ag3bbb10,,,,,,0
+1,8q048zlv,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.239.93.100,2017-11-15 10:00:21.833753+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,99,ag3bbb10,,,,,,0
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,FALSE,TRUE,FALSE,TRUE,0,1,,0,12,0,Option 1,triangle,0,Social,0,1,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,11,3,Option 1,square,17,Social,1,2,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,18,10,Option 1,square,10,Social,1,3,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,7,9,7,Option 1,triangle,13,Social,1,4,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,16,18,16,Option 1,square,4,Social,1,5,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,1,3,1,Option 1,triangle,0,Social,0,6,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,10,4,Option 1,square,16,Social,1,7,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,7,19,7,Option 1,circle,13,Social,1,8,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,12,2,Option 1,triangle,0,Social,0,9,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,13,19,13,Option 1,triangle,7,Social,1,10,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,1,5,1,Option 1,triangle,0,Social,0,11,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,0,Social,0,12,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,4,2,Option 1,triangle,0,Social,0,13,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,18,2,Option 1,circle,0,Social,0,14,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,4,2,Option 1,circle,0,Social,0,15,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,16,20,16,Option 1,triangle,4,Social,1,16,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,13,15,13,Option 1,triangle,7,Social,1,17,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,7,19,7,Option 1,triangle,0,Social,0,18,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,17,3,Option 1,square,17,Social,1,19,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,7,13,7,Option 1,square,13,Social,1,20,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,18,4,Option 1,triangle,16,Social,1,21,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,14,4,Option 1,square,16,Social,1,22,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,20,4,Option 1,triangle,16,Social,1,23,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,5,13,5,Option 1,triangle,15,Social,1,24,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,5,17,5,Option 1,square,15,Social,1,25,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,18,2,Option 1,square,18,Social,1,26,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,12,18,12,Option 1,circle,8,Social,1,27,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,16,4,Option 1,circle,16,Social,1,28,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,12,4,Option 1,square,16,Social,1,29,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,8,4,Option 1,square,16,Social,1,30,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,16,2,Option 1,circle,0,Social,0,31,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,8,16,8,Option 1,triangle,12,Social,1,32,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,6,14,6,Option 1,square,14,Social,1,33,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,16,2,Option 1,triangle,0,Social,0,34,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,6,2,Option 1,triangle,18,Social,1,35,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,5,19,5,Option 1,square,15,Social,1,36,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,16,10,Option 1,circle,10,Social,1,37,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,13,17,13,Option 1,square,7,Social,1,38,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,8,20,8,Option 1,square,12,Social,1,39,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,1,13,1,Option 1,square,19,Social,1,40,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,8,10,8,Option 1,triangle,12,Social,1,41,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,8,12,8,Option 1,triangle,12,Social,1,42,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,6,4,Option 1,square,16,Social,1,43,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,7,3,Option 1,triangle,0,Social,0,44,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,20,0,Option 1,circle,0,Social,0,45,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,14,10,Option 1,circle,10,Social,1,46,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,11,13,11,Option 1,square,9,Social,1,47,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,9,19,9,Option 1,square,11,Social,1,48,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,13,19,13,Option 1,triangle,7,Social,1,49,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,12,10,Option 1,square,10,Social,1,50,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,6,0,Option 1,square,20,Social,1,51,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,14,2,Option 1,circle,18,Social,1,52,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,10,2,Option 1,triangle,0,Social,0,53,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,9,3,Option 1,triangle,0,Social,0,54,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,12,0,Option 1,circle,0,Social,0,55,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,5,7,5,Option 1,circle,15,Social,1,56,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,14,20,14,Option 1,circle,6,Social,1,57,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,11,19,11,Option 1,square,9,Social,1,58,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,5,13,5,Option 1,square,15,Social,1,59,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,18,4,Option 1,circle,16,Social,1,60,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,13,17,13,Option 1,triangle,7,Social,1,61,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,14,18,14,Option 1,square,6,Social,1,62,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,6,14,6,Option 1,triangle,0,Social,0,63,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,5,13,5,Option 1,circle,15,Social,1,64,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,11,3,Option 1,triangle,0,Social,0,65,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,2,6,2,Option 1,triangle,0,Social,0,66,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,9,13,9,Option 1,square,11,Social,1,67,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,6,10,6,Option 1,triangle,0,Social,0,68,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,5,3,Option 1,circle,17,Social,1,69,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,13,19,13,Option 1,circle,7,Social,1,70,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,6,4,Option 1,square,16,Social,1,71,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,16,0,Option 1,triangle,0,Social,0,72,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,5,3,Option 1,triangle,0,Social,0,73,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,10,Social,1,74,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,1,5,1,Option 1,square,19,Social,1,75,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,14,16,14,Option 1,square,6,Social,1,76,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,20,4,Option 1,circle,0,Social,0,77,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,17,19,17,Option 1,square,3,Social,1,78,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,1,3,1,Option 1,square,19,Social,1,79,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,14,4,Option 1,square,16,Social,1,80,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,11,13,11,Option 1,triangle,9,Social,1,81,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,7,17,7,Option 1,square,13,Social,1,82,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,12,14,12,Option 1,triangle,8,Social,1,83,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,20,0,Option 1,square,20,Social,1,84,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,10,12,10,Option 1,square,10,Social,1,85,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,9,11,9,Option 1,circle,11,Social,1,86,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,14,0,Option 1,square,20,Social,1,87,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,14,16,14,Option 1,circle,6,Social,1,88,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,0,4,0,Option 1,square,20,Social,1,89,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,3,19,3,Option 1,circle,17,Social,1,90,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,11,15,11,Option 1,square,9,Social,1,91,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,16,18,16,Option 1,circle,4,Social,1,92,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,4,18,4,Option 1,triangle,0,Social,0,93,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,1,15,1,Option 1,square,0,Social,0,94,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,7,15,7,Option 1,square,13,Social,1,95,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,8,20,8,Option 1,square,12,Social,1,96,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,97,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,98,83qqnk2l,,,,,,1
+1,2a0rs7l6,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.142.206.152,2017-11-15 10:01:41.955023+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,99,83qqnk2l,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,1,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,2,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,3,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,4,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,5,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,6,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,7,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,8,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,9,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,10,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,11,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,12,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,13,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,14,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,15,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,16,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,17,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,18,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,19,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,20,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,21,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,22,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,23,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,24,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,25,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,26,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,27,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,28,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,29,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,30,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,31,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,32,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,33,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,34,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,35,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,36,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,37,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,38,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,39,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,40,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,41,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,42,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,43,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,44,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,45,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,46,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,47,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,48,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,49,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,50,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,51,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,52,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,53,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,54,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,55,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,56,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,57,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,58,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,59,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,60,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,61,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,62,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,63,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,64,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,65,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,66,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,67,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,68,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,69,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,70,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,71,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,72,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,73,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,74,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,75,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,76,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,77,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,78,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,79,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,80,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,81,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,82,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,83,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,84,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,85,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,86,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,87,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,88,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,89,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,90,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,91,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,92,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,93,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,94,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,95,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,96,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,97,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,98,yu6yfn04,,,,,,1
+1,h97v7grn,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.182.73.32,2017-11-15 10:01:52.729136+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,99,yu6yfn04,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,FALSE,TRUE,FALSE,TRUE,0,1,,3,9,3,Option 1,triangle,0,Social,0,1,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,15,1,Option 1,triangle,0,Social,0,2,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,10,18,10,Option 1,square,10,Social,1,3,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,20,4,Option 1,triangle,16,Social,1,4,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,16,18,16,Option 1,square,4,Social,1,5,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,3,1,Option 1,triangle,0,Social,0,6,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,10,4,Option 1,square,16,Social,1,7,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,7,19,7,Option 1,circle,13,Social,1,8,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,6,8,6,Option 1,triangle,14,Social,1,9,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,0,16,0,Option 1,triangle,0,Social,0,10,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,15,17,15,Option 1,square,5,Social,1,11,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,10,Social,1,12,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,8,2,Option 1,triangle,18,Social,1,13,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,20,2,Option 1,square,18,Social,1,14,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,6,8,6,Option 1,square,14,Social,1,15,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,16,20,16,Option 1,circle,4,Social,1,16,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,13,15,13,Option 1,triangle,7,Social,1,17,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,7,19,7,Option 1,triangle,13,Social,1,18,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,10,14,10,Option 1,triangle,10,Social,1,19,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,15,17,15,Option 1,circle,5,Social,1,20,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,18,4,Option 1,triangle,0,Social,0,21,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,14,4,Option 1,square,16,Social,1,22,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,9,15,9,Option 1,square,11,Social,1,23,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,5,13,5,Option 1,triangle,0,Social,0,24,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,5,17,5,Option 1,square,15,Social,1,25,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,8,16,8,Option 1,square,12,Social,1,26,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,12,18,12,Option 1,circle,8,Social,1,27,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,20,2,Option 1,square,18,Social,1,28,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,8,14,8,Option 1,circle,12,Social,1,29,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,5,19,5,Option 1,triangle,0,Social,0,30,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,6,10,6,Option 1,triangle,0,Social,0,31,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,3,7,3,Option 1,circle,17,Social,1,32,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,13,1,Option 1,triangle,0,Social,0,33,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,16,2,Option 1,triangle,0,Social,0,34,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,6,2,Option 1,triangle,0,Social,0,35,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,5,19,5,Option 1,square,15,Social,1,36,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,10,16,10,Option 1,circle,10,Social,1,37,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,13,17,13,Option 1,square,7,Social,1,38,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,8,4,Option 1,circle,0,Social,0,39,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,13,1,Option 1,square,19,Social,1,40,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,8,10,8,Option 1,triangle,12,Social,1,41,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,8,18,8,Option 1,square,12,Social,1,42,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,6,4,Option 1,square,16,Social,1,43,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,3,7,3,Option 1,triangle,0,Social,0,44,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,0,20,0,Option 1,circle,20,Social,1,45,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,3,1,Option 1,circle,0,Social,0,46,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,11,13,11,Option 1,square,9,Social,1,47,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,9,19,9,Option 1,square,11,Social,1,48,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,19,1,Option 1,triangle,0,Social,0,49,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,17,1,Option 1,triangle,0,Social,0,50,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,0,6,6,Option 2,square,14,Social,1,51,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,14,2,Option 1,circle,18,Social,1,52,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,12,18,12,Option 1,square,8,Social,1,53,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,15,19,15,Option 1,square,5,Social,1,54,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,18,2,Option 1,triangle,0,Social,0,55,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,11,1,Option 1,square,19,Social,1,56,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,14,20,14,Option 1,circle,6,Social,1,57,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,6,20,6,Option 1,circle,14,Social,1,58,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,7,13,7,Option 1,circle,13,Social,1,59,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,3,9,3,Option 1,square,17,Social,1,60,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,3,17,3,Option 1,square,17,Social,1,61,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,8,10,8,Option 1,circle,12,Social,1,62,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,14,18,14,Option 1,circle,6,Social,1,63,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,5,1,Option 1,triangle,0,Social,0,64,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,3,11,3,Option 1,triangle,0,Social,0,65,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,0,8,0,Option 1,square,20,Social,1,66,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,9,13,13,Option 2,square,7,Social,1,67,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,9,11,9,Option 1,triangle,11,Social,1,68,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,9,17,9,Option 1,circle,11,Social,1,69,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,13,19,13,Option 1,circle,7,Social,1,70,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,6,4,Option 1,square,16,Social,1,71,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,0,14,0,Option 1,triangle,20,Social,1,72,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,12,18,12,Option 1,square,8,Social,1,73,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,10,20,10,Option 1,triangle,10,Social,1,74,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,19,1,Option 1,triangle,0,Social,0,75,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,14,20,14,Option 1,circle,6,Social,1,76,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,20,4,Option 1,circle,16,Social,1,77,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,17,19,17,Option 1,square,3,Social,1,78,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,17,19,17,Option 1,circle,3,Social,1,79,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,14,18,14,Option 1,triangle,6,Social,1,80,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,11,13,11,Option 1,triangle,9,Social,1,81,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,6,18,6,Option 1,circle,0,Social,0,82,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,12,14,12,Option 1,triangle,8,Social,1,83,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,5,9,5,Option 1,triangle,0,Social,0,84,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,11,15,11,Option 1,square,9,Social,1,85,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,2,10,2,Option 1,triangle,0,Social,0,86,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,0,14,0,Option 1,square,20,Social,1,87,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,5,15,5,Option 1,triangle,0,Social,0,88,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,8,18,8,Option 1,circle,12,Social,1,89,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,13,1,Option 1,triangle,0,Social,0,90,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,10,18,10,Option 1,triangle,10,Social,1,91,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,8,4,Option 1,circle,0,Social,0,92,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,18,4,Option 1,triangle,0,Social,0,93,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,1,15,1,Option 1,square,19,Social,1,94,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,3,19,3,Option 1,circle,17,Social,1,95,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,4,16,4,Option 1,circle,0,Social,0,96,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,97,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,98,gjjzmqs6,,,,,,1
+1,nak8zaai,,0,387,1350,my_ultimatum_priors_social,96,Offer,10.97.205.125,2017-11-15 10:04:24.643745+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,99,gjjzmqs6,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,FALSE,TRUE,FALSE,TRUE,0,1,,2,14,2,Option 1,square,18,Social,1,1,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,3,11,3,Option 1,square,0,Social,0,2,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,4,12,4,Option 1,circle,16,Social,1,3,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,12,20,12,Option 1,triangle,8,Social,1,4,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,15,19,15,Option 1,triangle,5,Social,1,5,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,2,12,2,Option 1,circle,0,Social,0,6,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,5,7,7,Option 2,triangle,0,Social,0,7,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,1,19,1,Option 1,triangle,0,Social,0,8,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,6,8,8,Option 2,triangle,12,Social,1,9,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,5,11,11,Option 2,square,9,Social,1,10,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,15,17,15,Option 1,square,5,Social,1,11,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,0,10,10,Option 2,square,10,Social,1,12,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,0,2,2,Option 2,triangle,0,Social,0,13,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,2,18,2,Option 1,circle,18,Social,1,14,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,2,4,4,Option 2,circle,16,Social,1,15,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,16,20,16,Option 1,triangle,4,Social,1,16,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,10,16,10,Option 1,circle,10,Social,1,17,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,15,19,15,Option 1,circle,5,Social,1,18,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,5,15,5,Option 1,circle,15,Social,1,19,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,8,18,8,Option 1,triangle,12,Social,1,20,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,4,14,14,Option 2,square,6,Social,1,21,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,4,14,14,Option 2,square,6,Social,1,22,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,9,15,9,Option 1,square,11,Social,1,23,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,3,5,5,Option 2,triangle,0,Social,0,24,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,0,16,16,Option 2,circle,4,Social,1,25,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,8,16,8,Option 1,square,12,Social,1,26,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,12,18,12,Option 1,circle,8,Social,1,27,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,4,16,16,Option 2,circle,4,Social,1,28,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,8,14,8,Option 1,circle,12,Social,1,29,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,5,19,5,Option 1,triangle,0,Social,0,30,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,2,16,16,Option 2,circle,4,Social,1,31,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,8,16,8,Option 1,triangle,0,Social,0,32,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,11,19,11,Option 1,square,9,Social,1,33,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,8,20,8,Option 1,circle,12,Social,1,34,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,12,14,12,Option 1,square,8,Social,1,35,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,7,17,7,Option 1,square,13,Social,1,36,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,5,19,5,Option 1,triangle,15,Social,1,37,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,13,17,13,Option 1,square,7,Social,1,38,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,4,8,8,Option 2,circle,12,Social,1,39,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,3,17,3,Option 1,circle,17,Social,1,40,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,4,16,16,Option 2,circle,4,Social,1,41,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,8,12,8,Option 1,triangle,12,Social,1,42,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,12,20,12,Option 1,circle,8,Social,1,43,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,2,4,4,Option 2,square,16,Social,1,44,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,6,16,6,Option 1,square,14,Social,1,45,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,10,14,,,circle,,Social,,46,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,47,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,48,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,49,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,50,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,51,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,52,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,53,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,54,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,55,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,56,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,57,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,58,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,59,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,60,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,61,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,62,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,63,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,64,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,65,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,66,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,67,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,68,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,69,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,70,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,71,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,72,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,73,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,74,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,75,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,76,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,77,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,78,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,79,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,80,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,81,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,82,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,83,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,84,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,85,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,86,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,87,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,88,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,89,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,90,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,91,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,92,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,93,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,94,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,95,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,96,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,97,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,98,t8at3xut,,,,,,1
+1,pc8r5013,,0,183,1350,my_ultimatum_priors_social,46,Offer,10.142.206.152,2017-11-15 10:06:59.338833+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,99,t8at3xut,,,,,,1
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,1,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,2,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,3,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,4,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,5,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,6,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,7,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,8,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,9,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,10,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,11,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,12,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,13,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,14,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,15,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,16,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,17,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,18,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,19,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,20,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,21,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,22,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,23,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,24,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,25,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,26,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,27,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,28,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,29,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,30,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,31,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,32,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,33,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,34,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,35,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,36,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,37,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,38,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,39,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,40,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,41,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,42,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,43,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,44,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,45,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,46,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,47,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,48,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,49,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,50,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,51,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,52,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,53,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,54,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,55,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,56,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,57,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,58,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,59,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,60,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,61,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,62,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,63,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,64,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,65,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,66,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,67,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,68,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,69,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,70,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,71,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,72,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,73,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,74,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,75,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,76,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,77,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,78,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,79,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,80,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,81,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,82,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,83,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,84,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,85,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,86,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,87,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,88,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,89,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,90,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,91,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,92,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,93,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,94,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,95,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,96,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,97,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,98,t4ivkrth,,,,,,0
+1,fhb5ew2k,,0,1,1350,my_ultimatum_priors_social,1,Introduction,10.146.102.125,2017-11-15 10:08:30.706778+00:00,1,,,0,1,,,,,0,1,,,,,,,,,,99,t4ivkrth,,,,,,0

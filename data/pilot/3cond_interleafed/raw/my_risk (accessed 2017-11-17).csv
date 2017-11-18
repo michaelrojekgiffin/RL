@@ -1,0 +1,16 @@
+participant.id_in_session,participant.code,participant.label,participant._is_bot,participant._index_in_pages,participant._max_page_index,participant._current_app_name,participant._round_number,participant._current_page_name,participant.ip_address,participant.time_started,participant.visited,participant.mturk_worker_id,participant.mturk_assignment_id,participant.payoff,player.id_in_group,player.risk_choice,player.total_payoff,player.risk_payout,player.payoff,group.id_in_subsession,subsession.round_number,session.code,session.label,session.experimenter_name,session.mturk_HITId,session.mturk_HITGroupId,session.comment,session.is_demo
+1,l7atvoa0,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.61.234.242,2017-11-17 08:54:27.097171+00:00,1,,,0,1,Gamble 3,,44,0,1,1,rgoo4dc6,,,,,,0
+1,hb98046q,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.137.147.163,2017-11-17 09:32:19.627822+00:00,1,,,0,1,Gamble 3,,44,0,1,1,e2egylun,,,,,,0
+1,1p1ziysu,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.79.214.101,2017-11-17 10:07:33.101400+00:00,1,,,0,1,Gamble 4,,16,0,1,1,ak8mr2ao,,,,,,0
+1,e11ogtyx,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.16.202.50,2017-11-17 10:09:55.273168+00:00,1,,,0,1,Gamble 2,,36,0,1,1,q46eeq1m,,,,,,0
+1,g735bzc1,,0,0,1729,,,,,,0,,,0,1,,,,0,1,1,xborki6t,,,,,,1
+1,6vnucqws,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.16.202.50,2017-11-17 11:16:16.133295+00:00,1,,,0,1,Gamble 6,,2,0,1,1,bol70qsj,,,,,,0
+1,ddfany8r,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.154.23.133,2017-11-17 11:17:45.492606+00:00,1,,,0,1,Gamble 5,,60,0,1,1,vb3qzjyb,,,,,,0
+1,f0jnclst,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.91.198.174,2017-11-17 11:21:47.967017+00:00,1,,,0,1,Gamble 2,,36,0,1,1,epctzwke,,,,,,0
+1,8c5ec3py,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.93.232.18,2017-11-17 12:05:50.521424+00:00,1,,,0,1,Gamble 2,,36,0,1,1,0cd6z757,,,,,,0
+1,00p0yvin,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.146.211.141,2017-11-17 12:06:09.997937+00:00,1,,,0,1,Gamble 1,,28,0,1,1,hwl53sn2,,,,,,0
+1,0j2ww37u,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.30.78.62,2017-11-17 12:06:41.461258+00:00,1,,,0,1,Gamble 6,,2,0,1,1,1fqd95nn,,,,,,0
+1,rk3yf1do,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.146.75.181,2017-11-17 12:28:07.600614+00:00,1,,,0,1,Gamble 2,,24,0,1,1,ax0dkmuz,,,,,,0
+1,msm8nwg5,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.79.214.101,2017-11-17 13:11:37.536990+00:00,1,,,0,1,Gamble 2,,24,0,1,1,iknil2sy,,,,,,0
+1,mnafok1l,,0,1729,1729,my_ultimatum_3cond_interleafed,120,Final,10.71.219.155,2017-11-17 13:12:07.896015+00:00,1,,,0,1,Gamble 2,,24,0,1,1,kdmi2o39,,,,,,0
+1,4w40fiwx,,0,1,1729,my_ultimatum_priors_nonsocial,1,Introduction,10.63.227.166,2017-11-17 13:42:19.477081+00:00,1,,,0,1,,,,0,1,1,dvf52nwg,,,,,,0

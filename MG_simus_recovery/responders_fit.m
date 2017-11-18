@@ -105,6 +105,8 @@ for ee = 1:5 % because we have 5 different conditions going up to 20 in steps of
     resp_params(ee, 1)  = fitresult.intercept;
     resp_params(ee, 2)  = fitresult.slope;
     
+    logitp([fitresult.intercept,fitresult.slope],offers)
+    
     if ee == 3
         plot(logitp([fitresult.intercept,fitresult.slope],offers), 'color', log_col{ee}, 'Linewidth', 1.5);
     else 
@@ -138,3 +140,4 @@ legend([char(8364), '0 endowment'], [char(8364), '5 endowment'], [char(8364), '1
 % [fitresult, gof] = fit( xData, yData, ft, opts );
 % 
 % plot(logitp([fitresult.intercept,fitresult.slope],offers));
+
