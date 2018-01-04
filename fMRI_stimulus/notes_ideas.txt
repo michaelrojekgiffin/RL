@@ -1,0 +1,33 @@
+notes & ideas
+
+next:
+	- image above slider?
+	- participant recruitment SONA
+	- fMRI pulse function for psych toolbox
+	- scan participant signed forms
+
+Apparently had a problem with 
+/Applications/MATLAB_R2016b.app/bin/maci64/libfreetype.6.dylib
+
+which I didn't actually change, I just commented out the specification that it was Ariel in my script and everything worked out fine
+
+
+Should have different shapes for each session, with social(nonsocial) always filled(empty) or vice-versa. This means that if we have 4 sessions (2 social and 2 nonsocial), with 3 opponents in each, then we'll need to have 12 shapes, always randomized, with filled and empty representing social and non-social counter-balanced.
+
+1)  square
+2)  circle
+3)  triangle
+4)  star
+5)  diamond
+	6)  clover
+	7)  pentagon
+8)  inverted trapazoid
+	9)  semi-circle
+	10) crescent
+	11) pie (3/4 circle)
+	12) helix
+	13) weird tetris F
+	14) weird tetris N 
+
+
+Have several conditions specified with switch statements that choose either filled or frame from the images folder for social or nonsocial, respectively, and then randomly assign 3 of each of them to each session.
