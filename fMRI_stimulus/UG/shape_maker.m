@@ -314,3 +314,161 @@ patch(x, y, 'white', 'linewidth', 10);
 img = getframe(gcf);
 imwrite(img.cdata,'images/star_frame.png')
 
+
+
+%% Create Filled Clover
+figure('Position',[100 100 512 512],'Color','white')
+axes('Position',[0 0 1 1])
+xlim([1 512]);
+ylim([1 512]);
+
+
+xCenter = 256;
+yCenter = 256;
+
+% to fill the inner circle space
+h = patch;
+hold on
+
+axis off
+colormap(gray)
+
+% Set Coordinates
+t = linspace(0,2*pi,120);
+
+h.XData = xCenter + 45*cos(t);
+h.YData = yCenter + 45*sin(t);
+
+h = patch;
+
+% original circle code
+% h.XData = 256 + 128*cos(t);
+% h.YData = 256 + 128*sin(t);
+
+h.XData = [210 + 80*cos(t), 302 + 80*cos(t)];
+h.YData = [210 + 80*sin(t), 302 + 80*sin(t)];
+
+h = patch; 
+h.XData = 310 + 80*cos(t);
+h.YData = 190 + 80*sin(t);
+
+
+hold off
+
+% h.FaceVertexCData = [h.XData];
+
+% Save Image
+img = getframe(gcf);
+imwrite(img.cdata,'images/clover_filled.png')
+
+
+
+%% Create Empty Clover
+figure('Position',[100 100 512 512],'Color','white')
+axes('Position',[0 0 1 1])
+xlim([1 512]);
+ylim([1 512]);
+
+
+xCenter = 256;
+yCenter = 256;
+t = linspace(0,2*pi,120);
+
+h = line;
+hold on
+% original circle code
+% h.XData = 256 + 128*cos(t);
+% h.YData = 256 + 128*sin(t);
+
+% h.XData = [210 + 80*cos(t), 302 + 80*cos(t)];
+% h.YData = [210 + 80*sin(t), 302 + 80*sin(t)];
+
+h.XData = [210 + 80*cos(t)];
+h.YData = [210 + 80*sin(t)];
+
+set(h(1),'linewidth',10);
+
+h = line; 
+
+h.XData = [302 + 80*cos(t)];
+h.YData = [302 + 80*sin(t)];
+
+set(h(1),'linewidth',10);
+
+h = line; 
+h.XData = 310 + 80*cos(t);
+h.YData = 190 + 80*sin(t);
+
+set(h(1),'linewidth',10);
+
+hold off
+
+% h.FaceVertexCData = [h.XData];
+
+% Save Image
+img = getframe(gcf);
+imwrite(img.cdata,'images/clover_frame.png')
+
+
+
+%% Create Filled helix
+figure('Position',[100 100 512 512],'Color','white')
+axes('Position',[0 0 1 1])
+xlim([1 512]);
+ylim([1 512]);
+
+xCenter = 256;
+yCenter = 256;
+
+h = patch;
+
+axis off
+colormap(gray)
+
+% Set Coordinates
+t = linspace(0,2*pi,25);
+
+h.XData = [xCenter + 20*t, xCenter - 20*t];
+h.YData = [yCenter + 128*sin(t), yCenter - 128*sin(t)];
+
+
+% Save Image
+img = getframe(gcf);
+imwrite(img.cdata,'images/helix_filled.png')
+
+
+%% Create Empty helix
+figure('Position',[100 100 512 512],'Color','white')
+axes('Position',[0 0 1 1])
+xlim([1 512]);
+ylim([1 512]);
+
+xCenter = 256;
+yCenter = 256;
+
+h = line;
+hold on
+axis off
+colormap(gray)
+
+% Set Coordinates
+t = linspace(0,2*pi,25);
+
+% h.XData = [xCenter + 20*t, xCenter - 20*t];
+% h.YData = [yCenter + 128*sin(t), yCenter - 128*sin(t)];
+
+h.XData = [xCenter + 20*t];
+h.YData = [yCenter + 128*sin(t)];
+
+set(h(1),'linewidth',10);
+
+h = line;
+
+h.XData = [xCenter - 20*t];
+h.YData = [yCenter - 128*sin(t)];
+set(h(1),'linewidth',10);
+
+
+% Save Image
+img = getframe(gcf);
+imwrite(img.cdata,'images/helix_frame.png')

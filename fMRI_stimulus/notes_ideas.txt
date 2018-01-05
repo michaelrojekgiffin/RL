@@ -19,13 +19,13 @@ Should have different shapes for each session, with social(nonsocial) always fil
 3)  triangle
 4)  star
 5)  diamond
-	6)  clover
+6)  clover
 	7)  pentagon
 8)  inverted trapazoid
 	9)  semi-circle
 	10) crescent
 	11) pie (3/4 circle)
-	12) helix
+12) helix
 	13) weird tetris F
 	14) weird tetris N 
 

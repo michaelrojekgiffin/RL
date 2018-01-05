@@ -31,13 +31,13 @@ sub_num = 1;
 %           condition 1: social nonsocial social nonsocial; social filled nonsocial
 %           framed
 %
-%           condition 2: nonsocial social nonsocial socil; social filled
+%           condition 2: nonsocial social nonsocial social; social filled
 %           nonsocial framed
 %           
 %           condition 3: social nonsocial social nonsocial; social framed nonsocial
 %           filled
 %
-%           condition 4: nonsocial social nonsocial socil; social framed
+%           condition 4: nonsocial social nonsocial social; social framed
 %           nonsocial filled
 %
 % condition = input('Condition (1:4): \n');
@@ -145,10 +145,12 @@ HideCursor;
 %----------------------------------------------------------------------
 
 numTrials  = 6; % must be divisible by 3, since that's how many opponents are in each block
-numBlocks  = 1; % number of separate blocks of numTrials in both social and nonsocial conditions
+numBlocks  = 2; % number of separate blocks of numTrials, must be divisible by 2 because need at least 1 for both social and nonsocial
 
+%----------------------------------------------------------------------
+%                       Pre-allocating data storage variables
+%----------------------------------------------------------------------
 
-% pre-allocating data
 % for the UG datafile
 % column 1: offer
 % column 2: accepted (1 for yes, 0 for no)
@@ -158,7 +160,13 @@ numBlocks  = 1; % number of separate blocks of numTrials in both social and nons
 %           endowment of 10, and 2 for starting endowment of 20
 % column 6: RT
 % column 7: fMRI pulse?
-sub_data = NaN(numTrials*numBlocks*2, 7);
+sub_data          = NaN(numTrials*numBlocks, 7);
+sub_data_colnames = {'offer', 'accepted', 'payment', 'social', 'opponent', 'RT', 'fMRI'};
+
+% cell array to store shapes that represented each opponent
+% column 1: shape
+% column 2: opponent that the shape represents
+sub_opp_shapes  = cell(numTrials*numBlocks, 2);
 
 
 %----------------------------------------------------------------------
@@ -208,38 +216,42 @@ opponents   = [zeros(numTrials/3, 1); ones(numTrials/3, 1); repmat(2, [numTrials
 opponents   = Shuffle(opponents);
 
 %----------------------------------------------------------------------
-%         assigning conditions and opponent images
+%         assigning conditions 
 %----------------------------------------------------------------------
 % opponent images
 if condition == 1
     socmat = [1 0 1 0];
     socpo  = 'filled';
     nonsocpo= 'frame';
+elseif condition == 2
+    socmat = [0 1 0 1];
+    socpo  = 'filled';
+    nonsocpo= 'frame';
+elseif condition == 3
+    socmat = [1 0 1 0];
+    socpo  = 'frame';
+    nonsocpo= 'filled';
+elseif condition == 4
+    socmat = [0 1 0 1];
+    socpo  = 'frame';
+    nonsocpo= 'filled';
 end
 
-
-% % 
-% % if social==1
-% %     shapepre = 'Frame';
-% %     soctxt   = 'social';
-% % elseif social==0
-% %     shapepre = 'Fill';
-% %     soctxt   = 'non-social';
-% % else
-% %     error('social must be either 0 or 1\n');
-% % end
 
 %----------------------------------------------------------------------
 %          Opponents images
 %----------------------------------------------------------------------
 % opponent images
-% % smImSq = [0 0 250 250];
-% % [smallIm, xOffsetsigS, yOffsetsigS] = CenterRect(smImSq, windowRect);
 soc_img_dir     = dir(['images' filesep '*',socpo,'*']);
 nonsoc_img_dir  = dir(['images' filesep '*',nonsocpo,'*']);
 
-all_idx = 1:length(soc_img_dir);
-all_idx = Shuffle(all_idx);
+% the image directories are set up such that each shape appears twice, once
+% as a frame and once filled. Each shape will be assigned to represent one
+% opponent, and will never be repeated. So if a framed triangle is selected
+% to represent a nonsocial opponent, a filled triangle will never be used
+% for a social opponent
+all_idx = 1:length(soc_img_dir); % both soc and nonsoc should be the same length
+all_idx = Shuffle(all_idx);      % shuffle all indices so that each shape is only ever associated with 1 opponent
 
 
 % % soc_idx = 1:length(soc_img_dir);
@@ -258,23 +270,21 @@ all_idx = Shuffle(all_idx);
 % % texture2 = Screen('MakeTexture', window, img);
 
 
-idxidx    = 1; % the index index, for selecting shapes
+idxidx    = 1; % the index index, for selecting from the all_idx variable, is increased by 3 at the end of the experiment loop
 
 all_count = 0; % the counter that keeps trac so I can record to behavioral data
 %==========================================================================
 %                   The experiment loop
 %==========================================================================
-for block = 1:numBlocks*2 % *2 because it's one block for both social and nonsocial
-    opponents   = Shuffle(opponents);
+for block = 1:numBlocks 
+    opponents   = Shuffle(opponents); % shuffle the opponents on each block so subjects never play against the same order
     
     social = socmat(block);
     if social == 1
         imstruct = soc_img_dir;
-% %         idx      = soc_idx(idxidx:idxidx+2); % so that I'm always using different shapes
         soctxt   = 'social';
     else
         imstruct = nonsoc_img_dir;
-% %         idx      = nonsoc_idx(idxidx:idxidx+2);
         soctxt   = 'non-social';
     end
     
@@ -293,15 +303,23 @@ for block = 1:numBlocks*2 % *2 because it's one block for both social and nonsoc
             
         end
         
+        % blank wait screen between .5 and 1 seconds
+        for frame = 1:(numFrames/2)+(numFrames/2)*rand
+            Screen('Flip', window, grey);
+        end
+        
         % screen indicating which opponent subject is playing against, 2 seconds
         for frame = 1:numFrames
             % selecting the opponent against which the subject is playing
             if opponents(trial) == 0
                 [img, ~, alpha] = imread(['images' filesep imstruct(all_idx(idxidx)).name]);
+                img_name = imstruct(all_idx(idxidx)).name;
             elseif opponents(trial) == 1
                 [img, ~, alpha] = imread(['images' filesep imstruct(all_idx(idxidx+1)).name]);
+                img_name = imstruct(all_idx(idxidx+1)).name;
             elseif opponents(trial) == 2
                 [img, ~, alpha] = imread(['images' filesep imstruct(all_idx(idxidx+2)).name]);
+                img_name = imstruct(all_idx(idxidx+2)).name;
             end
             
             img = double(img);
@@ -311,28 +329,23 @@ for block = 1:numBlocks*2 % *2 because it's one block for both social and nonsoc
             texture2 = Screen('MakeTexture', window, img);
             
             % this puts it right in the middle of the screen
-            Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.3, yCenter-windowRect(4)*.3, xCenter+windowRect(3)*.3, yCenter+windowRect(4)*.3]);
+            Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
             
             % put the text over the image
-            DrawFormattedText(window, opp_txt, 'center', yCenter-windowRect(4)*.25);
-            DrawFormattedText(window, ['(', soctxt, ' condition)'], 'center', yCenter+windowRect(4)*.3);
+            DrawFormattedText(window, opp_txt, 'center', yCenter-windowRect(4)*.17);
             
-            %         % selecting the opponent against which the subject is playing
-            %         if opponents(trial) == 0
-            %             % Draw a rectangle contour in color [red, green, blue] = [0, 0, 0]
-            %             % i.e. black at location starting at the yCenter, with a line width
-            %             % of 4 pixels:
-            %             Screen([shapepre, 'Rect'],window, [0, 0, 0], [xCenter-xCenter/3, yCenter, xCenter+xCenter/3, yCenter+yCenter/1.5], 4);
-            %         elseif opponents(trial) == 1
-            %             Screen([shapepre, 'Oval'],window, [0, 0, 0], [xCenter-xCenter/3, yCenter, xCenter+xCenter/3, yCenter+yCenter/1.5], 4);
-            %         elseif opponents(trial) == 2
-            %             Screen([shapepre, 'Poly'],window, [0, 0, 0], [xCenter, yCenter; xCenter+xCenter/3, yCenter+yCenter/1.5; xCenter-xCenter/3, yCenter+yCenter/1.5], 4); % triangle
-            %         end
-            %
+            DrawFormattedText(window, ['(', soctxt, ' condition)'], 'center', yCenter+windowRect(4)*.2);
+            
             % Flip to the screen
             Screen('Flip', window, grey);
             
         end
+        
+         % blank wait screen between .5 and 1 seconds
+        for frame = 1:(numFrames/2)+(numFrames/2)*rand
+            Screen('Flip', window, grey);
+        end
+        
         
         % the slider, where the decision is made
         [offer, RT, answer] = slideScale(window, question, windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false);
@@ -360,41 +373,34 @@ for block = 1:numBlocks*2 % *2 because it's one block for both social and nonsoc
             end
         end
         
-        % screen indicating whether the offer was accepted or not, 2 seconds
-        for frame = 1:numFrames*2
+        
+        % screen indicating whether the offer was accepted or not, 2
+        % seconds + jitter around 1 second
+        for frame = 1:numFrames*2+(numFrames)*rand
              % this puts it right in the middle of the screen
-            Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.3, yCenter-windowRect(4)*.3, xCenter+windowRect(3)*.3, yCenter+windowRect(4)*.3]);
-           
+            Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
+            
             if accept == 1
                 acc_txt = sprintf('ACCEPTED your offer');
             else
                 acc_txt = sprintf('REJECTED your offer');
             end
-            DrawFormattedText(window, 'Opponent from', 'center',yCenter-windowRect(4)*.25);
-            DrawFormattedText(window, acc_txt, 'center', yCenter+windowRect(4)*.3);
-            %         DrawFormattedText(window, acc_txt, 'center', yCenter+yCenter/1.2);
-            
-            
-            
-%             if opponents(trial) == 0
-%                 % Draw a rectangle contour in color [red, green, blue] = [0, 0, 0]
-%                 % i.e. black at location starting at the yCenter, with a line width
-%                 % of 4 pixels:
-%                 Screen([shapepre, 'Rect'],window, [0, 0, 0], [xCenter-xCenter/3, yCenter, xCenter+xCenter/3, yCenter+yCenter/1.5], 4);
-%             elseif opponents(trial) == 1
-%                 Screen([shapepre, 'Oval'],window, [0, 0, 0], [xCenter-xCenter/3, yCenter, xCenter+xCenter/3, yCenter+yCenter/1.5], 4);
-%             elseif opponents(trial) == 2
-%                 Screen([shapepre, 'Poly'],window, [0, 0, 0], [xCenter, yCenter; xCenter+xCenter/3, yCenter+yCenter/1.5; xCenter-xCenter/3, yCenter+yCenter/1.5], 4); % triangle
-%             end
+            DrawFormattedText(window, 'Opponent from', 'center',yCenter-windowRect(4)*.17);
+            DrawFormattedText(window, acc_txt, 'center', yCenter+windowRect(4)*.2);
+
             
             % Flip to the screen
             Screen('Flip', window, grey);
         end
         
+        % blank wait screen between .5 and 1 seconds
+        for frame = 1:(numFrames/2)+(numFrames/2)*rand
+            Screen('Flip', window, grey);
+        end
         
         % screen indicating how much the subject received
         % still need to tweak it to make the amount they earned bigger
-        for frame = 1:numFrames*2
+        for frame = 1:numFrames*2+(numFrames)*rand
             if accept == 1
                 payment = 20-offer;
                 acc_txt = sprintf('Therefore, your payoff\nfor this trial is\n20 - %d = \n\n%d MU', offer, payment);
@@ -406,11 +412,20 @@ for block = 1:numBlocks*2 % *2 because it's one block for both social and nonsoc
             Screen('Flip', window, grey);
         end
         
-        sub_data(all_count, 1) = offer;
-        sub_data(all_count, 2) = accept;
-        sub_data(all_count, 3) = payment;
-        sub_data(all_count, 4) = social;
-        sub_data(all_count, 5) = opponents(trial);
+        % blank wait screen between .5 and 1 seconds
+        for frame = 1:(numFrames/2)+(numFrames/2)*rand
+            Screen('Flip', window, grey);
+        end
+        
+        sub_data(all_count, 1)       = offer;
+        sub_data(all_count, 2)       = accept;
+        sub_data(all_count, 3)       = payment;
+        sub_data(all_count, 4)       = social;
+        sub_data(all_count, 5)       = opponents(trial);
+        sub_data(all_count, 6)       = RT;
+        
+        sub_opp_shapes{all_count, 1} = img_name;
+        sub_opp_shapes{all_count, 2} = opponents(trial);
         
     end
     
@@ -419,13 +434,15 @@ for block = 1:numBlocks*2 % *2 because it's one block for both social and nonsoc
 end
 % should add a bit of code here that checks to see if the file for this
 % subject already exists and if it does then add the date to it or
-% something
+% something. Should also save the actual shapes that they were playing
+% against which represented the opponents just to make sure they don't have
+% any effect, and also must include the condition
 if length(sub_num) == 3
-    save(sprintf('data/pilot/sub_%d.mat', sub_num), 'sub_data');
+    save(sprintf('data/pilot/sub_%d.mat', sub_num), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames');
 elseif length(sub_num) == 2
-    save(sprintf('data/pilot/sub_0%d.mat', sub_num), 'sub_data');
+    save(sprintf('data/pilot/sub_0%d.mat', sub_num), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames');
 elseif length(sub_num) == 1
-    save(sprintf('data/pilot/sub_00%d.mat', sub_num), 'sub_data');
+    save(sprintf('data/pilot/sub_00%d.mat', sub_num), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames');
 end
 
 % Wait for a key press
