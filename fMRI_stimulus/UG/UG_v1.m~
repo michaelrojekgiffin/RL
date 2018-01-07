@@ -42,15 +42,8 @@ sub_num = 1;
 %
 % condition = input('Condition (1:4): \n');
 condition = 1;
-
-% block = input('Block (1:4): \n');
-block = 1;
 %------ inputs -------
 
-% randomly assigns shapes to opponents at very beginning of experiment 
-if block == 1
-    image_shuffler(condition);
-end
 
 
 % have function that shuffles up the block image directories on the first
@@ -128,15 +121,13 @@ lineWidthPix = 4;
 fMRI_key = KbName('t');
 fMRI_wait = 0;
 while fMRI_wait == 0
-    DrawFormattedText(window, 'Please wait...', 'center', 'center');
-    Screen('Flip', window, grey);
     [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
     if keyCode(fMRI_key) == 1
         fMRI_wait = 1;
         T0 = 0;
-        tic
-    end
+        e
 end
+
 
 
 %----------------------------------------------------------------------
@@ -175,7 +166,7 @@ HideCursor;
 %----------------------------------------------------------------------
 
 numTrials  = 6; % must be divisible by 3, since that's how many opponents are in each block
-% % numBlocks  = 2; % number of separate blocks of numTrials, must be divisible by 2 because need at least 1 for both social and nonsocial
+numBlocks  = 2; % number of separate blocks of numTrials, must be divisible by 2 because need at least 1 for both social and nonsocial
 
 %----------------------------------------------------------------------
 %                       Pre-allocating data storage variables
@@ -190,15 +181,13 @@ numTrials  = 6; % must be divisible by 3, since that's how many opponents are in
 %           endowment of 10, and 2 for starting endowment of 20
 % column 6: RT
 % column 7: fMRI pulse?
-% % sub_data          = NaN(numTrials*numBlocks, 7);
-sub_data          = NaN(numTrials, 7);
-sub_data_colnames = {'offer', 'accepted', 'payment', 'social', 'opponent', 'RT', 'time'};
+sub_data          = NaN(numTrials*numBlocks, 7);
+sub_data_colnames = {'offer', 'accepted', 'payment', 'social', 'opponent', 'RT', 'fMRI'};
 
 % cell array to store shapes that represented each opponent
 % column 1: shape
 % column 2: opponent that the shape represents
-% % sub_opp_shapes  = cell(numTrials*numBlocks, 2);
-sub_opp_shapes  = cell(numTrials, 2);
+sub_opp_shapes  = cell(numTrials*numBlocks, 2);
 
 
 %----------------------------------------------------------------------
@@ -381,7 +370,7 @@ for block = 1:numBlocks
         
         % the slider, where the decision is made
         [offer, RT, answer] = slideScale(window, question, windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false);
-        time_since_pulse    = toc;
+        
         
         % blank wait screen between 2.5 and 3.5 seconds
         for frame = 1:(numFrames*2)+(numFrames/2)+(numFrames)*rand
@@ -413,6 +402,7 @@ for block = 1:numBlocks
             end
             DrawFormattedText(window, acc_txt, 'center', yCenter+windowRect(4)*.2, acc_color);
             DrawFormattedText(window, 'Opponent', 'center',yCenter-windowRect(4)*.17, [0 0 0]);
+            
 
             
             % Flip to the screen
@@ -455,7 +445,6 @@ for block = 1:numBlocks
         sub_data(all_count, 4)       = social;
         sub_data(all_count, 5)       = opponents(trial);
         sub_data(all_count, 6)       = RT;
-        sub_data(all_count, 7)       = time_since_pulse;
         
         sub_opp_shapes{all_count, 1} = img_name;
         sub_opp_shapes{all_count, 2} = opponents(trial);
