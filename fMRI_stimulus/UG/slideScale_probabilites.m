@@ -1,4 +1,4 @@
-function [position, RT, answer, offer_start_position] = slideScale(screenPointer, question, rect, endPoints, varargin)
+function [position, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, screenPointer, question, rect, endPoints, varargin)
 %SLIDESCALE This funtion draws a slide scale on a PSYCHTOOLOX 3 screen and returns the
 % position of the slider spaced between -100 and 100 as well as the rection time and if an answer was given.
 %
@@ -89,7 +89,7 @@ scalaPosition = 0.8;
 sliderColor    = [255 0 0];
 scaleColor    = [0 0 0];
 device        = 'mouse';
-aborttime     = 8;
+aborttime     = 30;
 % aborttime     = .5;
 responseKey   = KbName('a');
 GetMouseIndices;
@@ -190,11 +190,20 @@ horzLine   = [rect(3)*scalaLength, rect(4)*scalaPosition, rect(3)*(1-scalaLength
 textBounds = [Screen('TextBounds', screenPointer, endPoints{1}); Screen('TextBounds', screenPointer, endPoints{2})];
 
 
+
+
+% Get the centre coordinate of the window
+[xCenter, yCenter] = RectCenter(rect);
+
+
+
 if drawImage == 1
-    rectImage  = [center(1) - imageSize(2)/2 rect(4)*(scalaPosition - 0.2) - imageSize(1) center(1) + imageSize(2)/2 rect(4)*(scalaPosition - 0.2)];
-    if rect(4)*(scalaPosition - 0.2) - imageSize(1) < 0
-        error('The height of the image is too large. Either lower your scale or use the smaller image.');
-    end
+%     rectImage  = [center(1) - imageSize(2)/2 rect(4)*(scalaPosition - 0.2) - imageSize(1) center(1) + imageSize(2)/2 rect(4)*(scalaPosition - 0.2)];
+    
+    rectImage  = [xCenter-rect(3)*.2, yCenter-rect(4)*.2, xCenter+rect(3)*.2, yCenter+rect(4)*.2];
+%     if rect(4)*(scalaPosition - 0.2) - imageSize(1) < 0
+%         error('The height of the image is too large. Either lower your scale or use the smaller image.');
+%     end
 end
 
 % Calculate the range of the scale, which will be need to calculate the
@@ -218,6 +227,15 @@ position = find(x(:, 1) == all_ticks(:, 1))-1;
 offer_start_position = position;
 
 SetMouse(round(x), round(rect(4)*scalaPosition), screenPointer, 1);
+
+
+%% social nonsocial
+if social == 1
+    soctxt = sprintf('Social opponent');
+else
+    soctxt = sprintf('Non-social opponent');
+end
+
 %% Loop for scale loop
 t0                         = GetSecs;
 answer                     = 0;
@@ -273,26 +291,33 @@ while answer == 0
     % Draw image if provided
     if drawImage == 1
          Screen('DrawTexture', screenPointer, stimuli,[] , rectImage, 0);
+%          Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
+        
     end
     
+    DrawFormattedText(screenPointer, soctxt, 'center', yCenter-rect(4)*.17);
+   
+    
+    % Drawing the offer in bold as text
+    DrawFormattedText(screenPointer, 'offer of     ', 'center', rect(4)*(scalaPosition - 0.1)); 
+    
+    
+    Screen('TextStyle', screenPointer, 1);
+    Screen('TextSize', screenPointer, 45);
+    DrawFormattedText(screenPointer, ['            ', num2str(all_offers-1)], 'center', rect(4)*(scalaPosition - 0.1)); 
+    
+    
+    Screen('TextStyle', screenPointer, 0);
+    Screen('TextSize', screenPointer, 36);
     % Drawing the question as text
     DrawFormattedText(screenPointer, question, 'center', rect(4)*(scalaPosition - 0.1)); 
-    
-    % Drawing the end points of the scala as text
-%     DrawFormattedText(screenPointer, endPoints{1}, leftTick(1, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-%     DrawFormattedText(screenPointer, endPoints{2}, rightTick(1, 1) - textBounds(2, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Right point
-%     
-    % Drawing the scala
-%     Screen('DrawLine', screenPointer, scaleColor, midTick(1), midTick(2), midTick(3), midTick(4), width);         % Mid tick
-%     Screen('DrawLine', screenPointer, scaleColor, leftTick(1), leftTick(2), leftTick(3), leftTick(4), width);     % Left tick
-%     Screen('DrawLine', screenPointer, scaleColor, rightTick(1), rightTick(2), rightTick(3), rightTick(4), width); % Right tick
     
     % drawing all the 21 points
     offer = 0;
     for tickem = 1:length(all_ticks)
         Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
-        DrawFormattedText(screenPointer, num2str(offer), all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-        offer = offer+1;
+        DrawFormattedText(screenPointer, [num2str(offer)], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+        offer = offer+5;
     end
     
     Screen('DrawLine', screenPointer, scaleColor, horzLine(1), horzLine(2), horzLine(3), horzLine(4), width);     % Horizontal line
@@ -334,7 +359,7 @@ while answer == 0
 end
 %% Wating that all keys are released and delete texture
 KbReleaseWait; %Keyboard
-% KbReleaseWait(1); %Mouse
+KbReleaseWait(1); %Mouse
 if drawImage == 1
     Screen('Close', stimuli);
 end

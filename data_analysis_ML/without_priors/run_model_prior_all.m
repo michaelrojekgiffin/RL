@@ -30,6 +30,7 @@ nsub = length(fl_list);
 
 %% subject loop
 gsub =0;
+wrdsub = 0;
 for k_sub = 1:nsub;
     
     sub_nm = fl_list(k_sub).name(5:12);
@@ -37,12 +38,13 @@ for k_sub = 1:nsub;
     flnmNonSoc = fullfile(data_dir,strcat('Sub_',sub_nm,'_NonSocPriors.mat'));
     flnmDict = fullfile(data_dir,strcat('Sub_',sub_nm,'_Dictator.mat'));
     
-    if exist(flnmSoc,'file') && exist(flnmNonSoc,'file') && exist(Dict,'file')
+    if exist(flnmSoc,'file') && exist(flnmNonSoc,'file') && exist(flnmDict,'file')
         gsub = gsub+1;
         prior_sub_names{gsub} = sub_nm;
         
         for kSoc = 1:3
             %% Get UG data
+            
             
             switch kSoc
                 case 1
@@ -53,8 +55,17 @@ for k_sub = 1:nsub;
                load(flnmDict)
             end
             
-            ch  = subdata(:,3) == subdata(:,1);
-            chO = subdata(:,1:2);
+            ch = NaN(96,1);
+            chO = NaN(96,2);
+            szdt = size(subdata,1);
+            
+            if szdt ~= 96
+                wrdsub = wrdsub+1;
+                wrdsubNum{wrdsub} = sub_nm;
+            end
+            
+            ch(1:szdt,:)  = subdata(:,3) == subdata(:,1);
+            chO(1:szdt,:) = subdata(:,1:2);
             
             for kk = 1:20
                behav(k_sub,kk) = mean(ch(chO(:,1)==kk)) + 1-mean(ch(chO(:,2)==kk));          
@@ -95,7 +106,7 @@ for k_sub = 1:nsub;
 end
 
 
-save('Priors_All_2017_12_07')
+save('Priors_All_2018_01_08')
 
 
 figure;
@@ -112,8 +123,12 @@ errorbar(offers,squeeze(mean(EV_sub(:,:,2))),squeeze(std(EV_sub(:,:,2)))./sqrt(n
     'Color',0.*[1,1,1],...
     'MarkerFaceColor',.5.*[1,1,1],...
     'MarkerEdgeColor',0.*[1,1,1])
+errorbar(offers,squeeze(mean(EV_sub(:,:,3))),squeeze(std(EV_sub(:,:,3)))./sqrt(nsub),'-o',...
+    'Color',0.*[1,1,1],...
+    'MarkerFaceColor',0.*[1,1,1],...
+    'MarkerEdgeColor',0.*[1,1,1])
 set(gca,'XLim',[0 21],...
-    'YLim',[0 8])
+    'YLim',[0 10])
 xlabel('offers')
 ylabel('Estimated Expected value')
 legend('NonSoc','Soc')
@@ -128,6 +143,11 @@ errorbar(offers,squeeze(mean(PA_sub(:,:,2))),squeeze(std(PA_sub(:,:,2)))./sqrt(n
     'Color',0.*[1,1,1],...
     'MarkerFaceColor',.5.*[1,1,1],...
     'MarkerEdgeColor',0.*[1,1,1])
+errorbar(offers,squeeze(mean(PA_sub(:,:,3))),squeeze(std(PA_sub(:,:,3)))./sqrt(nsub),'-o',...
+    'Color',0.*[1,1,1],...
+    'MarkerFaceColor',.0.*[1,1,1],...
+    'MarkerEdgeColor',0.*[1,1,1])
+
 set(gca,'XLim',[0 21],...
     'YLim',[0 1])
 xlabel('offers')

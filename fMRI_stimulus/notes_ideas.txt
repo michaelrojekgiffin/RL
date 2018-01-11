@@ -34,3 +34,20 @@ Should have different shapes for each session, with social(nonsocial) always fil
 Have several conditions specified with switch statements that choose either filled or frame from the images folder for social or nonsocial, respectively, and then randomly assign 3 of each of them to each session.
 
 Have different folders with the images of the opponents' shapes
+
+
+
+save starting position of scalar
+
+Your offer of 10 was rejected
+lose colors on numbers for the gain, make it BOLD but no color
+instead of "you gain" use "you receive".
+Include what the responder gets on each trial as well - think aabout it once I know what we did in the behavioral study. 
+
+For feedback screens - present symbol accepts or rejects, then follow that by a screen that says "you offered X to symbol" "You earn X" - so that the accept or reject is presented on one screen, and then the outcome is presented on the other screen, so that they're processing whether or not they were accepted in one instant, and then how much they earned on antoher.
+
+
+subjects - recruiting (do this immediately)
+
+
+Need to make a system for assessing the subjects judgements on the probability that an opponent will accept their offer. Since it's randomized at the beginning of each trial, and since we're going to be assessing the last session outside the scanner, we need to be sure that we have the correct opponents that they're playing agianst. I doubt they're gonna let me instal dropbox on the stimulus computer, so we might have to do this long hand or something. 
