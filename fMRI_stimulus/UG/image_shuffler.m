@@ -28,7 +28,7 @@ elseif condition == 3
     socmat = [1 0 1 0];
     socpo  = 'frame';
     nonsocpo= 'filled';
-elseif condition == 4
+elseif condition == 0
     socmat = [0 1 0 1];
     socpo  = 'frame';
     nonsocpo= 'filled';

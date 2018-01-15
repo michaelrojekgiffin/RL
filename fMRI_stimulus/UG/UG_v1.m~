@@ -65,8 +65,8 @@ end
 % Clear the workspace and the screen
 sca;
 close all;
-
-T0 = GetSecs;
+tic
+T0 = toc;
 % clearvars;
 
 %=========================================================================
@@ -177,6 +177,7 @@ while fMRI_wait == 0
     if keyCode(fMRI_key) == 1 || keyCode(fMRI_sim) == 1
         %     if keyCode(fMRI_key) == 1
         fMRI_wait = 1;
+        T0 = 0;
         tic
     end
 end
@@ -356,7 +357,7 @@ opponents   = Shuffle(opponents); % shuffle the opponents on each block so subje
 
 for trial = 1:numTrials
     all_count = all_count + 1;
-   
+    
     window_times.fixation(trial) = toc;
     % fixation cross loop, jittered between 1.5 and 2.5 seconds
     for frame = 1:(numFrames/2) + numFrames*2*rand
@@ -519,10 +520,6 @@ for trial = 1:numTrials
     sub_opp_shapes{all_count, 2} = opponents(trial);
     
 end
-Tend              = GetSecs - T0;
-window_times.T0   = T0;
-window_times.Tend = Tend;
-
 
 % for the data files that I'm saving
 if social == 1

@@ -1,4 +1,4 @@
-function [position, RT, answer, offer_start_position] = slideScale(screenPointer, question, rect, endPoints, varargin)
+function [position, RT, answer, offer_start_position] = slideScale(numFrames, screenPointer, question, rect, endPoints, varargin)
 %SLIDESCALE This funtion draws a slide scale on a PSYCHTOOLOX 3 screen and returns the
 % position of the slider spaced between -100 and 100 as well as the rection time and if an answer was given.
 %
@@ -77,6 +77,7 @@ function [position, RT, answer, offer_start_position] = slideScale(screenPointer
 %                    mouse to keyboard
 %                    2.1 - 2. January 2018 - change scale to have 20 tick
 %                    marks for offer selection for ultimatum game
+
 
 
 %% Parse input arguments
@@ -211,9 +212,11 @@ for tickem = 1:length(all_ticks)
     xticker = xticker + (length(scaleRange)/20);
 end
 
-% start in random point on scale for each trial
-x = datasample(all_ticks(:, 1), 1);
-position = find(x(:, 1) == all_ticks(:, 1))-1;
+% start in random point on scale for each trial within range in the middle
+% quadrant of the scale
+rnd_range = [ceil(length(all_ticks)/4), ceil(length(all_ticks) - (length(all_ticks)/4))];
+x         = datasample(all_ticks(rnd_range(1):rnd_range(end), 1), 1);
+position  = find(x(:, 1) == all_ticks(:, 1))-1;
 
 offer_start_position = position;
 
@@ -278,15 +281,7 @@ while answer == 0
     % Drawing the question as text
     DrawFormattedText(screenPointer, question, 'center', rect(4)*(scalaPosition - 0.1)); 
     
-    % Drawing the end points of the scala as text
-%     DrawFormattedText(screenPointer, endPoints{1}, leftTick(1, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-%     DrawFormattedText(screenPointer, endPoints{2}, rightTick(1, 1) - textBounds(2, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Right point
-%     
-    % Drawing the scala
-%     Screen('DrawLine', screenPointer, scaleColor, midTick(1), midTick(2), midTick(3), midTick(4), width);         % Mid tick
-%     Screen('DrawLine', screenPointer, scaleColor, leftTick(1), leftTick(2), leftTick(3), leftTick(4), width);     % Left tick
-%     Screen('DrawLine', screenPointer, scaleColor, rightTick(1), rightTick(2), rightTick(3), rightTick(4), width); % Right tick
-    
+
     % drawing all the 21 points
     offer = 0;
     for tickem = 1:length(all_ticks)
@@ -322,6 +317,7 @@ while answer == 0
         [keyIsDown, secs, keyCode] = KbCheck;
         if keyCode(responseKey) == 1
             answer = 1;
+            RT = secs - t0;
         end
     else
         error('Unknown device');
@@ -332,6 +328,46 @@ while answer == 0
         break
     end
 end
+
+% freeze on the choice for a half second plus a half second jitter
+% % still_freeze = 0;
+% % % while still_freeze == 0
+for frame = 1:numFrames/2 + (numFrames/2*rand)
+    % drawing the tick where the chosen offer is
+    
+    for tickem = 1:length(all_ticks)
+        if tickem == position+1
+            Screen('TextStyle', screenPointer, 1);
+            
+            Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
+            DrawFormattedText(screenPointer, num2str(position), all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]);
+            
+            Screen('TextStyle', screenPointer, 0);
+        elseif tickem == 1
+            Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
+        elseif tickem == length(all_ticks)
+            Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
+        end
+        
+    end
+    
+    % Display position
+    
+% %     DrawFormattedText(screenPointer, num2str(round(position)), 'center', rect(4)*(scalaPosition + 0.05)); 
+    
+    Screen('DrawLine', screenPointer, scaleColor, horzLine(1), horzLine(2), horzLine(3), horzLine(4), width);     % Horizontal line
+    
+    % The slider
+    Screen('DrawLine', screenPointer, sliderColor, x, rect(4)*scalaPosition - lineLength*2, x, rect(4)*scalaPosition  + lineLength*2, width*2);
+    onsetStimulus = Screen('Flip', screenPointer);
+    
+% %     pause(1)
+    
+% %     still_freeze = 1;
+end
+
+
+
 %% Wating that all keys are released and delete texture
 KbReleaseWait; %Keyboard
 % KbReleaseWait(1); %Mouse
@@ -339,6 +375,7 @@ if drawImage == 1
     Screen('Close', stimuli);
 end
 %% Calculating the rection time and the position
+% this is actually calculated earlier in the script now
 % RT                = (secs - t0)*1000;                                          % converting RT to millisecond
-RT                = (secs - t0);                                          % converting RT to millisecond
+% % RT                = (secs - t0);                                          % converting RT to millisecond
 end
