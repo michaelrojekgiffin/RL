@@ -91,7 +91,7 @@ scaleColor    = [0 0 0];
 device        = 'mouse';
 aborttime     = 8;
 % aborttime     = .5;
-responseKey   = KbName('a');
+responseKey   = KbName('space');
 GetMouseIndices;
 drawImage     = 0;
 startPosition = 'center';

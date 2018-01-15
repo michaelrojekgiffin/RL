@@ -312,8 +312,9 @@ all_count = 0; % the counter that keeps trac so I can record to behavioral data
 %                   The experiment loop
 %==========================================================================
 opponents   = Shuffle(opponents); % shuffle the opponents on each block so subjects never play against the same order
-% % 
-% % social = socmat(block);
+
+social = socmat(block);
+
 % % if social == 1
 % %     % %         imstruct = soc_img_dir;
 % %     soctxt   = 'social';
@@ -381,185 +382,17 @@ for all_blocks = 1:length(block)
             window_times.offer_start(trial) = toc;
             % the slider, where the decision is made
 %             [offer, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, window, ['offer of ', num2str(all_offers-1), '\n\nProbability of acceptance (in %)'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
-            [offer, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, window, ['\n\nProbability of acceptance (in %)'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+            [offer, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, window, ['\n\nProbability of acceptance\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
             
         end
     end
 end
 
-
-
-% % % from full UG
-% % for trial = 1:numTrials
-% %     all_count = all_count + 1;
-% %     
-% %     if trial == 1
-% %         DrawFormattedText(window, instruction_txt, 'center', 'center');
-% %         Screen('Flip', window, grey);
-% %         
-% %         KbStrokeWait;
-% %     end
-% %     
-% % % %     window_times.fixation(trial) = toc;
-% % % %     % fixation cross loop, jittered between .5 and 1.5 seconds
-% % % %     for frame = 1:(numFrames/2) + numFrames*rand
-% % % %         % Draw the fixation cross in white, set it to the center of our screen and
-% % % %         % set good quality antialiasing
-% % % %         Screen('DrawLines', window, allCoords,lineWidthPix, white, [xCenter yCenter], 2);
-% % % %         
-% % % %         % Flip to the screen
-% % % %         Screen('Flip', window);
-% % % %         
-% % % %     end
-% % % %     
-% % % %     window_times.wait1(trial) = toc;
-% % % %     % blank wait screen between .5 and 1 seconds
-% % % %     for frame = 1:(numFrames/2)+(numFrames/2)*rand
-% % % %         Screen('Flip', window, grey);
-% % % %     end
-% %     
-% %     % selecting the opponent against which the subject is playing
-% %     if opponents(trial) == 0
-% %         [img, ~, alpha] = imread(['block', num2str(block), '_images', filesep, imstruct(1).name]);
-% %         img_name = imstruct(1).name;
-% %     elseif opponents(trial) == 1
-% %         [img, ~, alpha] = imread(['block', num2str(block), '_images', filesep, imstruct(2).name]);
-% %         img_name = imstruct(2).name;
-% %     elseif opponents(trial) == 2
-% %         [img, ~, alpha] = imread(['block', num2str(block), '_images', filesep, imstruct(3).name]);
-% %         img_name = imstruct(3).name;
-% %     end
-% %     
-% %     img = double(img);
-% %     img = rgb2gray(img);
-% %     img(img == 1) = grey;
-% %     % img(:, :, 4) = alpha;
-% %     texture2 = Screen('MakeTexture', window, img);
-% %     
-% %     
-% %     window_times.opponent(trial) = toc;
-% %     % screen indicating which opponent subject is playing against, ~2 seconds
-% %     for frame = 1:numFrames+(numFrames/2)*rand
-% %             
-% %         % this puts it right in the middle of the screen
-% %         Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
-% %         
-% %         % put the text over the image
-% %         DrawFormattedText(window, 'opponent from', 'center', yCenter-windowRect(4)*.17);
-% %         
-% %         DrawFormattedText(window, soctxt, 'center', yCenter+windowRect(4)*.2);
-% %         
-% %         % Flip to the screen
-% %         Screen('Flip', window, grey);
-% %         
-% %     end
-% %     
-% %     window_times.wait2(trial) = toc;
-% %     % blank wait screen between .5 and 1 seconds
-% %     for frame = 1:(numFrames/2)+(numFrames/2)*rand
-% %         Screen('Flip', window, grey);
-% %     end
-% %     
-% %     window_times.offer_start(trial) = toc;
-% %     % the slider, where the decision is made
-% %     [offer, RT, answer, offer_start_position] = slideScale_probabilites(window, question, windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false);
-% %     window_times.offer_end(trial) = toc;
-% %     time_since_pulse              = window_times.offer_end(trial);
-% %     
-% %     window_times.wait3_post_offer(trial) = toc;
-% %     % blank wait screen between 1.5 and 2.5 seconds
-% %     for frame = 1:(numFrames/2)+(numFrames/2)+(numFrames/2)*rand
-% %         Screen('Flip', window, grey);
-% %         
-% %     end
-% %     
-% %     % calculate whether or not the offer was accepted by the opponent
-% %     if opponents(trial) == 0
-% %         accept = rand < endow0(offer+1); % +1 because I can't index with 0
-% %     elseif opponents(trial) == 1
-% %         accept = rand < endow10(offer+1); % +1 because I can't index with 0
-% %     elseif opponents(trial) == 2
-% %         accept = rand < endow20(offer+1); % +1 because I can't index with 0
-% %     end
-% %     
-% %     
-% %     if accept == 1
-% %         acc_txt   = sprintf('ACCEPTED');
-% %         acc_color = [0 255 0]; % green
-% %     else
-% %         acc_txt = sprintf('REJECTED');
-% %         acc_color = [255 0 0]; % red
-% %     end
-% %     
-% %     
-% %     window_times.accept(trial) = toc;
-% %     % screen indicating whether the offer was accepted or not, 2
-% %     % seconds + jitter around .5 seconds
-% %     for frame = 1:numFrames+(numFrames/2)*rand
-% %         % this puts it right in the middle of the screen
-% %         Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
-% %         
-% %         DrawFormattedText(window, acc_txt, 'center', yCenter+windowRect(4)*.2, acc_color);
-% %         DrawFormattedText(window, 'Opponent', 'center',yCenter-windowRect(4)*.17, [0 0 0]);
-% %         
-% %         % Flip to the screen
-% %         Screen('Flip', window, grey);
-% %     end
-% %     
-% % % %     window_times.wait4(trial) = toc;
-% % % %     % blank wait screen between .5 and 1 seconds
-% % % %     for frame = 1:(numFrames/4)+(numFrames/2)*rand
-% % % %         Screen('Flip', window, grey);
-% % % %     end
-% %     
-% %     if accept == 1
-% %         payment = 20-offer;
-% %         acc_txt = sprintf('%d', payment);
-% % %         acc_txt = sprintf('\n\n%d', payment);
-% % % %         acc_color = [0 255 0]; % green
-% %     else
-% %         payment = 0;
-% %         acc_txt = sprintf('%d', payment);
-% % %         acc_txt = sprintf('\n\n%d', payment);
-% % % %         acc_color = [255 0 0]; % red
-% %     end
-% %     
-% %     window_times.payment(trial) = toc;
-% %     % screen indicating how much the subject received
-% %     % still need to tweak it to make the amount they earned bigger
-% %     for frame = 1:(numFrames+(numFrames/2))+(numFrames/4)*rand
-% %         
-% % %         DrawFormattedText(window, ['\n\n', acc_txt], 'center','center');
-% % %         DrawFormattedText(window, 'You gain', 'center','center');
-% % %         
-% %         
-% %         % this puts it right in the middle of the screen
-% %         Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
-% %         
-% %         DrawFormattedText(window, ['You receive ', acc_txt], 'center', yCenter+windowRect(4)*.2);
-% %         DrawFormattedText(window, ['You offered ', num2str(offer)], 'center',yCenter-windowRect(4)*.17);
-% %         
-% %         Screen('Flip', window, grey);
-% %     end
-% %     
-% %     window_times.wait5(trial) = toc;
-% %     % blank wait screen between .5 and 1 seconds
-% %     for frame = 1:(numFrames/2)+(numFrames/2)*rand
-% %         Screen('Flip', window, grey);
-% %     end
-% %     
-% %     sub_data(all_count, 1)       = offer;
-% %     sub_data(all_count, 2)       = accept;
-% %     sub_data(all_count, 3)       = payment;
-% %     sub_data(all_count, 4)       = social;
-% %     sub_data(all_count, 5)       = opponents(trial);
-% %     sub_data(all_count, 6)       = RT;
-% %     sub_data(all_count, 7)       = offer_start_position;
-% %     
-% %     sub_opp_shapes{all_count, 1} = img_name;
-% %     sub_opp_shapes{all_count, 2} = opponents(trial);
-% %     
-% % end
+if block(1) == 1
+    block = 1;
+else 
+    block =2;
+end
 
 % for the data files that I'm saving
 if social == 1
@@ -571,22 +404,22 @@ end
 % first check to see if there is already a file for this subject and this
 % block and if so, save the file with the date at the end
 if sub_num > 99 
-    if exist(sprintf('data%spilot%ssub_prob%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub_prob%d_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%spilot%ssub%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
+        save(sprintf('data%spilot%ssub%d_prob_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     else
-        save(sprintf('data%spilot%ssub_prob%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%spilot%ssub%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     end
 elseif sub_num > 9 && sub_num < 100
-    if exist(sprintf('data%spilot%ssub0_prob%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub0_prob%d_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%spilot%ssub0%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
+        save(sprintf('data%spilot%ssub0%d_prob_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     else
-        save(sprintf('data%spilot%ssub0_prob%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%spilot%ssub0%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     end
 elseif sub_num < 10
-    if exist(sprintf('data%spilot%ssub00_prob%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub00_prob%d_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%spilot%ssub00%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
+        save(sprintf('data%spilot%ssub00%d_prob_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     else
-        save(sprintf('data%spilot%ssub00_prob%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%spilot%ssub00%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     end
 end
 

@@ -358,8 +358,8 @@ for trial = 1:numTrials
     all_count = all_count + 1;
     
     window_times.fixation(trial) = toc;
-    % fixation cross loop, jittered between .5 and 1.5 seconds
-    for frame = 1:(numFrames/2) + numFrames*rand
+    % fixation cross loop, jittered between 1.5 and 2.5 seconds
+    for frame = 1:(numFrames/2) + numFrames*2*rand
         % Draw the fixation cross in white, set it to the center of our screen and
         % set good quality antialiasing
         Screen('DrawLines', window, allCoords,lineWidthPix, white, [xCenter yCenter], 2);
@@ -369,11 +369,11 @@ for trial = 1:numTrials
         
     end
     
-    window_times.wait1(trial) = toc;
-    % blank wait screen between .5 and 1 seconds
-    for frame = 1:(numFrames/2)+(numFrames/2)*rand
-        Screen('Flip', window, grey);
-    end
+% %     window_times.wait1(trial) = toc;
+% %     % blank wait screen between .5 and 1 seconds
+% %     for frame = 1:(numFrames/2)+(numFrames/2)*rand
+% %         Screen('Flip', window, grey);
+% %     end
     
     % selecting the opponent against which the subject is playing
     if opponents(trial) == 0
@@ -396,7 +396,7 @@ for trial = 1:numTrials
     
     window_times.opponent(trial) = toc;
     % screen indicating which opponent subject is playing against, ~2 seconds
-    for frame = 1:numFrames+(numFrames/2)*rand
+    for frame = 1:numFrames+(numFrames)*rand
             
         % this puts it right in the middle of the screen
         Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
@@ -411,24 +411,29 @@ for trial = 1:numTrials
         
     end
     
-    window_times.wait2(trial) = toc;
-    % blank wait screen between .5 and 1 seconds
-    for frame = 1:(numFrames/2)+(numFrames/2)*rand
-        Screen('Flip', window, grey);
-    end
-    
+% %     window_times.wait2(trial) = toc;
+% %     % blank wait screen between .5 and 1 seconds
+% %     for frame = 1:(numFrames/2)+(numFrames/2)*rand
+% %         Screen('Flip', window, grey);
+% %     end
+% %     
     window_times.offer_start(trial) = toc;
     % the slider, where the decision is made
     [offer, RT, answer, offer_start_position] = slideScale(window, question, windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false);
     window_times.offer_end(trial) = toc;
     time_since_pulse              = window_times.offer_end(trial);
     
-    window_times.wait3_post_offer(trial) = toc;
-    % blank wait screen between 1.5 and 2.5 seconds
-    for frame = 1:(numFrames/2)+(numFrames/2)+(numFrames/2)*rand
-        Screen('Flip', window, grey);
-        
-    end
+    % need to have slider freeze after selection, but want to record the
+    % exact time that they made the decision so should have that time as
+    % an output of the function
+    
+% %     
+% %     window_times.wait3_post_offer(trial) = toc;
+% %     % blank wait screen between 1.5 and 2.5 seconds
+% %     for frame = 1:(numFrames/2)+(numFrames/2)+(numFrames/2)*rand
+% %         Screen('Flip', window, grey);
+% %         
+% %     end
     
     % calculate whether or not the offer was accepted by the opponent
     if opponents(trial) == 0
@@ -443,21 +448,29 @@ for trial = 1:numTrials
     if accept == 1
         acc_txt   = sprintf('ACCEPTED');
         acc_color = [0 255 0]; % green
+        payment   = 20-offer;
+        pay_txt   = sprintf('%d', payment);
     else
         acc_txt = sprintf('REJECTED');
         acc_color = [255 0 0]; % red
+        payment   = 0;
+        pay_txt   = sprintf('%d', payment);
     end
     
     
     window_times.accept(trial) = toc;
-    % screen indicating whether the offer was accepted or not, 2
-    % seconds + jitter around .5 seconds
-    for frame = 1:numFrames+(numFrames/2)*rand
+    % screen indicating whether the offer was accepted or not and how much
+    % the subject earned, 2 seconds + jitter around 1 seconds
+    for frame = 1:numFrames*2+(numFrames)*rand
         % this puts it right in the middle of the screen
         Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
         
-        DrawFormattedText(window, acc_txt, 'center', yCenter+windowRect(4)*.2, acc_color);
-        DrawFormattedText(window, 'Opponent', 'center',yCenter-windowRect(4)*.17, [0 0 0]);
+%         DrawFormattedText(window, acc_txt, 'center', yCenter+windowRect(4)*.2, acc_color);
+% %         DrawFormattedText(window, 'Opponent', 'center',yCenter-windowRect(4)*.17, [0 0 0]);
+        
+        DrawFormattedText(window, acc_txt, 'center', yCenter-windowRect(4)*.17, acc_color);
+        DrawFormattedText(window, ['You offered ', num2str(offer), '\n\nYou receive ', pay_txt], 'center', yCenter+windowRect(4)*.2, [0 0 0]);
+        
         
         % Flip to the screen
         Screen('Flip', window, grey);
@@ -482,28 +495,30 @@ for trial = 1:numTrials
     end
     
     window_times.payment(trial) = toc;
+    
+    
     % screen indicating how much the subject received
     % still need to tweak it to make the amount they earned bigger
-    for frame = 1:(numFrames+(numFrames/2))+(numFrames/4)*rand
-        
-%         DrawFormattedText(window, ['\n\n', acc_txt], 'center','center');
-%         DrawFormattedText(window, 'You gain', 'center','center');
-%         
-        
-        % this puts it right in the middle of the screen
-        Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
-        
-        DrawFormattedText(window, ['You receive ', acc_txt], 'center', yCenter+windowRect(4)*.2);
-        DrawFormattedText(window, ['You offered ', num2str(offer)], 'center',yCenter-windowRect(4)*.17);
-        
-        Screen('Flip', window, grey);
-    end
+% %     for frame = 1:(numFrames+(numFrames/2))+(numFrames/4)*rand
+% %         
+% % %         DrawFormattedText(window, ['\n\n', acc_txt], 'center','center');
+% % %         DrawFormattedText(window, 'You gain', 'center','center');
+% % %         
+% %         
+% %         % this puts it right in the middle of the screen
+% %         Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
+% %         
+% %         DrawFormattedText(window, ['You receive ', acc_txt], 'center', yCenter+windowRect(4)*.2);
+% %         DrawFormattedText(window, ['You offered ', num2str(offer)], 'center',yCenter-windowRect(4)*.17);
+% %         
+% %         Screen('Flip', window, grey);
+% %     end
     
-    window_times.wait5(trial) = toc;
-    % blank wait screen between .5 and 1 seconds
-    for frame = 1:(numFrames/2)+(numFrames/2)*rand
-        Screen('Flip', window, grey);
-    end
+% %     window_times.wait5(trial) = toc;
+% %     % blank wait screen between .5 and 1 seconds
+% %     for frame = 1:(numFrames/2)+(numFrames/2)*rand
+% %         Screen('Flip', window, grey);
+% %     end
     
     sub_data(all_count, 1)       = offer;
     sub_data(all_count, 2)       = accept;

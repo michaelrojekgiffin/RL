@@ -212,12 +212,20 @@ scaleRange        = round(rect(3)*(1-scalaLength)):round(rect(3)*scalaLength); %
 scaleRangeShifted = round((scaleRange)-mean(scaleRange));                      % Shift the range of scale so it is symmetrical around zero
 
 
-% my attempt to get ticks for all 21 offers
-all_ticks = NaN(21, 4);
+% % my attempt to get ticks for all 21 offers
+% all_ticks = NaN(21, 4);
+% xticker = 0;
+% for tickem = 1:length(all_ticks)
+%     all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
+%     xticker = xticker + (length(scaleRange)/20);
+% end
+
+% my attempt to get ticks for all 101 offers
+all_ticks = NaN(101, 4);
 xticker = 0;
 for tickem = 1:length(all_ticks)
     all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
-    xticker = xticker + (length(scaleRange)/20);
+    xticker = xticker + (length(scaleRange)/100);
 end
 
 % start in random point on scale for each trial
@@ -269,17 +277,26 @@ while answer == 0
     % multiple keypresses since it's refreshing 60 times per second (more
     % or less, given the frame refresh rate)
     if keyIsDown == 1
-        pause(.1)
+        pause(.05)
     end
     
+%     % for 20 point scale
+%     if keyCode(leftKey) == 1 && position > 0
+%         x = x - (length(scaleRange)/20);
+%         position = position - 1;
+%     elseif keyCode(rightKey) == 1 && position < 20
+%         x = x + (length(scaleRange)/20);
+%         position = position + 1;
+%     end
+%     
+    % for 100 point scale
     if keyCode(leftKey) == 1 && position > 0
-        x = x - (length(scaleRange)/20);
+        x = x - (length(scaleRange)/100);
         position = position - 1;
-    elseif keyCode(rightKey) == 1 && position < 20
-        x = x + (length(scaleRange)/20);
+    elseif keyCode(rightKey) == 1 && position < 100
+        x = x + (length(scaleRange)/100);
         position = position + 1;
     end
-    
     
     SetMouse(round(x), round(rect(4)*scalaPosition), screenPointer, 1);
     
@@ -312,14 +329,29 @@ while answer == 0
     % Drawing the question as text
     DrawFormattedText(screenPointer, question, 'center', rect(4)*(scalaPosition - 0.1)); 
     
-    % drawing all the 21 points
+%     % drawing all the 21 points
+%     offer = 0;
+%     for tickem = 1:length(all_ticks)
+%         Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
+%         DrawFormattedText(screenPointer, [num2str(offer)], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+%         offer = offer+5;
+%     end
+
+    % drawing all the 100 ticks
     offer = 0;
     for tickem = 1:length(all_ticks)
         Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
-        DrawFormattedText(screenPointer, [num2str(offer)], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-        offer = offer+5;
+        if tickem == 1
+            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+        elseif tickem == 51
+             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+        elseif tickem == length(all_ticks)
+            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+        end
+        offer = offer+1;
     end
     
+%     
     Screen('DrawLine', screenPointer, scaleColor, horzLine(1), horzLine(2), horzLine(3), horzLine(4), width);     % Horizontal line
     
     % The slider
