@@ -66,8 +66,8 @@ end
 sca;
 close all;
 
-T0 = GetSecs;
-% clearvars;
+script_start = GetSecs;
+
 
 %=========================================================================
 % VERY IMPORTANT - MUST BE COMMENTED OUT FOR REAL EXPERIMENT
@@ -177,7 +177,8 @@ while fMRI_wait == 0
     if keyCode(fMRI_key) == 1 || keyCode(fMRI_sim) == 1
         %     if keyCode(fMRI_key) == 1
         fMRI_wait = 1;
-        tic
+        first_pulse = GetSecs;
+%         tic
     end
 end
 
@@ -356,8 +357,8 @@ opponents   = Shuffle(opponents); % shuffle the opponents on each block so subje
 
 for trial = 1:numTrials
     all_count = all_count + 1;
-   
-    window_times.fixation(trial) = toc;
+    window_times.fixation(trial) = GetSecs - first_pulse;
+%     window_times.fixation(trial) = toc;
     % fixation cross loop, jittered between 1.5 and 2.5 seconds
     for frame = 1:(numFrames/2) + numFrames*2*rand
         % Draw the fixation cross in white, set it to the center of our screen and
@@ -394,7 +395,7 @@ for trial = 1:numTrials
     texture2 = Screen('MakeTexture', window, img);
     
     
-    window_times.opponent(trial) = toc;
+    window_times.opponent(trial) = GetSecs - first_pulse;
     % screen indicating which opponent subject is playing against, ~2 seconds
     for frame = 1:numFrames+(numFrames)*rand
             
@@ -417,14 +418,14 @@ for trial = 1:numTrials
 % %         Screen('Flip', window, grey);
 % %     end
 % %     
-    window_times.offer_start(trial) = toc;
+    window_times.offer_start(trial) = GetSecs - first_pulse;
     % the slider, where the decision is made
     [offer, RT, answer, offer_start_position] = slideScale(numFrames, window, question, windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false);
     
     % I freeze the screen for half a second after they select
     window_times.offer_freeze(trial) = window_times.offer_start(trial) + RT; 
     
-    window_times.offer_end(trial) = toc;
+    window_times.offer_end(trial) = GetSecs - first_pulse;
     
     
     % calculate whether or not the offer was accepted by the opponent
@@ -450,7 +451,7 @@ for trial = 1:numTrials
     end
     
     
-    window_times.accept_payment(trial) = toc;
+    window_times.accept_payment(trial) = GetSecs - first_pulse;
     % screen indicating whether the offer was accepted or not and how much
     % the subject earned, 2 seconds + jitter around 1 seconds
     for frame = 1:numFrames*2+(numFrames)*rand
@@ -519,9 +520,9 @@ for trial = 1:numTrials
     sub_opp_shapes{all_count, 2} = opponents(trial);
     
 end
-Tend              = GetSecs - T0;
-window_times.T0   = T0;
-window_times.Tend = Tend;
+
+window_times.script_start          = script_start;
+window_times.first_pulse = first_pulse;
 
 
 % for the data files that I'm saving

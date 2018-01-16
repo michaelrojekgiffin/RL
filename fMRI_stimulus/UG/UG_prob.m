@@ -23,8 +23,9 @@ sub_num = input('What is the subject number?\n');
 %           condition 4: nonsocial social nonsocial social; social framed
 %           nonsocial filled
 %
-condition = input('Condition (1:4): \n');
+% condition = input('Condition (1:4): \n');
 % condition = 1;
+condition = mod(sub_num, 4); % condition 4 will be recorded as a 0 with mod function
 
 % this will be given to the subject twice, once after the first two blocks,
 % and once after the second two blocks
@@ -256,8 +257,13 @@ endow10  =  [0.2844, 0.3839, 0.4942, 0.6051, 0.7061, 0.7902, 0.8552, 0.9026, 0.9
 endow20  =  [0.8268, 0.8855, 0.9261, 0.9530, 0.9705, 0.9816, 0.9885, 0.9929, 0.9956, 0.9973, 0.9983, 0.9990, 0.9994, 0.9996, 0.9998, 0.9998, 0.9999, 0.9999, 1.0000, 1.0000, 1.0000];
 % % opp_txt  = 'You are playing against an opponent from';
 
-opponents   = [zeros(numTrials/3, 1); ones(numTrials/3, 1); repmat(2, [numTrials/3, 1])]; % numTrials/3 because I have 3 opponents per session
-opponents   = Shuffle(opponents);
+% each opponent apppears once and only once in each offer/block
+% combination, which means that each opponent appears twice for each offer,
+% once in the social and once in the non-social
+% opponents   = [zeros(2, 1); ones(2, 1); repmat(2, [2, 1])]; 
+opponents   = [0; 1; 2]; 
+opponents   = Shuffle(opponents);                           
+                                                            
 
 %----------------------------------------------------------------------
 %         assigning conditions 
@@ -275,7 +281,7 @@ elseif condition == 3
     socmat = [1 0 1 0];
     socpo  = 'frame';
     nonsocpo= 'filled';
-elseif condition == 4
+elseif condition == 0 % 0 is 4, because of mod function
     socmat = [0 1 0 1];
     socpo  = 'frame';
     nonsocpo= 'filled';
@@ -285,16 +291,29 @@ end
 %----------------------------------------------------------------------
 %          Opponents images
 %----------------------------------------------------------------------
-% opponent images
+% this makes a matrix of all the combinations of blocks (of which there are
+% 2), offers (of which there are 21), and opponents (of which there are 3),
+% which means there's a total of 2 X 21 X 3 = 126 rows in this matrix, and
+% 3 columns
 if block == 1
-    block = 1:2;
+    
+    trial_mat       = repmat([0:20]', 6, 1);
+    trial_mat(:, 2) = [repmat(1, length(trial_mat)/2, 1); repmat(2, length(trial_mat)/2, 1)];
+    trial_mat(:, 3) = repmat([repmat(0, length(trial_mat)/6, 1); repmat(1, length(trial_mat)/6, 1); repmat(2, length(trial_mat)/6, 1)], 2, 1);
+    
+    trial_mat      = Shuffle(trial_mat);
+    
 elseif block == 2
-    block = 3:4;
+    trial_mat       = repmat([0:20]', 6, 1);
+    trial_mat(:, 2) = [repmat(3, length(trial_mat)/2, 1); repmat(4, length(trial_mat)/2, 1)];
+    trial_mat(:, 3) = repmat([repmat(0, length(trial_mat)/6, 1); repmat(1, length(trial_mat)/6, 1); repmat(2, length(trial_mat)/6, 1)], 2, 1);
+    
+    trial_mat      = Shuffle(trial_mat);
+   
 else
     sca;
     error('Blocks need to be either 1 or 2 for this task');
 end
-
 
 % % imstruct        = dir(['block', num2str(block), '_images' filesep '*png*']);
 
@@ -305,15 +324,13 @@ end
 % for a social opponent
 
 
-all_count = 0; % the counter that keeps trac so I can record to behavioral data
+all_count = 0; % the counter that keeps track so I can record to behavioral data
                % was originally here because I had a loop over blocks as
                % well as trials, but now each block is saved independently 
 %==========================================================================
 %                   The experiment loop
 %==========================================================================
 opponents   = Shuffle(opponents); % shuffle the opponents on each block so subjects never play against the same order
-
-social = socmat(block);
 
 % % if social == 1
 % %     % %         imstruct = soc_img_dir;
@@ -336,57 +353,34 @@ Screen('Flip', window, grey);
 
 KbStrokeWait;
 
-for all_blocks = 1:length(block)
+
+for all_trials = 1:length(trial_mat)
     
-    imstruct        = dir(['block', num2str(block(all_blocks)), '_images' filesep '*png*']);
+    social = socmat(trial_mat(all_trials, 2));
     
-    for trial = 1:numTrials
-        all_count = all_count + 1;
-        % selecting the opponent against which the subject is playing
-        if opponents(trial) == 0
-            [img, ~, alpha] = imread(['block', num2str(block(all_blocks)), '_images', filesep, imstruct(1).name]);
-            img_name = imstruct(1).name;
-        elseif opponents(trial) == 1
-            [img, ~, alpha] = imread(['block', num2str(block(all_blocks)), '_images', filesep, imstruct(2).name]);
-            img_name = imstruct(2).name;
-        elseif opponents(trial) == 2
-            [img, ~, alpha] = imread(['block', num2str(block(all_blocks)), '_images', filesep, imstruct(3).name]);
-            img_name = imstruct(3).name;
-        end
-        
-        img = double(img);
-        img = rgb2gray(img);
-        img(img == 1) = grey;
-        % img(:, :, 4) = alpha;
-        texture2 = Screen('MakeTexture', window, img);
-        
-        for all_offers = 1:21 % ask about each offer for each opponent
-            
-% %             window_times.opponent(trial) = toc;
-% %             % screen indicating which opponent subject is playing against, ~2 seconds
-% %             for frame = 1:numFrames+(numFrames/2)*rand
-% %                 
-% %                 % this puts it right in the middle of the screen
-% %                 Screen('DrawTexture', window, texture2, [], [xCenter-windowRect(3)*.2, yCenter-windowRect(4)*.2, xCenter+windowRect(3)*.2, yCenter+windowRect(4)*.2]);
-% %                 
-% %                 % put the text over the image
-% %                 DrawFormattedText(window, 'opponent from', 'center', yCenter-windowRect(4)*.17);
-% %                 
-% %                 DrawFormattedText(window, [soctxt '\noffers ' num2str(all_offers)], 'center', yCenter+windowRect(4)*.2);
-% %                 
-% %                 % Flip to the screen
-% %                 Screen('Flip', window, grey);
-% %                 
-% %             end
-            
-            window_times.offer_start(trial) = toc;
-            % the slider, where the decision is made
-%             [offer, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, window, ['offer of ', num2str(all_offers-1), '\n\nProbability of acceptance (in %)'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
-            [offer, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, window, ['\n\nProbability of acceptance\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
-            
-        end
+    imstruct        = dir(['block', num2str(trial_mat(all_trials, 2)), '_images' filesep '*png*']);
+    % selecting the opponent against which the subject is playing
+    if trial_mat(all_trials, 3) == 0
+        [img, ~, alpha] = imread(['block', num2str(trial_mat(all_trials, 2)), '_images', filesep, imstruct(1).name]);
+        img_name = imstruct(1).name;
+    elseif trial_mat(all_trials, 3) == 1
+        [img, ~, alpha] = imread(['block', num2str(trial_mat(all_trials, 2)), '_images', filesep, imstruct(2).name]);
+        img_name = imstruct(2).name;
+    elseif trial_mat(all_trials, 3) == 2
+        [img, ~, alpha] = imread(['block', num2str(trial_mat(all_trials, 2)), '_images', filesep, imstruct(3).name]);
+        img_name = imstruct(3).name;
     end
+    
+    img = double(img);
+    img = rgb2gray(img);
+    img(img == 1) = grey;
+    % img(:, :, 4) = alpha;
+    texture2 = Screen('MakeTexture', window, img);
+    
+    [offer, RT, answer, offer_start_position] = slideScale_probabilites(trial_mat(all_trials, 1), social, window, ['\n\nProbability of acceptance\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+    % %
 end
+
 
 if block(1) == 1
     block = 1;

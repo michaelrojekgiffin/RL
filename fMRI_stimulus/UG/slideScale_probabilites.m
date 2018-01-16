@@ -221,10 +221,17 @@ scaleRangeShifted = round((scaleRange)-mean(scaleRange));                      %
 % end
 
 % my attempt to get ticks for all 101 offers
-all_ticks = NaN(101, 4);
+all_ticks = zeros(101, 4);
 xticker = 0;
 for tickem = 1:length(all_ticks)
-    all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
+    if mod(tickem-1, 5) == 0 && mod(tickem-1, 10) ~= 0
+        all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
+    elseif mod(tickem-1, 10) == 0
+        all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength - (lineLength/2), rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength + (lineLength/2)];
+    else
+        all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, 0, rect(3)*(1-scalaLength) + xticker, 0];
+    end
+%     all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
     xticker = xticker + (length(scaleRange)/100);
 end
 
@@ -234,6 +241,10 @@ end
 rnd_range = [ceil(length(all_ticks)/4), ceil(length(all_ticks) - (length(all_ticks)/4))];
 x         = datasample(all_ticks(rnd_range(1):rnd_range(end), 1), 1);
 position  = find(x(:, 1) == all_ticks(:, 1))-1;
+
+% % x         = datasample(rnd_range(1):rnd_range(end), 1);
+% % position  = all_ticks(x, 1);
+
 
 offer_start_position = position;
 
@@ -332,7 +343,7 @@ while answer == 0
     
     Screen('TextStyle', screenPointer, 1);
     Screen('TextSize', screenPointer, 45);
-    DrawFormattedText(screenPointer, ['            ', num2str(all_offers-1)], 'center', rect(4)*(scalaPosition - 0.1)); 
+    DrawFormattedText(screenPointer, ['            ', num2str(all_offers)], 'center', rect(4)*(scalaPosition - 0.1)); 
     
     
     Screen('TextStyle', screenPointer, 0);
@@ -352,13 +363,20 @@ while answer == 0
     offer = 0;
     for tickem = 1:length(all_ticks)
         Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
-        if tickem == 1
-            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-        elseif tickem == 51
-             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-        elseif tickem == length(all_ticks)
-            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+        
+        if mod(tickem-1, 10) == 0
+            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); 
         end
+        
+% %         if tickem == 1
+% %             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+% %         elseif tickem == 51
+% %              DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+% %         elseif tickem == length(all_ticks)
+% %             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+% %         end
+% %         
+        
         offer = offer+1;
     end
     
