@@ -232,7 +232,7 @@ numTrials  = 9; % must be divisible by 3, since that's how many opponents are in
 % column 5: opponent, 0 for starting endowment of 0, 1 for starting
 %           endowment of 10, and 2 for starting endowment of 20
 % column 6: RT
-% column 7: fMRI pulse?
+% column 7: scalar starting position
 % % sub_data          = NaN(numTrials*numBlocks, 7);
 sub_data          = NaN(numTrials, 7);
 sub_data_colnames = {'offer', 'accepted', 'payment', 'social', 'opponent', 'RT', 'offer_start_position'};

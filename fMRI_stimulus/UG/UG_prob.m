@@ -179,25 +179,24 @@ HideCursor;
 %----------------------------------------------------------------------
 %                       Number of trials and blocks
 %----------------------------------------------------------------------
-
-% numTrials  = 72; % must be divisible by 3, since that's how many opponents are in each block
-numTrials  = 3; % must be divisible by 3, since that's how many opponents are in each block
+% numTrials = 126 because I will be asking about 2 block, 3 subjects, and
+% 21 different possible offers, 2 X 3 X 21 = 126
+numTrials  = 126;
 %----------------------------------------------------------------------
 %                       Pre-allocating data storage variables
 %----------------------------------------------------------------------
 
 % for the UG datafile
 % column 1: offer
-% column 2: accepted (1 for yes, 0 for no)
-% column 3: payment
-% column 4: social (1 for social, 0 for non-social)
-% column 5: opponent, 0 for starting endowment of 0, 1 for starting
+% column 2: accept probability (how likely is this offer to be accepted)
+% column 3: social (1 for social, 0 for non-social)
+% column 4: opponent, 0 for starting endowment of 0, 1 for starting
 %           endowment of 10, and 2 for starting endowment of 20
-% column 6: RT
-% column 7: fMRI pulse?
+% column 5: RT
+% column 6: scalar starting position
 % % sub_data          = NaN(numTrials*numBlocks, 7);
-sub_data          = NaN(numTrials, 7);
-sub_data_colnames = {'offer', 'accepted', 'payment', 'social', 'opponent', 'RT', 'offer_start_position'};
+sub_data          = NaN(numTrials, 6);
+sub_data_colnames = {'offer', 'accept_prob', 'payment', 'social', 'opponent', 'RT', 'offer_start_position'};
 
 % cell array to store shapes that represented each opponent
 % column 1: shape
@@ -296,7 +295,6 @@ end
 % which means there's a total of 2 X 21 X 3 = 126 rows in this matrix, and
 % 3 columns
 if block == 1
-    
     trial_mat       = repmat([0:20]', 6, 1);
     trial_mat(:, 2) = [repmat(1, length(trial_mat)/2, 1); repmat(2, length(trial_mat)/2, 1)];
     trial_mat(:, 3) = repmat([repmat(0, length(trial_mat)/6, 1); repmat(1, length(trial_mat)/6, 1); repmat(2, length(trial_mat)/6, 1)], 2, 1);
@@ -324,21 +322,11 @@ end
 % for a social opponent
 
 
-all_count = 0; % the counter that keeps track so I can record to behavioral data
-               % was originally here because I had a loop over blocks as
-               % well as trials, but now each block is saved independently 
 %==========================================================================
 %                   The experiment loop
 %==========================================================================
 opponents   = Shuffle(opponents); % shuffle the opponents on each block so subjects never play against the same order
 
-% % if social == 1
-% %     % %         imstruct = soc_img_dir;
-% %     soctxt   = 'social';
-% % else
-% %     % %         imstruct = nonsoc_img_dir;
-% %     soctxt   = 'non-social';
-% % end
 
 instruction_txt = sprintf(['In the following section\n'...
     'you will be asked about how likely you think it is\n'...
@@ -377,43 +365,42 @@ for all_trials = 1:length(trial_mat)
     % img(:, :, 4) = alpha;
     texture2 = Screen('MakeTexture', window, img);
     
-    [offer, RT, answer, offer_start_position] = slideScale_probabilites(trial_mat(all_trials, 1), social, window, ['\n\nProbability of acceptance\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
-    % %
+    [accept_prob, RT, answer, offer_start_position] = slideScale_probabilites(numFrames, trial_mat(all_trials, 1), social, window, ['\n\nProbability of acceptance\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+    
+    sub_data(all_trials, 1)       = trial_mat(all_trials, 1); % offer in question
+    sub_data(all_trials, 2)       = accept_prob;
+    sub_data(all_trials, 3)       = social;
+    sub_data(all_trials, 4)       = trial_mat(all_trials, 3); % opponent
+    sub_data(all_trials, 5)       = RT;
+    sub_data(all_trials, 6)       = offer_start_position;
+    
+    sub_opp_shapes{all_trials, 1} = img_name;
+    sub_opp_shapes{all_trials, 2} = trial_mat(all_trials, 3); % opponent
+    
+    
 end
 
 
-if block(1) == 1
-    block = 1;
-else 
-    block =2;
-end
-
-% for the data files that I'm saving
-if social == 1
-    soctxt   = 'social';
-else
-    soctxt   = 'nonsoc';
-end
 
 % first check to see if there is already a file for this subject and this
 % block and if so, save the file with the date at the end
 if sub_num > 99 
-    if exist(sprintf('data%spilot%ssub%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub%d_prob_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%spilot%ssub%d_prob_%d.mat', filesep, filesep, sub_num, block), 'file') == 2
+        save(sprintf('data%spilot%ssub%d_prob_%d_%s.mat', filesep, filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     else
-        save(sprintf('data%spilot%ssub%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%spilot%ssub%d_prob_%d.mat', filesep, filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     end
 elseif sub_num > 9 && sub_num < 100
-    if exist(sprintf('data%spilot%ssub0%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub0%d_prob_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%spilot%ssub0%d_prob_%d.mat', filesep, filesep, sub_num, block), 'file') == 2
+        save(sprintf('data%spilot%ssub0%d_prob_%d_%s.mat', filesep, filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     else
-        save(sprintf('data%spilot%ssub0%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%spilot%ssub0%d_prob_%d.mat', filesep, filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     end
 elseif sub_num < 10
-    if exist(sprintf('data%spilot%ssub00%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub00%d_prob_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%spilot%ssub00%d_prob_%d.mat', filesep, filesep, sub_num, block), 'file') == 2
+        save(sprintf('data%spilot%ssub00%d_prob_%d_%s.mat', filesep, filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     else
-        save(sprintf('data%spilot%ssub00%d_prob_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%spilot%ssub00%d_prob_%d.mat', filesep, filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     end
 end
 

@@ -1,4 +1,4 @@
-function [position, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, screenPointer, question, rect, endPoints, varargin)
+function [position, RT, answer, offer_start_position] = slideScale_probabilites(numFrames, all_offers, social, screenPointer, question, rect, endPoints, varargin)
 %SLIDESCALE This funtion draws a slide scale on a PSYCHTOOLOX 3 screen and returns the
 % position of the slider spaced between -100 and 100 as well as the rection time and if an answer was given.
 %
@@ -224,10 +224,12 @@ scaleRangeShifted = round((scaleRange)-mean(scaleRange));                      %
 all_ticks = zeros(101, 4);
 xticker = 0;
 for tickem = 1:length(all_ticks)
-    if mod(tickem, 5) == 0 && mod(tickem, 10) ~= 0
+    if mod(tickem-1, 5) == 0 && mod(tickem-1, 10) ~= 0
         all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
-    elseif mod(tickem, 10) == 0
+    elseif mod(tickem-1, 10) == 0
         all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength - (lineLength/2), rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength + (lineLength/2)];
+    else
+        all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, 0, rect(3)*(1-scalaLength) + xticker, 0];
     end
 %     all_ticks(tickem, :)  = [rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition - lineLength, rect(3)*(1-scalaLength) + xticker, rect(4)*scalaPosition  + lineLength];
     xticker = xticker + (length(scaleRange)/100);
@@ -239,6 +241,10 @@ end
 rnd_range = [ceil(length(all_ticks)/4), ceil(length(all_ticks) - (length(all_ticks)/4))];
 x         = datasample(all_ticks(rnd_range(1):rnd_range(end), 1), 1);
 position  = find(x(:, 1) == all_ticks(:, 1))-1;
+
+% % x         = datasample(rnd_range(1):rnd_range(end), 1);
+% % position  = all_ticks(x, 1);
+
 
 offer_start_position = position;
 
@@ -268,7 +274,8 @@ answer                     = 0;
 leftKey = KbName('LeftArrow');
 rightKey = KbName('RightArrow');
 
-
+keyscroll_helper  = 0; % value to allow rapid scrolling
+keyscroll_tracker = [];
 while answer == 0
      % I think this is where I need to change things so that it's not the
     % mouse that's changing the position of the scaler, but the keys,
@@ -291,9 +298,16 @@ while answer == 0
     % pauses for a fraction of a second when a key is pressed so that I
     % only record one keypress at a time instead of accidentally recording
     % multiple keypresses since it's refreshing 60 times per second (more
-    % or less, given the frame refresh rate)
+    % or less, given the frame refresh rate). Unless they are holding it
+    % down, if they hold it down for more than half a second, allow them to
+    % scroll quickly
+    keyscroll_helper = keyscroll_helper + 1;
+    keyscroll_tracker(keyscroll_helper) = 0;
     if keyIsDown == 1
-        pause(.08)
+        keyscroll_tracker(keyscroll_helper) = 1;
+        if sum(keyscroll_tracker) < length(keyscroll_tracker) - numFrames/2
+            pause(.08)
+        end
     end
     
 %     % for 20 point scale
@@ -357,13 +371,20 @@ while answer == 0
     offer = 0;
     for tickem = 1:length(all_ticks)
         Screen('DrawLine', screenPointer, scaleColor, all_ticks(tickem, 1), all_ticks(tickem, 2), all_ticks(tickem, 3), all_ticks(tickem, 4), width); % all ticks
-        if tickem == 1
-            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-        elseif tickem == 51
-             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
-        elseif tickem == length(all_ticks)
-            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+        
+        if mod(tickem-1, 10) == 0
+            DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); 
         end
+        
+% %         if tickem == 1
+% %             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+% %         elseif tickem == 51
+% %              DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+% %         elseif tickem == length(all_ticks)
+% %             DrawFormattedText(screenPointer, [num2str(offer), '%'], all_ticks(tickem, 1) - textBounds(1, 3)/2,  rect(4)*scalaPosition+40, [],[],[],[],[],[],[]); % Left point
+% %         end
+% %         
+        
         offer = offer+1;
     end
     

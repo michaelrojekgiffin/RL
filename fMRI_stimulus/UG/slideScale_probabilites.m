@@ -1,4 +1,4 @@
-function [position, RT, answer, offer_start_position] = slideScale_probabilites(all_offers, social, screenPointer, question, rect, endPoints, varargin)
+function [position, RT, answer, offer_start_position] = slideScale_probabilites(numFrames, all_offers, social, screenPointer, question, rect, endPoints, varargin)
 %SLIDESCALE This funtion draws a slide scale on a PSYCHTOOLOX 3 screen and returns the
 % position of the slider spaced between -100 and 100 as well as the rection time and if an answer was given.
 %
@@ -274,7 +274,8 @@ answer                     = 0;
 leftKey = KbName('LeftArrow');
 rightKey = KbName('RightArrow');
 
-
+keyscroll_helper  = 0; % value to allow rapid scrolling
+keyscroll_tracker = [];
 while answer == 0
      % I think this is where I need to change things so that it's not the
     % mouse that's changing the position of the scaler, but the keys,
@@ -297,9 +298,16 @@ while answer == 0
     % pauses for a fraction of a second when a key is pressed so that I
     % only record one keypress at a time instead of accidentally recording
     % multiple keypresses since it's refreshing 60 times per second (more
-    % or less, given the frame refresh rate)
+    % or less, given the frame refresh rate). Unless they are holding it
+    % down, if they hold it down for more than half a second, allow them to
+    % scroll quickly
+    keyscroll_helper = keyscroll_helper + 1;
+    keyscroll_tracker(keyscroll_helper) = 0;
     if keyIsDown == 1
-        pause(.08)
+        keyscroll_tracker(keyscroll_helper) = 1;
+        if sum(keyscroll_tracker) < length(keyscroll_tracker) - numFrames/2
+            pause(.08)
+        end
     end
     
 %     % for 20 point scale
