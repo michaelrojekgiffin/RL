@@ -158,8 +158,19 @@ summary(uglm)
 
 # here is the version with the restricted hisotry - so only condsidering 
 # the history that ALL subject's shared (which I don't like as a criterion anyway)
-uglm = lmer(offer ~ ( social * opponent * opp_trial) + (1  | sub_name), data=UG[which (UG$explicit == 1 & UG$opp_trial < 25),])
+uglm = lmer(offer ~ ( social * opponent * opp_trial) + (1  | sub_name), data=UG[which (UG$explicit == 1 & UG$opp_trial < 50),])
 vif.lme(uglm)
 Anova(uglm, type = 3)
 summary(uglm)
 # the effects reverse and become marginal, what is going on?
+# 
+# 
+# 
+# 
+# here is the version with the restricted hisotry - so only condsidering 
+# the history that ALL subject's shared (which I don't like as a criterion anyway)
+uglm = lmer(offer ~ ( social * opponent * opp_trial) + (1  | sub_name), data=UG[which (UG$explicit == 0 & UG$opp_trial < 25),])
+vif.lme(uglm)
+Anova(uglm, type = 3)
+summary(uglm)
+# the effects reverse and becom

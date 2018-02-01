@@ -91,7 +91,8 @@ scaleColor    = [0 0 0];
 device        = 'mouse';
 aborttime     = 30;
 % aborttime     = .5;
-responseKey   = KbName('space');
+% responseKey   = KbName('space');
+responseKey   = KbName('6^');
 GetMouseIndices;
 drawImage     = 0;
 startPosition = 'center';
@@ -269,10 +270,16 @@ end
 %% Loop for scale loop
 t0                         = GetSecs;
 answer                     = 0;
+% 
+% % assigning the keyboard names
+% leftKey = KbName('LeftArrow');
+% rightKey = KbName('RightArrow');
 
-% assigning the keyboard names
-leftKey = KbName('LeftArrow');
-rightKey = KbName('RightArrow');
+% assigning the keyboard namesS
+leftKey = KbName('1!');
+rightKey = KbName('2@');
+five = KbName('5');
+fivefive = KbName('5%');
 
 keyscroll_helper  = 0; % value to allow rapid scrolling
 keyscroll_tracker = [];
@@ -301,12 +308,29 @@ while answer == 0
     % or less, given the frame refresh rate). Unless they are holding it
     % down, if they hold it down for more than half a second, allow them to
     % scroll quickly
+    
+    % I will probably have to change this because the scanner emits a
+    % keypress 5 so key will always be down, so have to make it more
+    % specific
     keyscroll_helper = keyscroll_helper + 1;
     keyscroll_tracker(keyscroll_helper) = 0;
-    if keyIsDown == 1
+    if keyIsDown == 1 && keyCode(five) ==0 && keyCode(fivefive) == 0
         keyscroll_tracker(keyscroll_helper) = 1;
-        if sum(keyscroll_tracker) < length(keyscroll_tracker) - numFrames/2
+        % if the key has been held for the last half a second, as evidenced
+        % by the last 30 keyscroll_tracker columns (if the frame rate is
+        % 60) being filled with 1's, then allow the scroller to go much
+        % quicker. Only starts after half a second
+        if length(keyscroll_tracker) < numFrames/2
             pause(.08)
+        else
+            % see if the during the last 5 refreshes the key was down, will
+            % mean that the last .08*10 = .8 seconds had the key pressed
+            % (due to the pause)
+            if sum(keyscroll_tracker(round(end - 10): end)) < length(keyscroll_tracker(round(end - 10): end))/2
+%                 pause(.008)
+%             else
+                pause(.08)
+            end
         end
     end
     
@@ -346,12 +370,12 @@ while answer == 0
    
     
     % Drawing the offer in bold as text
-    DrawFormattedText(screenPointer, 'offer of     ', 'center', rect(4)*(scalaPosition - 0.1)); 
+    DrawFormattedText(screenPointer, 'Probability of accepting offer of     ', 'center', rect(4)*(scalaPosition - 0.1)); 
     
     
     Screen('TextStyle', screenPointer, 1);
     Screen('TextSize', screenPointer, 45);
-    DrawFormattedText(screenPointer, ['            ', num2str(all_offers)], 'center', rect(4)*(scalaPosition - 0.1)); 
+    DrawFormattedText(screenPointer, ['                                          ', num2str(all_offers)], 'center', rect(4)*(scalaPosition - 0.1)); 
     
     
     Screen('TextStyle', screenPointer, 0);

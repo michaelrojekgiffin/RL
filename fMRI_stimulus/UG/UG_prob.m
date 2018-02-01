@@ -4,7 +4,7 @@
 % tastk. And it's 
 % Author: Michael Giffin, January, 2018
 %------ inputs -------
-
+clearvars;
 % stuff the script will ask me for before running the experiment
 sub_num = input('What is the subject number?\n');
 % sub_num = 1;
@@ -25,7 +25,7 @@ sub_num = input('What is the subject number?\n');
 %
 % condition = input('Condition (1:4): \n');
 % condition = 1;
-condition = mod(sub_num, 4); % condition 4 will be recorded as a 0 with mod function
+condition = mod(sub_num, 4); % condition 4 will be r8ecorded as a 0 with mod function
 
 % this will be given to the subject twice, once after the first two blocks,
 % and once after the second two blocks
@@ -36,7 +36,7 @@ block = input('Block (1:2): \n');
 % Clear the workspace and the screen
 sca;
 close all;
-% clearvars;
+
 
 %=========================================================================
 % VERY IMPORTANT - MUST BE COMMENTED OUT FOR REAL EXPERIMENT
@@ -130,20 +130,22 @@ lineWidthPix = 4;
 % IMPORTANTLY, this is 5% on my computer
 fMRI_sim = KbName('5%');
 fMRI_key = KbName('5');
-% fMRI_key = KbName('t');
-fMRI_wait = 0;
-while fMRI_wait == 0
-    DrawFormattedText(window, 'Please wait...', 'center', 'center');
-    Screen('Flip', window, grey);
-    [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
-    if keyCode(fMRI_key) == 1 || keyCode(fMRI_sim) == 1
-        %     if keyCode(fMRI_key) == 1
-        fMRI_wait = 1;
-        T0 = 0;
-        tic
-    end
-end
-
+tic;
+% 
+% % fMRI_key = KbName('t');
+% fMRI_wait = 0;
+% while fMRI_wait == 0
+%     DrawFormattedText(window, 'Please wait...', 'center', 'center');
+%     Screen('Flip', window, grey);
+%     [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
+%     if keyCode(fMRI_key) == 1 || keyCode(fMRI_sim) == 1
+%         %     if keyCode(fMRI_key) == 1
+%         fMRI_wait = 1;
+%         T0 = 0;
+%         tic
+%     end
+% end
+% 
 
 %----------------------------------------------------------------------
 %                       Timing Information
@@ -179,7 +181,7 @@ HideCursor;
 %----------------------------------------------------------------------
 %                       Number of trials and blocks
 %----------------------------------------------------------------------
-% numTrials = 126 because I will be asking about 2 block, 3 subjects, and
+% numTrials = 126 because I will be asking about 2 block, 3 opponents, and
 % 21 different possible offers, 2 X 3 X 21 = 126
 numTrials  = 126;
 %----------------------------------------------------------------------
@@ -196,7 +198,7 @@ numTrials  = 126;
 % column 6: scalar starting position
 % % sub_data          = NaN(numTrials*numBlocks, 7);
 sub_data          = NaN(numTrials, 6);
-sub_data_colnames = {'offer', 'accept_prob', 'payment', 'social', 'opponent', 'RT', 'offer_start_position'};
+sub_data_colnames = {'offer', 'accept_prob', 'social', 'opponent', 'RT', 'offer_start_position'};
 
 % cell array to store shapes that represented each opponent
 % column 1: shape
@@ -206,12 +208,16 @@ sub_opp_shapes  = cell(numTrials, 2);
 
 % tells me the onset of each window in seconds since the first pulse
 % recieved from the scanner
-window_times = struct('fixation', NaN(numTrials, 1), 'wait1', NaN(numTrials, 1),...
-    'opponent', NaN(numTrials, 1), 'wait2', NaN(numTrials, 1),...
-    'offer_start', NaN(numTrials, 1), 'offer_end', NaN(numTrials, 1),...
-    'wait3_post_offer', NaN(numTrials, 1), 'accept', NaN(numTrials, 1),...
-    'wait4', NaN(numTrials, 1), 'payment', NaN(numTrials, 1),...
-    'wait5', NaN(numTrials, 1));
+% % window_times = struct('fixation', NaN(numTrials, 1), 'wait1', NaN(numTrials, 1),...
+% %     'opponent', NaN(numTrials, 1), 'wait2', NaN(numTrials, 1),...
+% %     'offer_start', NaN(numTrials, 1), 'offer_end', NaN(numTrials, 1),...
+% %     'wait3_post_offer', NaN(numTrials, 1), 'accept', NaN(numTrials, 1),...
+% %     'wait4', NaN(numTrials, 1), 'payment', NaN(numTrials, 1),...
+% %     'wait5', NaN(numTrials, 1));
+% % 
+window_times = struct('offer_start', NaN(numTrials, 1), 'offer_end',  NaN(numTrials, 1));
+
+
 
 %----------------------------------------------------------------------
 %                   stuff for the slider
@@ -299,14 +305,14 @@ if block == 1
     trial_mat(:, 2) = [repmat(1, length(trial_mat)/2, 1); repmat(2, length(trial_mat)/2, 1)];
     trial_mat(:, 3) = repmat([repmat(0, length(trial_mat)/6, 1); repmat(1, length(trial_mat)/6, 1); repmat(2, length(trial_mat)/6, 1)], 2, 1);
     
-    trial_mat      = Shuffle(trial_mat);
+    trial_mat      = Shuffle(trial_mat, 2);
     
 elseif block == 2
     trial_mat       = repmat([0:20]', 6, 1);
     trial_mat(:, 2) = [repmat(3, length(trial_mat)/2, 1); repmat(4, length(trial_mat)/2, 1)];
     trial_mat(:, 3) = repmat([repmat(0, length(trial_mat)/6, 1); repmat(1, length(trial_mat)/6, 1); repmat(2, length(trial_mat)/6, 1)], 2, 1);
     
-    trial_mat      = Shuffle(trial_mat);
+    trial_mat      = Shuffle(trial_mat, 2);
    
 else
     sca;
@@ -360,12 +366,30 @@ for all_trials = 1:length(trial_mat)
     end
     
     img = double(img);
-    img = rgb2gray(img);
-    img(img == 1) = grey;
+    %img = rgb2gray(img);
+    %img(img == 0) = grey;
+    
+    img(img ~= 0) = 255/4;
+    
+    %img(img == 1) = grey;
     % img(:, :, 4) = alpha;
     texture2 = Screen('MakeTexture', window, img);
     
-    [accept_prob, RT, answer, offer_start_position] = slideScale_probabilites(numFrames, trial_mat(all_trials, 1), social, window, ['\n\nProbability of acceptance\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+%     
+%     img = double(img);
+%     img = rgb2gray(img);
+%     img(img == 1) = grey;
+%     % img(:, :, 4) = alpha;
+%     texture2 = Screen('MakeTexture', window, img);
+%     
+    window_times.offer_start(all_trials) = toc;
+    
+%     [accept_prob, RT, answer, offer_start_position] = slideScale_probabilites(numFrames, trial_mat(all_trials, 1), social, window, ['\n\nProbability of acceptance\n\n'], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+%     
+    
+    [accept_prob, RT, answer, offer_start_position] = slideScale_probabilites(numFrames, trial_mat(all_trials, 1), social, window, [''], windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+    
+    window_times.offer_end(all_trials) = toc;
     
     sub_data(all_trials, 1)       = trial_mat(all_trials, 1); % offer in question
     sub_data(all_trials, 2)       = accept_prob;

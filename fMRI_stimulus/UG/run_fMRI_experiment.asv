@@ -1,0 +1,40 @@
+%% In file 'run_fMRI_experiment.m'
+ % Main experiment function
+ function fMRIData = run_fMRI_experiment
+   global fMRIData;
+   F = figure;
+   text(-1,0,{'Glorious Experiment, she is now runnink, yes?', 'Please to be pressink "5", I will collectink data.', '', 'Please to be pressink key of escapeness when finishedski, da?'}, 'fontsize', 14); 
+   axis off; axis ([-1, 1, -1, 1]); 
+   set (F, 'keypressfcn', @detectFirstKeyPress);
+   waitfor(F);
+ end
+
+ % subfunctions (i.e. in same file) acting as callback functions
+ function detectFirstKeyPress(CallerHandle, KeyPressEvent)
+%    if strcmp(KeyPressEvent.Key, '5')
+%      set (CallerHandle, 'keypressfcn', {@detectKeyPresses, tic()});
+%      fprintf ('Experiment started at %s\n', datestr(now()));
+%    end
+%    
+   if strcmp(KeyPressEvent.Key, '1')
+     set (CallerHandle, 'keypressfcn', {@detectKeyPresses, tic()});
+     fprintf ('Experiment started at %s\n', datestr(now()));
+   end
+   
+   if strcmp(KeyPressEvent.Key, '2')
+     set (CallerHandle, 'keypressfcn', {@detectKeyPresses, tic()});
+     fprintf ('Experiment started at %s\n', datestr(now()));
+   end
+   
+ end
+
+ function detectKeyPresses (CallerHandle, KeyPressEvent, StartTime)
+    if strcmp (KeyPressEvent.Key, '1'); 
+%    if strcmp (KeyPressEvent.Key, '5'); 
+     global fMRIData; fMRIData(end+1) = toc(StartTime);;
+     fprintf('"5" pressed at %d seconds.\n', fMRIData(end)); return
+   elseif strcmp (KeyPressEvent.Key, 'escape');
+     disp ('Escape Pressed. Ending Experiment'); 
+     close (CallerHandle);
+   end
+ end

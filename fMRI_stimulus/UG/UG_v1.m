@@ -64,7 +64,7 @@ end
 
 % Clear the workspace and the screen
 sca;
-close all;
+% close all;
 
 script_start = GetSecs;
 
@@ -83,12 +83,29 @@ script_start = GetSecs;
 Screen('Preference', 'SkipSyncTests', 1);  
 
 %=========================================================================
+%=========================================================================
+% in the scanner the screen number must be 1
+% Get the screen numbers
+screens = Screen('Screens');
 
+% Draw to the external screen if avaliable
+% only works for debugging
+screenNumber = max(screens);
+
+% for real study
+% screenNumber = 1;
+
+%=========================================================================
+%=========================================================================
+%=========================================================================
 
 % randomly assigns shapes to opponents at very beginning of experiment 
-if block == 1
-    image_shuffler(condition);
-end
+% if block == 1
+%     image_shuffler(condition);
+% end
+%=========================================================================
+%=========================================================================
+%=========================================================================
 
 
 % have function that shuffles up the block image directories on the first
@@ -96,17 +113,12 @@ end
 
 % this is supposed to make the keyboard specific to the operating system
 % I'm on and should generalize accross operating systems
-KbName('UnifyKeyNames');
+% KbName('UnifyKeyNames');
 
 
 % Here we call some default settings for setting up Psychtoolbox
 PsychDefaultSetup(2);
 
-% Get the screen numbers
-screens = Screen('Screens');
-
-% Draw to the external screen if avaliable
-screenNumber = max(screens);
 
 % Define black and white
 
@@ -218,8 +230,8 @@ HideCursor;
 %                       Number of trials and blocks
 %----------------------------------------------------------------------
 
-% numTrials  = 72; % must be divisible by 3, since that's how many opponents are in each block
-numTrials  = 9; % must be divisible by 3, since that's how many opponents are in each block
+numTrials  = 72; % must be divisible by 3, since that's how many opponents are in each block
+%numTrials  = 9; % must be divisible by 3, since that's how many opponents are in each block
 %----------------------------------------------------------------------
 %                       Pre-allocating data storage variables
 %----------------------------------------------------------------------
@@ -389,8 +401,17 @@ for trial = 1:numTrials
     end
     
     img = double(img);
-    img = rgb2gray(img);
-    img(img == 1) = grey;
+    %img = rgb2gray(img);
+    %img(img == 0) = grey;
+    
+    % the one used during the pilot
+%     img(img == 255) = [96];
+    
+    
+    img(img ~= 0) = 255/4;
+   
+    
+    %img(img == 1) = grey;
     % img(:, :, 4) = alpha;
     texture2 = Screen('MakeTexture', window, img);
     
@@ -462,7 +483,7 @@ for trial = 1:numTrials
 % %         DrawFormattedText(window, 'Opponent', 'center',yCenter-windowRect(4)*.17, [0 0 0]);
         
         DrawFormattedText(window, acc_txt, 'center', yCenter-windowRect(4)*.17, acc_color);
-        DrawFormattedText(window, ['You offered ', num2str(offer), '\n\nYou receive ', pay_txt], 'center', yCenter+windowRect(4)*.2, [0 0 0]);
+        DrawFormattedText(window, ['You receive ', pay_txt], 'center', yCenter+windowRect(4)*.2, [0 0 0]);
         
         % Flip to the screen
         Screen('Flip', window, grey);

@@ -90,9 +90,12 @@ scalaPosition = 0.8;
 sliderColor    = [255 0 0];
 scaleColor    = [0 0 0];
 device        = 'mouse';
-aborttime     = 8;
+aborttime     = 5;
 % aborttime     = .5;
-responseKey   = KbName('space');
+% responseKey   = KbName('space');
+
+responseKey   = KbName('6^');
+
 GetMouseIndices;
 drawImage     = 0;
 startPosition = 'center';
@@ -221,15 +224,45 @@ position  = find(x(:, 1) == all_ticks(:, 1))-1;
 offer_start_position = position;
 
 SetMouse(round(x), round(rect(4)*scalaPosition), screenPointer, 1);
+
+
+%% HILMAR
+% F = figure;
+% % text(-1,0,{'Glorious Experiment, she is now runnink, yes?', 'Please to be pressink "5", I will collectink data.', '', 'Please to be pressink key of escapeness when finishedski, da?'}, 'fontsize', 14);
+% % axis off; axis ([-1, 1, -1, 1]);
+% set (F, 'keypressfcn', @detectKeyPresses);
+% waitfor(F);
+% 
+%  function detectKeyPresses (CallerHandle, KeyPressEvent, StartTime)
+%     if strcmp (KeyPressEvent.Key, '1'); 
+% %    if strcmp (KeyPressEvent.Key, '5'); 
+%      global fMRIData; fMRIData(end+1) = toc(StartTime);
+%      fprintf('"5" pressed at %d seconds.\n', fMRIData(end)); return
+%     elseif strcmp (KeyPressEvent.Key, '2'); 
+% %    if strcmp (KeyPressEvent.Key, '5'); 
+%      global fMRIData; fMRIData(end+1) = toc(StartTime);
+%      fprintf('"5" pressed at %d seconds.\n', fMRIData(end)); return
+%    elseif strcmp (KeyPressEvent.Key, 'escape');
+%      disp ('Escape Pressed. Ending Experiment'); 
+%      close (CallerHandle);
+%     end
+%  end
 %% Loop for scale loop
 t0                         = GetSecs;
 answer                     = 0;
 
-% assigning the keyboard names
-leftKey = KbName('LeftArrow');
-rightKey = KbName('RightArrow');
+% assigning the keyboard namesS
+leftKey = KbName('1!');
+rightKey = KbName('2@');
+five = KbName('5');
+fivefive = KbName('5%');
+% 
+% leftKey = KbName('LeftArrow');
+% rightKey = KbName('RightArrow');
+desperate = 0;
 
-
+keyscroll_helper  = 0; % value to allow rapid scrolling
+keyscroll_tracker = [];
 while answer == 0
      % I think this is where I need to change things so that it's not the
     % mouse that's changing the position of the scaler, but the keys,
@@ -247,15 +280,53 @@ while answer == 0
     %=====================================================================
     % my version start
     %=====================================================================
-    
-    [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
+    if desperate ~=0
+        KbWait(-3);
+%         KbPressWait(deviceNumber, 2);
+    end
+    desperate = 1;
+   % KbQueueCreate
+     [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
+     
+     % important
+%      if keyIsDown == 1
+%          pause(.2)
+%      end
+     
+
+
+%     for frameframe = numFrames*10
+%    
+%      %[pressed, firstPress, firstRelease, lastPress, lastRelease] = KbQueueCheck(leftKey);
+%     end
+%     
     % pauses for a fraction of a second when a key is pressed so that I
     % only record one keypress at a time instead of accidentally recording
     % multiple keypresses since it's refreshing 60 times per second (more
-    % or less, given the frame refresh rate)
-    if keyIsDown == 1
-        pause(.1)
+    % or less, given the frame refresh rate). Unless they are holding it
+    % down, if they hold it down for more than half a second, allow them to
+    % scroll quickly
+    
+    keyscroll_helper = keyscroll_helper + 1;
+    keyscroll_tracker(keyscroll_helper) = 0;
+    if keyIsDown == 1 && keyCode(five) ==0 && keyCode(fivefive) == 0
+        keyscroll_tracker(keyscroll_helper) = 1;
+        % if the key has been held for the last half a second, as evidenced
+        % by the last 30 keyscroll_tracker columns (if the frame rate is
+        % 60) being filled with 1's, then allow the scroller to go much
+        % quicker. Only starts after half a second
+        if length(keyscroll_tracker) < numFrames/2
+            pause(.1)
+        else
+            % see if the during the last 5 refreshes the key was down, will
+            % mean that the last .1*10 = 1 second had the key pressed
+            % (due to the pause)
+            if sum(keyscroll_tracker(round(end - 10): end)) < length(keyscroll_tracker(round(end - 10): end))/2
+                pause(.1)
+            end
+        end
     end
+    
     
     if keyCode(leftKey) == 1 && position > 0
         x = x - (length(scaleRange)/20);
@@ -306,7 +377,8 @@ while answer == 0
     
     % Flip screen
     onsetStimulus = Screen('Flip', screenPointer);
-    
+  
+     
     % Check if answer has been given
     if strcmp(device, 'mouse')
         secs = GetSecs;
@@ -323,8 +395,12 @@ while answer == 0
         error('Unknown device');
     end
     
+    
+    
+    
     % Abort if answer takes too long
     if secs - t0 > aborttime 
+        RT = secs - t0;
         break
     end
 end

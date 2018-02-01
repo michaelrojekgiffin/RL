@@ -1,0 +1,74 @@
+notes & ideas
+
+next:
+	- image above slider?
+	- participant recruitment SONA
+	- fMRI pulse function for psych toolbox
+	- scan participant signed forms
+
+Apparently had a problem with 
+/Applications/MATLAB_R2016b.app/bin/maci64/libfreetype.6.dylib
+
+which I didn't actually change, I just commented out the specification that it was Ariel in my script and everything worked out fine
+
+
+Should have different shapes for each session, with social(nonsocial) always filled(empty) or vice-versa. This means that if we have 4 sessions (2 social and 2 nonsocial), with 3 opponents in each, then we'll need to have 12 shapes, always randomized, with filled and empty representing social and non-social counter-balanced.
+
+1)  square
+2)  circle
+3)  triangle
+4)  star
+5)  diamond
+6)  clover
+	7)  pentagon
+8)  inverted trapazoid
+	9)  semi-circle
+10) crescent
+	11) pie (3/4 circle)
+12) helix
+13) weird tetris F
+	14) weird tetris N 
+	15) little staircase
+
+
+Have several conditions specified with switch statements that choose either filled or frame from the images folder for social or nonsocial, respectively, and then randomly assign 3 of each of them to each session.
+
+Have different folders with the images of the opponents' shapes
+
+
+
+save starting position of scalar
+
+Your offer of 10 was rejected
+lose colors on numbers for the gain, make it BOLD but no color
+instead of "you gain" use "you receive".
+Include what the responder gets on each trial as well - think aabout it once I know what we did in the behavioral study. 
+
+For feedback screens - present symbol accepts or rejects, then follow that by a screen that says "you offered X to symbol" "You earn X" - so that the accept or reject is presented on one screen, and then the outcome is presented on the other screen, so that they're processing whether or not they were accepted in one instant, and then how much they earned on antoher.
+
+
+subjects - recruiting (do this immediately)
+
+
+Need to make a system for assessing the subjects judgements on the probability that an opponent will accept their offer. Since it's randomized at the beginning of each trial, and since we're going to be assessing the last session outside the scanner, we need to be sure that we have the correct opponents that they're playing agianst. I doubt they're gonna let me instal dropbox on the stimulus computer, so we might have to do this long hand or something. 
+
+
+What I can do is to start the probability matching as soon as they finish with the UG task in the functional run, and it probably won't interefere with much. That's something to think about...
+
+
+
+Things that are different between the task on my computer and the one that I'll use in the scanner:
+
+MUST BE COMMENTED OUT
+- Screen('Preference', 'SkipSyncTests', 1);  
+
+MUST MAKE = 1
+
+- screenNumber = max(screens); 	
+
+
+MUST BE UNCOMMENTED	     
+% if block == 1
+%     image_shuffler(condition);
+% end
+
