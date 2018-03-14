@@ -72,3 +72,8 @@ MUST BE UNCOMMENTED
 %     image_shuffler(condition);
 % end
 
+
+There's also some stuff with KbWait(-3); and with KbPressWait(deviceNumber, 2);, which I commented out and I think that's the way that it should be.
+
+Also something to beware of is that there's a bit of code in the slider that checks for number of screens, might need to comment that out as well although at the moment it doesn't appear to do anything.`
+

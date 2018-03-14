@@ -91,8 +91,8 @@ scaleColor    = [0 0 0];
 device        = 'mouse';
 aborttime     = 30;
 % aborttime     = .5;
-% responseKey   = KbName('space');
-responseKey   = KbName('6^');
+responseKey   = KbName('space');
+% responseKey   = KbName('6^');
 GetMouseIndices;
 drawImage     = 0;
 startPosition = 'center';
@@ -272,12 +272,12 @@ t0                         = GetSecs;
 answer                     = 0;
 % 
 % % assigning the keyboard names
-% leftKey = KbName('LeftArrow');
-% rightKey = KbName('RightArrow');
+leftKey = KbName('LeftArrow');
+rightKey = KbName('RightArrow');
 
 % assigning the keyboard namesS
-leftKey = KbName('1!');
-rightKey = KbName('2@');
+% leftKey = KbName('1!');
+% rightKey = KbName('2@');
 five = KbName('5');
 fivefive = KbName('5%');
 

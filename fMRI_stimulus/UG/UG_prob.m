@@ -409,22 +409,22 @@ end
 % first check to see if there is already a file for this subject and this
 % block and if so, save the file with the date at the end
 if sub_num > 99 
-    if exist(sprintf('data%spilot%ssub%d_prob_%d.mat', filesep, filesep, sub_num, block), 'file') == 2
-        save(sprintf('data%spilot%ssub%d_prob_%d_%s.mat', filesep, filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
+    if exist(sprintf('data%ssub%d_prob_%d.mat', filesep, sub_num, block), 'file') == 2
+        save(sprintf('data%ssub%d_prob_%d_%s.mat', filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     else
-        save(sprintf('data%spilot%ssub%d_prob_%d.mat', filesep, filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
+        save(sprintf('data%ssub%d_prob_%d.mat', filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     end
 elseif sub_num > 9 && sub_num < 100
-    if exist(sprintf('data%spilot%ssub0%d_prob_%d.mat', filesep, filesep, sub_num, block), 'file') == 2
-        save(sprintf('data%spilot%ssub0%d_prob_%d_%s.mat', filesep, filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
+    if exist(sprintf('data%ssub0%d_prob_%d.mat', filesep, sub_num, block), 'file') == 2
+        save(sprintf('data%ssub0%d_prob_%d_%s.mat', filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     else
-        save(sprintf('data%spilot%ssub0%d_prob_%d.mat', filesep, filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
+        save(sprintf('data%ssub0%d_prob_%d.mat', filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     end
 elseif sub_num < 10
-    if exist(sprintf('data%spilot%ssub00%d_prob_%d.mat', filesep, filesep, sub_num, block), 'file') == 2
-        save(sprintf('data%spilot%ssub00%d_prob_%d_%s.mat', filesep, filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
+    if exist(sprintf('data%ssub00%d_prob_%d.mat', filesep, sub_num, block), 'file') == 2
+        save(sprintf('data%ssub00%d_prob_%d_%s.mat', filesep, sub_num, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     else
-        save(sprintf('data%spilot%ssub00%d_prob_%d.mat', filesep, filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
+        save(sprintf('data%ssub00%d_prob_%d.mat', filesep, sub_num, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'block');
     end
 end
 

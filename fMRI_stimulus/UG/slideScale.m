@@ -280,13 +280,15 @@ while answer == 0
     %=====================================================================
     % my version start
     %=====================================================================
-    if desperate ~=0
-        KbWait(-3);
-%         KbPressWait(deviceNumber, 2);
-    end
-    desperate = 1;
-   % KbQueueCreate
-     [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
+% %     if desperate ~=0
+% %         KbWait(-3);
+% % %         KbPressWait(deviceNumber, 2);
+% %     end
+% %     desperate = 1;
+% %    % KbQueueCreate
+
+
+%      [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
      
      % important
 %      if keyIsDown == 1
@@ -306,6 +308,8 @@ while answer == 0
     % or less, given the frame refresh rate). Unless they are holding it
     % down, if they hold it down for more than half a second, allow them to
     % scroll quickly
+    
+    [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
     
     keyscroll_helper = keyscroll_helper + 1;
     keyscroll_tracker(keyscroll_helper) = 0;

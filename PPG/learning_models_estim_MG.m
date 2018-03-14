@@ -56,7 +56,7 @@ for kcond = 1:ncond
     EV      = NaN(ntrial,numel(offers)); % estimated expected value of all offers% V       = NaN(ntrial); % estimated expected value of all offers
     EPc     = NaN(ntrial,1);             % estimated probability of accepting the offer
     PE      = NaN(ntrial,1);             % Choice prediction error
-    a_t      = NaN(ntrial,1);            % logit intercept, updated at each trial
+    a_t     = NaN(ntrial,1);            % logit intercept, updated at each trial
     pc      = NaN(ntrial, (numel(offers))); % expected offer, probability of offer being made
     
     %initiate

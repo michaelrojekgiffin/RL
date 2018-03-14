@@ -51,6 +51,8 @@ nonsoc_img_dir  = dir(['images' filesep '*_',nonsocpo,'*']);
 samesame = 0;
 
 while samesame == 0
+    % had tp start at 13 here becaue windows adds a bunch of hidden files
+    
     all_idx = 13:length(soc_img_dir); % both soc and nonsoc should be the same length
     all_idx = Shuffle(all_idx);      % shuffle all indices so that each shape is only ever associated with 1 opponent
     

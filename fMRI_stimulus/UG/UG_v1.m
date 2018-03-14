@@ -230,8 +230,8 @@ HideCursor;
 %                       Number of trials and blocks
 %----------------------------------------------------------------------
 
-numTrials  = 72; % must be divisible by 3, since that's how many opponents are in each block
-%numTrials  = 9; % must be divisible by 3, since that's how many opponents are in each block
+% numTrials  = 72; % must be divisible by 3, since that's how many opponents are in each block
+numTrials  = 9; % must be divisible by 3, since that's how many opponents are in each block
 %----------------------------------------------------------------------
 %                       Pre-allocating data storage variables
 %----------------------------------------------------------------------
@@ -556,22 +556,22 @@ end
 % first check to see if there is already a file for this subject and this
 % block and if so, save the file with the date at the end
 if sub_num > 99 
-    if exist(sprintf('data%spilot%ssub%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub%d_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%ssub%d_%s_%d.mat', filesep, sub_num, soctxt, block), 'file') == 2
+        save(sprintf('data%ssub%d_%s_%d_%s.mat', filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     else
-        save(sprintf('data%spilot%ssub%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%ssub%d_%s_%d.mat', filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     end
 elseif sub_num > 9 && sub_num < 100
-    if exist(sprintf('data%spilot%ssub0%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub0%d_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%ssub0%d_%s_%d.mat', filesep, sub_num, soctxt, block), 'file') == 2
+        save(sprintf('data%ssub0%d_%s_%d_%s.mat', filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     else
-        save(sprintf('data%spilot%ssub0%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%ssub0%d_%s_%d.mat', filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     end
 elseif sub_num < 10
-    if exist(sprintf('data%spilot%ssub00%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'file') == 2
-        save(sprintf('data%spilot%ssub00%d_%s_%d_%s.mat', filesep, filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+    if exist(sprintf('data%ssub00%d_%s_%d.mat', filesep, sub_num, soctxt, block), 'file') == 2
+        save(sprintf('data%ssub00%d_%s_%d_%s.mat', filesep, sub_num, soctxt, block, date), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     else
-        save(sprintf('data%spilot%ssub00%d_%s_%d.mat', filesep, filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
+        save(sprintf('data%ssub00%d_%s_%d.mat', filesep, sub_num, soctxt, block), 'sub_data', 'condition', 'sub_opp_shapes', 'sub_data_colnames', 'window_times', 'soctxt', 'block');
     end
 end
 

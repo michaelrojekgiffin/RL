@@ -4,6 +4,8 @@ close all
 % clearvars;
 
 sub_num = input('What is the subject number?\n');
+gender  = input('What is the subject''s gender?\n');
+age     = input('What is the subject''s age?\n');
 
 sca;
 
@@ -112,8 +114,8 @@ offer_choice = repmat(nchoosek(0:20,2),1,1);
 offer_choice(1:length(offer_choice)/2, [1 2]) = offer_choice(1:length(offer_choice)/2, [2 1]);
 offer_choice = Shuffle(offer_choice, 2);
 
-% numTrials  = length(offer_choice); 
-numTrials  = 9; 
+numTrials  = length(offer_choice); 
+% numTrials  = 9; 
 
 %----------------------------------------------------------------------
 %                       Pre-allocating data storage variables
@@ -151,10 +153,13 @@ instruction_txt2 = sprintf(['This task does not have a non-social condition,\n',
 
 instruction_txt3 = sprintf(['You will be presented with a series of\n'...
     'binary choices from which you can select your offer.\n'...
-    'For example, 10 and 2. If you select 10, then both\n'...
+    'For example, 10 and 2. If you select 10, then both you\n'...
     'and the other player will receive 10. However,\n'...
     'if you select 2, the other player receives 2, and\n'...
     'and you receive 18']);
+
+instruction_txt4 = sprintf(['Select the left option by pressing the ''a'' key,\n',...
+    'and select the right option by pressing the ''l'' key.\n']);
 
 
 vbl = Screen('Flip', window);
@@ -178,6 +183,12 @@ DrawFormattedText(window, instruction_txt3, 'center', 'center');
 DrawFormattedText(window, 'press any key to continute', 'center', yCenter+windowRect(4)*.4);
 Screen('Flip', window, grey);
 KbStrokeWait;
+
+DrawFormattedText(window, instruction_txt4, 'center', 'center');
+DrawFormattedText(window, 'press any key to continute', 'center', yCenter+windowRect(4)*.4);
+Screen('Flip', window, grey);
+KbStrokeWait;
+
 
 for trial = 1:numTrials
     
@@ -232,25 +243,82 @@ for trial = 1:numTrials
     sub_data(trial, 4) = RT;
 end
 
+%---------------%---------------%---------------%---------------%---------------
+% the risk questionnaire
+instruction_1 = sprintf(['Now you will be answer the risk questionnaire.\n',...
+    'You have to choose one and only one of the following six gambles.\n'...
+    'Each gamble has two possible outcomes (Roll High or Roll Low),\n'...
+    'with the indicated probabilities of occurring. Your payment will\n'...
+    'be determined by which of the options you select, and which of\n'...
+    'the outcomes occurs.\n']);
+
+[img, ~, alpha] = imread(['risk_table' filesep 'Slide1.png']);
+img = double(img);
+
+img(img == 255)   = 255/4;
+img(img ~= 255/4) = 255; 
+endPoints = {'no', 'yes'};
+
+
+% some stuff for the scalar and it's relation to the size of the screen in
+% terms of ratio
+scalaPosition = .9;
+scalaLength   = .9;
+
+
+responseKey   = KbName('space');
+stayput = 0;
+while stayput == 0
+    DrawFormattedText(window, instruction_1, 'center', 'center');
+    DrawFormattedText(window, 'press the space bar to continute', 'center', yCenter+windowRect(4)*.4);
+    Screen('Flip', window, grey);
+    [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
+    
+    if keyCode(responseKey) == 1
+        stayput = 1;
+    end
+end
+pause(.5);
+instruction_1 = sprintf(['Scroll to the left with the left arrow key,\n'...
+    'and to the right with the right arrow key.\n'...
+    'Use the space bar to select your answer.\n\n'...
+    'Please let the researcher know if you have any questions.']);
+stayput = 0;
+while stayput == 0
+    DrawFormattedText(window, instruction_1, 'center', 'center');
+    DrawFormattedText(window, 'press the space bar to continute', 'center', yCenter+windowRect(4)*.4);
+    Screen('Flip', window, grey);
+    [keyIsDown, secs, keyCode, deltaSecs] = KbCheck;
+    
+    if keyCode(responseKey) == 1
+        stayput = 1;
+    end
+end
+
+
+question = 'Select a gamble';
+[risk_gamble, RT, answer, offer_start_position] = slideScale_risk(numFrames, window, question, windowRect, endPoints, 'device', 'keyboard', 'scalaposition', scalaPosition, 'startposition', 'right', 'displayposition', false, 'image', img);
+
+%---------------%---------------%---------------%---------------%---------------
 % first check to see if there is already a file for this subject and this
 % block and if so, save the file with the date at the end
 if sub_num > 99 
-    if exist(sprintf('data%spilot%ssub%d_dict.mat', filesep, filesep, sub_num), 'file') == 2
-        save(sprintf('data%spilot%ssub%d_dict_%s.mat', filesep, filesep, sub_num, date), 'sub_data', 'sub_data_colnames');
+    if exist(sprintf('data%ssub%d_dict_risk.mat', filesep, sub_num), 'file') == 2
+        save(sprintf('data%ssub%d_dict_risk_%s.mat', filesep, sub_num, date), 'sub_data', 'sub_data_colnames', 'gender', 'age', 'risk_gamble');
     else
-        save(sprintf('data%spilot%ssub%d_dict.mat', filesep, filesep, sub_num), 'sub_data', 'sub_data_colnames');
+        save(sprintf('data%ssub%d_dict_risk.mat', filesep, sub_num), 'sub_data', 'sub_data_colnames', 'gender', 'age', 'risk_gamble');
     end
 elseif sub_num > 9 && sub_num < 100
-    if exist(sprintf('data%spilot%ssub0%d_dict.mat', filesep, filesep, sub_num), 'file') == 2
-        save(sprintf('data%spilot%ssub0%d_dict_%s.mat', filesep, filesep, sub_num, date), 'sub_data', 'sub_data_colnames');
+    if exist(sprintf('data%ssub0%d_dict_risk.mat', filesep, sub_num), 'file') == 2
+        save(sprintf('data%ssub0%d_dict_risk_%s.mat', filesep, sub_num, date), 'sub_data', 'sub_data_colnames', 'gender', 'age', 'risk_gamble');
     else
-        save(sprintf('data%spilot%ssub0%d_dict.mat', filesep, filesep, sub_num), 'sub_data', 'sub_data_colnames');
+        save(sprintf('data%ssub0%d_dict_risk.mat', filesep, sub_num), 'sub_data', 'sub_data_colnames', 'gender', 'age', 'risk_gamble');
     end
 elseif sub_num < 10
-    if exist(sprintf('data%spilot%ssub00%d_dict.mat', filesep, filesep, sub_num), 'file') == 2
-        save(sprintf('data%spilot%ssub00%d_dict_%s.mat', filesep, filesep, sub_num, date), 'sub_data', 'sub_data_colnames');
+    if exist(sprintf('data%ssub00%d_dict_risk.mat', filesep, sub_num), 'file') == 2
+        save(sprintf('data%ssub00%d_dict_risk_%s.mat', filesep, sub_num, date), 'sub_data', 'sub_data_colnames', 'gender', 'age', 'risk_gamble');
     else
-        save(sprintf('data%spilot%ssub00%d_dict.mat', filesep, filesep, sub_num), 'sub_data', 'sub_data_colnames');
+        save(sprintf('data%ssub00%d_dict_risk.mat', filesep, sub_num), 'sub_data', 'sub_data_colnames', 'gender', 'age', 'risk_gamble');
     end
 end
 

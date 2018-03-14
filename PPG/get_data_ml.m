@@ -31,7 +31,14 @@ for k_sub = 1:length(subjects)
         column_ID{k}        = txt{1,k};
     end
     
-    flnm = strcat('DATA_sub',num2str(i_sub));
+    if i_sub < 10
+        flnm = strcat('DATA_sub00',num2str(i_sub));
+    elseif i_sub >= 10 && i_sub < 100
+        flnm = strcat('DATA_sub0',num2str(i_sub));
+    else
+        flnm = strcat('DATA_sub',num2str(i_sub));
+    end
+    
     flnm_to_save = fullfile(data_dir,flnm);
     
     save(flnm_to_save,'data','role','gender','sex_night_before','birth_control','food','column_ID')

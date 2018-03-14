@@ -13,3 +13,5 @@ recovery_mg_predprey tests to see if the models are recoverable, they contain a 
 test_recovery_models_MG_2017_09_21 is very important, this is the script that simulates PPG behavior of 4 different models: choice prediction error, choice prediction error with risk parameter, reward prediction error, reward prediciton error with risk parameter, and sees if the models are recoverable and identifiable from one another. This script uses the function laplace_priors_learning2_MG, learning_model_estim, and learning_models_timeseris
 
 
+the directory scripts_big_hor is where I started working after the UG so the scripts are much more refined.
+
