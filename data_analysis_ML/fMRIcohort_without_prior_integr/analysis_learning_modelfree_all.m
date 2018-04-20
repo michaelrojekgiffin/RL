@@ -8,7 +8,7 @@ project_name = 'RL_PreyPredator';
 % project_name = 'RL'; % for use in michael's dropbox
 findnm = strfind(pwd,project_name);
 data_dir = fullfile(cur_dir(1:findnm-1),project_name,'fMRI_stimulus','UG','data');
-subjects = [3:15 18];
+subjects = [3:30 32:35];
 nsub = numel(subjects);
 ntr = 72;
 

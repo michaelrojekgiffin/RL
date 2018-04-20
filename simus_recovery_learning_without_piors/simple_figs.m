@@ -17,6 +17,8 @@ logitp = @(b,x) exp(b(1)+b(2).*(x))./(1+exp(b(1)+b(2).*(x)));
 
 logitd = @(b,x) exp(-(x-b(1))./b(2))./(b(2).*(1+exp(-(x-b(1))./b(2)).^2));
 
+maxf = @(b,M) ((b(2)*M-1)-Lambert_W(exp(b(2)*M + b(1) - 1)))./b(2);
+
 % Generate params
 
 V = (subendow - suboffers);
@@ -193,4 +195,59 @@ legend('0.25','1','5')
 
 
 
- % toPPT(h5,'format','vec')
+% toPPT(h5,'format','vec')
+
+
+%%
+
+
+inta = [-12:.1:0];
+slpb = [0.1:.1:3];
+
+k = 0;
+for ka = 1:numel(inta)
+    for kb = 1:numel(slpb)
+        k = k+1;
+        evmax(ka,kb) = maxf([inta(ka);slpb(kb)],20);
+        [~,pos] = max((subendow - suboffers).*logitp([inta(ka);slpb(kb)],suboffers));
+        evmax2(ka,kb) = suboffers(pos);
+        X(ka,kb) = inta(ka);
+        Y(ka,kb) = slpb(kb);
+        pmax(ka,kb) = logitp([inta(ka);slpb(kb)],evmax(ka,kb));
+    end
+end
+%
+% figure
+% subplot(1,2,1)
+% plot(inta,evmax)
+% subplot(1,2,2)
+% hold on
+% plot(evmax2,evmax,'ob')
+% plot(evmax2,evmax2,'r')
+
+h6 = figure('Units', 'pixels', ...
+    'Position', [400 500 700 250]);
+set(gcf,'Color',[1,1,1])
+
+subplot(1,2,1)
+colormap(parula(15))
+contourf(X,Y,evmax,'LineStyle','none');
+hX = xlabel('intercept');
+hY = ylabel('slope');
+set([hX,hY],'FontName','Arial',...
+    'FontSize',9)
+
+c = colorbar;
+c.Label.String = 'Optimal Offer';
+
+
+subplot(1,2,2)
+colormap(parula(10))
+contourf(X,Y,pmax,'LineStyle','none');
+hX = xlabel('intercept');
+hY = ylabel('slope');
+set([hX,hY],'FontName','Arial',...
+    'FontSize',9)
+
+c = colorbar;
+c.Label.String = 'corresponding P(A)';

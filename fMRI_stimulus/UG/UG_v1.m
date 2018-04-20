@@ -380,6 +380,13 @@ for trial = 1:numTrials
         % Flip to the screen
         Screen('Flip', window);
         
+%         % to get screen shots
+%         if frame == 1
+%             % getting image of this
+%             imageArray = Screen('GetImage', window);
+%             imwrite(imageArray, 'screenshots/fixation_cross.jpg')
+%         end
+        
     end
     
 % %     window_times.wait1(trial) = toc;
@@ -430,6 +437,14 @@ for trial = 1:numTrials
         
         % Flip to the screen
         Screen('Flip', window, grey);
+        
+%         % to get screen shots
+%         if frame == 1
+%             % getting image of this
+%             imageArray = Screen('GetImage', window);
+%             imwrite(imageArray, 'screenshots/opponent.jpg')
+%         end
+%         
         
     end
     
@@ -487,6 +502,13 @@ for trial = 1:numTrials
         
         % Flip to the screen
         Screen('Flip', window, grey);
+%         
+%          if frame == 1
+%             % getting image of this
+%             imageArray = Screen('GetImage', window);
+%             imwrite(imageArray, 'screenshots/results.jpg')
+%          end
+        
     end
     
 

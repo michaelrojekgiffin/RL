@@ -173,13 +173,68 @@ uglm = lmer(offer ~ ( social * opponent * opp_trial) + (1  | sub_name), data=UG[
 vif.lme(uglm)
 Anova(uglm, type = 3)
 summary(uglm)
-# the effects reverse and becom
+
+
+
+
+uglm = lmer(payoff ~ ( social * opponent + explicit) + (1  | sub_name), data=UG[which (UG$opp_trial < 25),])
+vif.lme(uglm)
+summary(uglm)
 
 
 
 
 ## do subjects earn more in the nonsocial?
-uglm = lmer(payoff ~ ( social * opponent * opp_trial) + (1  | sub_name), data=UG[which (UG$explicit == 1 & UG$opp_trial < 25),])
+uglm = lmer(payoff ~ ( social * opponent ) + (1  | sub_name), data=UG[which (UG$explicit == 1 & UG$opp_trial < 25),])
 vif.lme(uglm)
 Anova(uglm, type = 3)
 summary(uglm)
+
+
+t.test(UG[which (UG$explicit == 1 & UG$opp_trial < 25 & UG$social== 0),]$payoff, UG[which (UG$explicit == 1 & UG$opp_trial < 25 & UG$social== 1),]$payoff, paired = TRUE)
+
+t.test(UG[which ( UG$opp_trial < 25 & UG$social== 0),]$payoff, UG[which (UG$opp_trial < 25 & UG$social== 1),]$payoff, paired = TRUE)
+
+t.test(UG[which ( UG$social== 0),]$payoff, UG[which (UG$social== 1),]$payoff, paired = TRUE)
+
+
+###### plotting #####
+uglm = lmer(scale(payoff) ~ ( social * opponent + explicit) + (1  | sub_name), data=UG[which (UG$opp_trial < 25),])
+vif.lme(uglm)
+summary(uglm)
+
+z1 <- as.integer(c(0, 1))
+z2 <- as.integer(c( 1, 2, 3))
+mynewdf <- expand.grid(social=z1,opponent=z2)
+mynewdf[,3] <- rep(0, nrow(mynewdf))
+
+colnames(mynewdf) = c("social", "opponent", "explicit")
+mynewdf[,1] <- as.factor(mynewdf[,1])
+mynewdf[,2] <- as.factor(mynewdf[,2])
+mynewdf[,3] <- as.factor(mynewdf[,3])
+## re.form=NA apparently means that the random effects are all set to 0, according to this: https://stats.stackexchange.com/questions/29690/getting-fixed-effect-only-predictions-from-mixed-model-on-new-data-in-r
+the_predict <- (predict(uglm, mynewdf, re.form=NA))
+mydata <- transform(mynewdf, res = the_predict)
+
+#575 X 520
+p <- ggplot(data = mydata, aes(y = res, x = opponent, color=factor(social))) + stat_smooth(method=lm)
+p + scale_colour_discrete(name="social") + scale_x_continuous(breaks=seq(0, 1)) + theme_bw() + labs(title = "thesis data T X C & expected reward", y = "expected reward") 
+
+
+
+
+
+
+tclm <- lmer(exp_rew ~ ( ztest1 * zcort1 + role + scale(bmi)) + (1 | sub_name), data=old_hor)
+z1 <- z2 <- seq(-1,1)
+mynewdf <- expand.grid(ztest=z1,zcort=z2)
+mynewdf[,3] <- rep("predator", nrow(mynewdf))
+mynewdf[,4] <- (rep(0, nrow(mynewdf)))
+colnames(mynewdf) = c("ztest1", "zcort1", "role", "bmi")
+## re.form=NA apparently means that the random effects are all set to 0, according to this: https://stats.stackexchange.com/questions/29690/getting-fixed-effect-only-predictions-from-mixed-model-on-new-data-in-r
+the_predict <- (predict(tclm, mynewdf, re.form=NA))
+mydata <- transform(mynewdf, res = the_predict)
+
+#575 X 520
+p <- ggplot(data = mydata, aes(y = res, x = zcort1, color=factor(ztest1))) + stat_smooth(method=lm)
+p + scale_colour_discrete(name="ztest1") + scale_x_continuous(breaks=seq(-1,1)) + theme_bw() + labs(title = "thesis data T X C & expected reward", y = "expected reward") 

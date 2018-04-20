@@ -8,7 +8,7 @@ project_name = 'RL_PreyPredator';
 % project_name = 'RL'; % for use in michael's dropbox
 findnm = strfind(pwd,project_name);
 data_dir = fullfile(cur_dir(1:findnm-1),project_name,'fMRI_stimulus','UG','data');
-subjects = [6:15 18];
+subjects = [6:30 32:35];
 nsub = numel(subjects);
 ntr = 72;
 
@@ -65,8 +65,9 @@ for kSoc = 1:2
         
         errorbar(mtp,stp,'o',...
             'Color',colmat(k,:),...
-            'MarkerFaceColor',colmat(k,:),...
+            'MarkerFaceColor',(kSoc-1).*colmat(k,:) + (2-kSoc).*[1,1,1],...
             'MarkerEdgeColor',colmat(k,:));
+        
         
     end
     

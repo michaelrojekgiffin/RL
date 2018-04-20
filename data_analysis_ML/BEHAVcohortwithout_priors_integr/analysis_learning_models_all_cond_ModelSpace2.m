@@ -8,8 +8,8 @@ load('Learning_All_2018_03_05')
 
 %% find paths
 cur_dir = pwd;
-project_name = 'RL_PreyPredator';
-% project_name = 'RL'; % for use in michael's dropbox
+% project_name = 'RL_PreyPredator';
+project_name = 'RL'; % for use in michael's dropbox
 findnm = strfind(pwd,project_name);
 data_dir = fullfile(cur_dir(1:findnm-1),project_name,'data','processed');
 fl_list = dir(strcat(data_dir,filesep,'Sub_*_SocPriors.mat'));

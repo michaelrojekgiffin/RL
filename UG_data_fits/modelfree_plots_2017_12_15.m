@@ -276,8 +276,7 @@ end
             
             
         end
-    end
-end
+
 Gsub = ~isnan(good_sub);
 nGsub = sum(double(Gsub));
 

@@ -18,6 +18,7 @@ then I used this command to get it mapped onto the shark cluster
 
 ### and then run this command - IMPORTANTLY - I must be in the directory on my own machine where the image exists. In other words, from my own terminal I have to cd to ~/shark_data, and then run the following command. Takes roughly 9 hours
 
+cd ~/shark_data
 scp -oProxyJump=shark_jump poldracklab_fmriprep_latest-*.img mrgiffin@localhost:/exports/fsw/mrgiffin/
 
 
@@ -29,21 +30,64 @@ module load freesurfer/5.3.0
 
 module load singularity/2.4.1
 
-PYTHONPATH="" singularity run /exports/fsw/mrgiffin/poldracklab_fmriprep_latest-2018-02-23-faf5170f3072.img --fs-license-file /usr/local/Freesurfer/freesurfer-Linux-centos6_x86_64-stable-pub-v5.3.0/freesurfer /exports/fsw/mrgiffin/UG/BIDS /exports/fsw/mrgiffin/UG/fMRI_prepped participant -w /exports/fsw/mrgiffin/UG/fMRI_prepped_interim
 
 
-## but it can't find the freesurfer license so I'm trying to bind it to the container with the folloing
+################################################################################################################################################
+THIS WORKS!!!!!!!
+module load fsl/5.0.9-shark
+
+module load freesurfer/5.3.0
+
+module load singularity/2.4.1
+
+singularity shell -B /exports/fsw/mrgiffin:$HOME /exports/fsw/mrgiffin/poldracklab_fmriprep_latest-2018-02-23-390394938fcc.img
+
+
+fmriprep UG/BIDS UG/fMRI_prepped participant -w UG/fMRI_prepped_interim --ignore {fieldmaps,slicetiming}
+
+
+fmriprep UG/BIDS UG/fMRI_prepped participant -w UG/fMRI_prepped_interim --fs-license-file $HOME/license.txt --ignore {fieldmaps,slicetiming}
+
+
+### Importantly, I have to ignore the fieldmaps and the slice timing (slice timing for the moment, I can change that later), because right now fMRI_prep only supports field inhomogeniety correction if you have two images, a fieldmap and a magnitude image, while the Phillips scanner that I'm using only has one output image. The image that I have is supported by BIDS, but not yet by fMRI_prep. See the following two links for more on this issue:
+
+https://github.com/poldracklab/fmriprep/issues/709
+https://neurostars.org/t/fmriprep-field-mapping-data/755/5
+
+
+
+singularity shell -B /exports/fsw/mrgiffin:$HOME /exports/fsw/mrgiffin/poldracklab_fmriprep_latest-2018-02-23-faf5170f3072.img
+
+singularity shell -B /exports/fsw/mrgiffin:$HOME /exports/fsw/mrgiffin/poldracklab_fmriprep_latest-2018-02-23-e7ff6afd1b3d.img
+
+
+################################################################################################################################################
+
+
+
+## but it can't find the freesurfer license so I moved it to my $HOME directory, and am also trying to bind the exports folder to my singularity imge with the below command
 
 singularity shell -B /exports/fsw/mrgiffin:/scratch /exports/fsw/mrgiffin/poldracklab_fmriprep_latest-2018-02-23-faf5170f3072.img
 
-
-I submitted it from the BIDS/code/fMRI_prep_bash.sh script.
 
 module load singularity/2.4.1
 
 PYTHONPATH="" singularity run /exports/fsw/mrgiffin/poldracklab_fmriprep_latest-2018-02-23-faf5170f3072.img --fs-license-file $HOME/license.txt /exports/fsw/mrgiffin/UG/BIDS /exports/fsw/mrgiffin/UG/fMRI_prepped participant -w /exports/fsw/mrgiffin/UG/fMRI_prepped_interim
 
 
+
+################################################
+# attempt to create a persistent overlay
+
+module load singularity/2.4.1
+
+singularity image.create my-overlay.img
+
+singularity shell -B /exports/fsw/mrgiffin:/home /exports/fsw/mrgiffin/my-overlay.img
+
+
+singularity shell --overlay my-overlay.img poldracklab_fmriprep_latest-2018-02-23-faf5170f3072.img
+################################################
 
 ####
 Which means that I'll likely be using fmri_prep for my pre-processing, and then GLM_DENOISE as well, so I'll have to cite that too. 
@@ -62,3 +106,14 @@ used this command to get the ACC mask (multiplied the neurosynth mask thresholde
 fslmaths anterior\ cingulate_pFgA_z_FDR_0.01.nii.gz -thr 6 -mul harvardoxford-cortical_prob_Cingulate\ Gyrus\,\ anterior\ division.nii.gz -bin ACC_bin.nii.gz
 
 then I moved it to my masks folder
+
+
+
+IDEA - in the paper Morris and Cushman 2017 about norms and reinforcement learning they say that moral norms are a good place to study because they show that humans do the moral thing - the norm thing - even when it conflicts with self-interst. If we want to apply our model to different norms, e.g. trust, cooperation, reciprocity, we can just design experiments in which subjects need to learn the different expected norms of the opponents against whom they are playing, and we can likewise have different levels of competition with self-interst. For example in reciprocity we can have a dictator game where subjects should return a certain amount of what is given to them by another, but perhaps the other has behaved badly in the past and so the norm would dictate that they don't return as much, and they have to learn this through trial and error. Hm, maybe not, but it's just a thought. 
+	Another idea somewhat inspired by that paper is that if we think of Fehr and Schmidt on one end arguing for pro-sociality being the product of subjective utility, and Rand Green & Nowak on the other end saying that pro-sociality is simply engrained into us, then this would suggest that Fehr and Schmidt conceptualize the acquisition of norms as a model-based process, in which we construct a model of the world where the reward someone else feels also grants me a reward, and that's why we observe these prosocial acts even in one-shot situations. Conversely, Rand Green and Nowak's theory would argue in favor of a model-free norm acquisition technique, because in their schema you learn that if you violate the norm you get punished, simple stimulus response, and then in the one-shot scenarios you simply apply this rule blindly. The latter theory would predict extinction over time, that the longer you play these one-shot games the less pro-social you would become, while the former would not. 
+	
+Another idea - we could do the Vickery type analysis where we look for a ubiquitous reward signal in the brain. In our case we could either look for the reward participants receive during the feedback phase, or could look the calculated prediction error. However the reward they receive is going to be between 0 and 20, so if we used MVPA this would be trying to guess which of 21 conditions the trial came from - that's tricky. Alternatively we could try and guess which of the 3 opponents subjects are playing against, so chance is 33%. Better still we can try to guess the subjecs intercept, this resonates with Mael's idea to use the intercept as a parametric regressor, and I bet we'll find something with a univariate analysis doing that .
+
+
+Idea regarding the Trust game - in Halavi's book Sapiens he has this great quote about money - he says that religions ask people to believe in something, while money asks people to believe that other people believe in something. So, could we try to model this in the lab? If this is why money is so much more pervasive than religion as an accepted ideology, then we should try to manipulate this, but how? One idea is that we can have people play the trust game sort of like I've been thinking about, where they are playing against different shapes who will return certain amounts with different liklihoods, and we see if they learn which ones are trustworthy, easy. In this case they're learning to trust, to believe in nothing essentially except how to maximize their own profits. If we're asking them to believe in something, would that be akin to no-feedback games? Ask them to believe that they're money will be returned? Or have then play against groups of people, where they have to learn who is trustworthy and who isn't (believe that other people believe something), and then play against a computer where we tell them that the computer is an algorithm that will play against them optimally (believe in something), we woudl guess that it's easier for them to believe in the other person than in the computer (the something). 
+	Also, could be different type of learning from someone who is operating under and equity norm (will offer what they think will even the score between them and the trustee) and a reciprocity norm (will only offer to those who recipricate entirely). These could be modeled differently, the equality norm with a logit function where the offer being "accepted" essentially means that an offer is sent back such that both investor and trustee have equal amounts, and reciprocity where the offer being "accepted" means that the amount sent back is at least equal to the amount invested. 

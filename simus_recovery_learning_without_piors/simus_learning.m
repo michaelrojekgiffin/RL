@@ -99,9 +99,9 @@ for k = 1:nc
     colorbar
     caxis([-10,10])
 end
-% print('Test','-dsvg')
-  print(gcf,'-depsc','-painters','out.eps');
-       epsclean('out.eps'); % cleans and overwrites the input file
+% % print('Test','-dsvg')
+%   print(gcf,'-depsc','-painters','out.eps');
+%        epsclean('out.eps'); % cleans and overwrites the input file
 
 h2 = figure('Units', 'pixels', ...
     'Position', [400 300 1200 250]);
@@ -188,11 +188,14 @@ for kc = 1:numel(condstp)
         'XLim',[0 n_trial+1],...
         'FontName','Arial',...
         'FontSize',9)
+        set([hX,hY],'FontName','Arial',...
+        'FontSize',9)
     
-    colorbar
+    c = colorbar;
     caxis([1,nc])
-    colorbar('Ticks',1:nc,...
-        'TickLabels',lg)
+    c.Ticks = 1:nc;
+    c.TickLabels;
+    c.Label.String = 'intercept';
 end
 
-
+toPPT(h3,'format','vec')

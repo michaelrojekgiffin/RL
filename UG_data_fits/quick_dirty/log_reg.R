@@ -18,6 +18,10 @@ summary(uglm)
 
 t.test(ugm[which (ugm$social == 1),]$a0, ugm[which (ugm$social == 0),]$a0, paired=TRUE)
 
+t.test(ugm[which (ugm$social == 1),]$a1, ugm[which (ugm$social == 0),]$a1, paired=TRUE)
+
+t.test(ugm$a1, ugm$a2, paired=TRUE)
+
 # if this can be trusted, it means that in the nonsocial, subjects start lower (although not significantly, which worries me),
 # have a lower beta (so are more exploratory), and have a lower learning rate - so take longer to learn. This is the opposite of what we 
 # hypothesized, I don't really trust these results....

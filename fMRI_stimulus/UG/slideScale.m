@@ -376,12 +376,17 @@ while answer == 0
     
     % Display position
     if displayPos
-        DrawFormattedText(screenPointer, num2str(round(position)), 'center', rect(4)*(scalaPosition + 0.05)); 
+        DrawFormattedText(screenPointer, num2str(round(position)), 'center', rect(4)*(scalaPosition + 0.05));
     end
     
     % Flip screen
     onsetStimulus = Screen('Flip', screenPointer);
-  
+    
+    
+%     % getting image of this
+%     imageArray = Screen('GetImage', screenPointer);
+%     imwrite(imageArray, 'screenshots/slider.jpg')
+%     
      
     % Check if answer has been given
     if strcmp(device, 'mouse')
